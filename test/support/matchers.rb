@@ -1,5 +1,9 @@
 module TestMatchers
 
+  def subject
+    subject ||= self.class.name.split("::").first.constantize
+  end
+
   def must_have_column(column, type=nil)
     subject.column_names.must_include column.to_s
     if type.nil?

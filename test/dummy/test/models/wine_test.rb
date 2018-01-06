@@ -1,9 +1,15 @@
 require "test_helper"
 
 describe Wine do
-  let(:wine) { Wine.new }
 
-  it "must be valid" do
-    value(wine).must_be :valid?
+  subject { Wine }
+
+  describe "associations" do
+
+    specify "belongs to" do
+
+      must_belong_to(:winery)
+      must_have_many(:reviews)
+    end
   end
 end

@@ -1,9 +1,13 @@
 require "test_helper"
 
 describe Winery do
-  let(:winery) { Winery.new }
 
-  it "must be valid" do
-    value(winery).must_be :valid?
+  describe "associations" do
+
+    specify "has many" do
+
+      must_have_many(:wines)
+      must_have_many(:reviews)
+    end
   end
 end
