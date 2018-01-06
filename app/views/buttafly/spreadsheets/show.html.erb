@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @spreadsheet.name %>
+</p>
+
+<p>
+  <strong>Flat file:</strong>
+  <%= @spreadsheet.flat_file %>
+</p>
+
+<p>
+  <strong>Aasm state:</strong>
+  <%= @spreadsheet.aasm_state %>
+</p>
+
+<p>
+  <strong>Uploader:</strong>
+  <%= @spreadsheet.uploader_id %>
+</p>
+
+<p>
+  <strong>Imported at:</strong>
+  <%= @spreadsheet.imported_at %>
+</p>
+
+<p>
+  <strong>Processed at:</strong>
+  <%= @spreadsheet.processed_at %>
+</p>
+
+<p>
+  <strong>Mtime:</strong>
+  <%= @spreadsheet.mtime %>
+</p>
+
+<%= link_to 'Edit', edit_spreadsheet_path(@spreadsheet) %> |
+<%= link_to 'Back', spreadsheets_path %>

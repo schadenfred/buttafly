@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Spreadsheets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Flat file</th>
+      <th>Aasm state</th>
+      <th>Uploader</th>
+      <th>Imported at</th>
+      <th>Processed at</th>
+      <th>Mtime</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @spreadsheets.each do |spreadsheet| %>
+      <tr>
+        <td><%= spreadsheet.name %></td>
+        <td><%= spreadsheet.flat_file %></td>
+        <td><%= spreadsheet.aasm_state %></td>
+        <td><%= spreadsheet.uploader_id %></td>
+        <td><%= spreadsheet.imported_at %></td>
+        <td><%= spreadsheet.processed_at %></td>
+        <td><%= spreadsheet.mtime %></td>
+        <td><%= link_to 'Show', spreadsheet %></td>
+        <td><%= link_to 'Edit', edit_spreadsheet_path(spreadsheet) %></td>
+        <td><%= link_to 'Destroy', spreadsheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Spreadsheet', new_spreadsheet_path %>

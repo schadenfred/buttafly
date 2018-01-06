@@ -1,0 +1,52 @@
+<%= form_with(model: spreadsheet, local: true) do |form| %>
+  <% if spreadsheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(spreadsheet.errors.count, "error") %> prohibited this spreadsheet from being saved:</h2>
+
+      <ul>
+      <% spreadsheet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :spreadsheet_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :flat_file %>
+    <%= form.text_field :flat_file, id: :spreadsheet_flat_file %>
+  </div>
+
+  <div class="field">
+    <%= form.label :aasm_state %>
+    <%= form.text_field :aasm_state, id: :spreadsheet_aasm_state %>
+  </div>
+
+  <div class="field">
+    <%= form.label :uploader_id %>
+    <%= form.number_field :uploader_id, id: :spreadsheet_uploader_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :imported_at %>
+    <%= form.datetime_select :imported_at, id: :spreadsheet_imported_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :processed_at %>
+    <%= form.text_field :processed_at, id: :spreadsheet_processed_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mtime %>
+    <%= form.number_field :mtime, id: :spreadsheet_mtime %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
