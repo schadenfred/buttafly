@@ -1,6 +1,6 @@
 module Buttafly
   class Spreadsheet < ApplicationRecord
-
-    has_many :mappings
+    include Buttafly::Originable
+    # has_many :mappings
   end
 end
