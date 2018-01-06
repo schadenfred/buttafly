@@ -23,6 +23,7 @@ describe Buttafly::Spreadsheet do
     specify "belongs to" do
 
       must_have_many(:mappings)
+      must_have_many(:legends)
     end
   end
 end
