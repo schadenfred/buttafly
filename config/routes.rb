@@ -1,3 +1,9 @@
 Buttafly::Engine.routes.draw do
-  resources :spreadsheets
+  resources :contents do
+    member do 
+      patch 'archive'
+      patch 'import'
+      patch 'transmogrify'
+    end
+  end
 end

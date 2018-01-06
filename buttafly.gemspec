@@ -24,7 +24,9 @@ Gem::Specification.new do |s|
 
   # development & testing
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "puma"
   s.add_development_dependency "minitest-rails-capybara"
+  s.add_development_dependency "minitest-given"
   s.add_development_dependency "launchy"
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-minitest"

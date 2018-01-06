@@ -7,8 +7,9 @@ class CreateButtaflyMappings < ActiveRecord::Migration[5.1]
 
       t.timestamps
 
-      add_index :buttafly_mappings, [:originable_id, :originable_type]
 
     end
+
+    add_index :buttafly_mappings, [:originable_id, :originable_type]
   end
 end
