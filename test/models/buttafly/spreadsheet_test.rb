@@ -26,4 +26,9 @@ describe Buttafly::Spreadsheet do
       must_have_many(:legends)
     end
   end
+
+  describe "originable? must be true" do
+
+    Then { subject.originable?.must_equal true}
+  end
 end
