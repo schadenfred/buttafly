@@ -1,9 +1,28 @@
 require 'test_helper'
 
-module Buttafly
-  class SpreadsheetTest < ActiveSupport::TestCase
-    # test "the truth" do
-    #   assert true
-    # end
+describe Buttafly::Spreadsheet do
+
+  subject { Buttafly::Spreadsheet }
+
+  describe "db" do
+
+    specify "columns & types" do
+
+      must_have_column(:name)
+      must_have_column(:flat_file)
+      must_have_column(:aasm_state)
+      must_have_column(:uploader_id, :integer)
+      must_have_column(:imported_at, :datetime)
+      must_have_column(:processed_at, :datetime)
+      must_have_column(:row_count, :integer)
+    end
+  end
+
+  describe "associations" do
+
+    specify "belongs to" do
+
+      must_have_many(:mappings)
+    end
   end
 end

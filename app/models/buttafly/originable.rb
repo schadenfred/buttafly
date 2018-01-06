@@ -1,5 +1,5 @@
 module Buttafly
-  class Legend < ApplicationRecord
+  class Originable < ActiveRecord::Base
 
     has_many :mappings
   end

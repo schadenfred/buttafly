@@ -1,27 +1,23 @@
 require 'test_helper'
 
-module Buttafly
+describe Buttafly::Legend do
 
-  describe Legend do
+  subject { Buttafly::Legend }
 
-    Then { assert_kind_of Module, Buttafly }
+  describe "db" do
+
+    specify "columns & types" do
+
+      must_have_column(:data, :text)
+      must_have_column(:targetable_model)
+    end
   end
 
-  describe Mapping do
+  describe "associations" do
 
-    Then { assert_kind_of Class, Mapping }
+    specify "belongs to" do
+
+      must_have_many(:mappings)
+    end
   end
-
-  describe Spreadsheet do
-
-    Then { assert_kind_of Class, Spreadsheet }
-  end
-end
-
-
-describe Buttafly do
-
-  Then { assert_kind_of Class, Buttafly::Legend }
-  And { assert_kind_of Class, Buttafly::Mapping }
-  And { assert_kind_of Class, Buttafly::Spreadsheet }
 end

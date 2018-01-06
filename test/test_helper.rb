@@ -1,8 +1,14 @@
 require File.expand_path("../../test/dummy/config/environment.rb", __FILE__)
+Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f }
+
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db/migrate", __FILE__)]
 ActiveRecord::Migrator.migrations_paths << File.expand_path('../../db/migrate', __FILE__)
 require "rails/test_help"
-# require "mintest/given"
+require "minitest/autorun"
+require "minitest/given"
+require "minitest/nyan_cat"
+require "minitest/spec"
+
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
@@ -16,4 +22,4 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixtures :all
 end
 
-# include TestMatchers
+include TestMatchers
