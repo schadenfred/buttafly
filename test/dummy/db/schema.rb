@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106034801) do
+ActiveRecord::Schema.define(version: 20180106075828) do
 
   create_table "buttafly_legends", force: :cascade do |t|
     t.text "data"
@@ -44,6 +44,38 @@ ActiveRecord::Schema.define(version: 20180106034801) do
     t.index ["name"], name: "index_buttafly_spreadsheets_on_name"
     t.index ["processed_at"], name: "index_buttafly_spreadsheets_on_processed_at"
     t.index ["uploader_id"], name: "index_buttafly_spreadsheets_on_uploader_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.string "content"
+    t.integer "reviewer_id"
+    t.string "wine_id"
+    t.string "integer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "wineries", force: :cascade do |t|
+    t.string "name"
+    t.string "mission"
+    t.string "history"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "wines", force: :cascade do |t|
+    t.string "name"
+    t.string "vintage"
+    t.integer "winery_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
