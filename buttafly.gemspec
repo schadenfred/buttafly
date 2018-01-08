@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "aasm"
   s.add_dependency "carrierwave"
   s.add_dependency "kaminari"
+  
 
   # development & testing
   s.add_development_dependency "sqlite3"
@@ -33,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-minitest"
   s.add_development_dependency "guard-livereload"
+  s.add_development_dependency "rack-livereload"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "byebug"
   s.add_development_dependency "better_errors"

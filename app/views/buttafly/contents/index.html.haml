@@ -1,0 +1,18 @@
+/ .container is main centered wrapper
+.container
+  / columns should be the immediate child of a .row
+  .row
+    .one.column One
+    .eleven.columns Eleven
+  / just use a number and class 'column' or 'columns'
+  .row
+    .two.columns Two
+    .ten.columns Ten
+  / there are a few shorthand columns widths as well
+  .row
+    .one-third.column 1/3
+    .two-thirds.column 2/3
+  .row
+    .one-half.column 1/2
+    .one-half.column 1/2
+/ Note: columns can be nested, but it's not recommended since Skeleton's grid has %-based gutters, meaning a nested grid results in variable with gutters (which can end up being *really* small on certain browser/device sizes)

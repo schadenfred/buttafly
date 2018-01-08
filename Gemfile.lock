@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/helios-technologies/skeleton-rails
+  revision: 6e46649d29006643b33c95b82bc9d0e28df2f8cc
+  specs:
+    skeleton-rails (1.1.0)
+
 PATH
   remote: .
   specs:
@@ -191,6 +197,8 @@ GEM
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
+    rack-livereload (0.3.16)
+      rack
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
     rails (5.1.4)
@@ -277,6 +285,8 @@ DEPENDENCIES
   minitest-nyan-cat
   minitest-rails-capybara
   puma
+  rack-livereload
+  skeleton-rails!
   sqlite3
 
 BUNDLED WITH
