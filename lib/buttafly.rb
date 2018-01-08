@@ -1,6 +1,6 @@
 require "buttafly/engine"
 
 module Buttafly
-  require 'haml'
+  require 'haml-rails'
   # Your code goes here...
 end
