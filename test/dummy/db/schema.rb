@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106075828) do
+ActiveRecord::Schema.define(version: 20180108233536) do
 
   create_table "buttafly_legends", force: :cascade do |t|
     t.text "data"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(version: 20180106075828) do
     t.index ["name"], name: "index_buttafly_spreadsheets_on_name"
     t.index ["processed_at"], name: "index_buttafly_spreadsheets_on_processed_at"
     t.index ["uploader_id"], name: "index_buttafly_spreadsheets_on_uploader_id"
+  end
+
+  create_table "excel_sheets", force: :cascade do |t|
+    t.string "name"
+    t.string "flat_file"
+    t.string "aasm_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reviews", force: :cascade do |t|

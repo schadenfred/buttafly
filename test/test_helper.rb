@@ -11,6 +11,8 @@ require "minitest/rails"
 require "minitest/rails/capybara"
 require "minitest/given"
 require "minitest/pride"
+require "byebug"
+
 include TestMatchers
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
