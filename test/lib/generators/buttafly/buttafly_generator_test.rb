@@ -31,7 +31,6 @@ module Buttafly
         describe "configures with default spreadsheet" do
 
           Given { run_generator ["dick"]}
-          Then { assert_file "config/initializers/buttafly.rb" }
           Then { assert_file "config/initializers/buttafly.rb", /Dick/ }
         end
       end

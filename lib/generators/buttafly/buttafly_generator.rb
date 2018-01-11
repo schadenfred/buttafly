@@ -16,11 +16,12 @@ class ButtaflyGenerator < Rails::Generators::Base
     config/initializers/buttafly.rb"
 
   def create_buttafly_initializer_file
-    @originable_model = args.first
-    byebug
+    originable_model = args.first
+
     copy_file "buttafly.rb", "config/initializers/buttafly.rb"
-    unless @originable_model.nil?
-      gsub_file 'config/initializers/buttafly.rb', "Spreadsheet", @originable_model
+    unless originable_model.nil?
+      initializer = "config/initializers/buttafly.rb"
+      gsub_file initializer, "Spreadsheet", originable_model.capitalize
     end
   end
 end
