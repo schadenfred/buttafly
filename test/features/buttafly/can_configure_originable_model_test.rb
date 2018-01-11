@@ -11,7 +11,7 @@ feature "CanConfigureOriginableModel" do
 
     visit "/buttafly"
     page.must_have_content "Content"
-    Buttafly.testingvar.must_equal "blah"
+    Buttafly.testingvar.must_equal "coolness"
     # page.must_have_content "configurable model is Spreadsheet"
   #   page.wont_have_content "Goodbye All!"
   end
