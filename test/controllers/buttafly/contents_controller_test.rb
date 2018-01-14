@@ -4,7 +4,6 @@ module Buttafly
   class ContentsControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-<<<<<<< HEAD
     setup do
       # @content = excelsheets(:one)
     end
@@ -49,12 +48,5 @@ module Buttafly
 #     #
 #     #   assert_redirected_to contents_url
 #     # end
-=======
-    test "should get index" do
-      get contents_index_url
-      assert_response :success
-    end
-
->>>>>>> master
   end
 end
