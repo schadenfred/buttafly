@@ -25,7 +25,10 @@ guard :minitest do
   watch(%r{^test/support/.+_helper\.rb$}) { 'test' }
   watch(%r{^test/features/*\.rb$})
 
-  watch(%r{^test/dummy/test/factories/(.+)\.rb$}) { 'test/meta/factories_test.rb' }
+  watch(%r{^test/dummy/test/factories/(.+)\.rb$}) do
+    'test/meta/factories_test.rb'
+  end
+  watch(%r{^lib/generators/buttafly/install/install_generator.rb$}) { |m| "test/lib/generators/buttafly/buttafly/install_generator_test.rb" }
 
 
 end

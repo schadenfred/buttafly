@@ -2,57 +2,74 @@ require 'test_helper'
 require 'generators/buttafly/install/install_generator'
 
 module Buttafly
-  class Buttafly::InstallGeneratorTest < Rails::Generators::TestCase
+  describe Buttafly::InstallGenerator do
     tests Buttafly::InstallGenerator
     include FileManipulationHelpers
     destination Rails.root.join('tmp/generators')
-    setup :prepare_destination
 
-    test "generator runs without errors" do
-      assert_nothing_raised do
-        run_generator ["arguments"]
-      end
-    end
+    specify { assert_nothing_raised { run_generator } }
 
-    test "creates buttafly.rb in dummy app" do
-      run_generator
-      assert_file "config/initializers/buttafly.rb"
-    end
+    setup do
+      :prepare_destination
+      system "cp Gemfile test/dummy/Gemfile"
 
-    test "add buttafly route Gemfile" do
       filename = Rails.root.join "config/routes.rb"
       mounter = "mount Buttafly::Engine => \"/buttafly\""
       gsub_file(filename, mounter, '')
+
       run_generator
-      assert_file Rails.root.join("config/routes.rb"), /Buttafly/
     end
-    # test "add buttafly gem to Gemfile" do
-    #   run_generator
-    #   assert_file Rails.root.join("config/initializers/assets.rb")
-    #   assert_file Rails.root.join("config/initializers/assets.rb")
-    # end
 
-    describe "generate buttafly.rb" do
+    teardown do
+      system "git checkout test/dummy/config/application.rb"
+      system "git checkout test/dummy/config/routes.rb"
+      system "rm test/dummy/Gemfile"
+    end
 
-      describe "without originable model specified as first arg" do
+    specify "creates initializer in host app" do
+      assert_file "config/initializers/buttafly.rb"
+    end
 
-        describe "configures with default spreadsheet" do
+    specify "creates config/routes/ directory" do
+      assert_file "config/routes/"
+    end
 
-          # Given { run_generator }
-          #
-          # Then { assert_file "config/initializers/buttafly.rb" }
-          # And { assert_file "config/initializers/buttafly.rb", /Spreadsheet/ }
-        end
-      end
+    specify "creates config/routes/engine_routes.rb" do
+      assert_file "config/routes/engine_routes.rb"
+    end
 
-      # describe "with originable model specified as first arg" do
-      #
-      #   describe "configures with default spreadsheet" do
-      #
-      #     Given { run_generator ["dick"]}
-      #     Then { assert_file "config/initializers/buttafly.rb", /Dick/ }
-      #   end
-      # end
+    specify "adds EngineRoutes to " do
+      assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
+    end
+
+    specify "adds gem to Gemfile" do
+      assert_file Rails.root.join("Gemfile"), /buttafly/
+    end
+
+    specify "adds engine_routes file to autoload path" do
+      assert_file Rails.root.join("config/application.rb"), /config\/routes/
     end
   end
 end
+
+    # describe "with originable model specified as first arg" do
+    #
+    #   describe "configures with default spreadsheet" do
+    #
+    #     Given { run_generator ["dick"]}
+    #     Then { assert_file "config/initializers/buttafly.rb", /Dick/ }
+    #   end
+    # end
+
+    # Given(:filename) { Rails.root.join "config/routes.rb" }
+    # Given(:mounter) { "mount Buttafly::Engine => \"/buttafly\"" }
+    # Given { gsub_file(filename, mounter, '') }
+
+  #   autoload_config = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
+    # assert_file Rails.root.join("config/application.rb")
+  #   # system "rm test/dummy/Gemfile"
+  # end
+  #
+#
+#   end
+# end

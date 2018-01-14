@@ -4,9 +4,9 @@ module Buttafly
   require 'haml-rails'
 
   class << self
-    mattr_accessor :originable_model, :testingvar
+    mattr_accessor :originable_model, :whitelisted_models
     self.originable_model = "Spreadsheet"
-    self.testingvar = "coolness"
+    self.whitelisted_models = []
   end
 
   def self.setup(&block)
