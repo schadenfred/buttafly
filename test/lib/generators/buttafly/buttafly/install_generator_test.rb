@@ -11,6 +11,9 @@ module Buttafly
 
     setup do
       :prepare_destination
+      File.exists?("test/dummy/config/initializers/buttafly.rb") do
+        system "rm test/dummy/config/initializers/buttafly.rb"
+      end
       system "cp Gemfile test/dummy/Gemfile"
 
       filename = Rails.root.join "config/routes.rb"
@@ -23,6 +26,7 @@ module Buttafly
     teardown do
       system "git checkout test/dummy/config/application.rb"
       system "git checkout test/dummy/config/routes.rb"
+      system "git checkout test/dummy/config/initializers/buttafly.rb"
       system "rm test/dummy/Gemfile"
     end
 
