@@ -16,8 +16,8 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
 
   def add_routes_to_autoload_path
     filename = Rails.root.join("config/application.rb")
-    config_line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
-    addition = "\t\t" + config_line + "\n"
+    line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
+    addition = "\t\t" + line + "\n"
     previous = "class Application < Rails::Application\n"
     insert_into_file filename, addition, after: previous
   end
