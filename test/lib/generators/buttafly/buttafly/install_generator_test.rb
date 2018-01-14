@@ -7,16 +7,17 @@ module Buttafly
     include FileManipulationHelpers
     destination Rails.root.join('tmp/generators')
 
-    specify { assert_nothing_raised { run_generator } }
+    # specify { assert_nothing_raised { run_generator } }
 
     setup do
       :prepare_destination
-      File.exists?("test/dummy/config/initializers/buttafly.rb") do
+      # File.exists?("test/dummy/config/initializers/buttafly.rb") do
         system "rm test/dummy/config/initializers/buttafly.rb"
-      end
-      File.exists?("test/dummy/config/routes/engine_routes.rb") do
+      # end
+      # File.exists?("test/dummy/config/routes/engine_routes.rb") do
         system "rm -rf test/dummy/config/routes"
-      end
+        system "rm -rf test/dummy/config/routes/"
+      # end
       system "rm test/dummy/config/initializers/buttafly.rb"
       system "cp Gemfile test/dummy/Gemfile"
 
@@ -24,7 +25,6 @@ module Buttafly
       mounter = "mount Buttafly::Engine => \"/buttafly\""
       gsub_file(filename, mounter, '')
 
-      run_generator
     end
 
     teardown do
@@ -35,28 +35,29 @@ module Buttafly
     end
 
     specify "creates initializer in host app" do
+      run_generator
       assert_file "config/initializers/buttafly.rb"
-    end
-
-    specify "creates config/routes/ directory" do
       assert_file "config/routes/"
-    end
-
-    specify "creates config/routes/engine_routes.rb" do
       assert_file "config/routes/engine_routes.rb"
-    end
-
-    specify "adds EngineRoutes to " do
       assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
-    end
-
-    specify "adds gem to Gemfile" do
       assert_file Rails.root.join("Gemfile"), /buttafly/
-    end
-
-    specify "adds engine_routes file to autoload path" do
       assert_file Rails.root.join("config/application.rb"), /config\/routes/
     end
+
+    # specify "creates config/routes/ directory" do
+    # end
+    #
+    # specify "creates config/routes/engine_routes.rb" do
+    # end
+
+    # specify "adds EngineRoutes to " do
+    # end
+
+    # specify "adds gem to Gemfile" do
+    # end
+
+    # specify "adds engine_routes file to autoload path" do
+    # end
   end
 end
 
