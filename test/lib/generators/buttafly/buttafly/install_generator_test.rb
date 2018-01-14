@@ -14,6 +14,10 @@ module Buttafly
       File.exists?("test/dummy/config/initializers/buttafly.rb") do
         system "rm test/dummy/config/initializers/buttafly.rb"
       end
+      File.exists?("test/dummy/config/routes/engine_routes.rb") do
+        system "rm -rf test/dummy/config/routes"
+      end
+      system "rm test/dummy/config/initializers/buttafly.rb"
       system "cp Gemfile test/dummy/Gemfile"
 
       filename = Rails.root.join "config/routes.rb"
