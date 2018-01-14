@@ -11,53 +11,55 @@ module Buttafly
 
     setup do
       :prepare_destination
-      # File.exists?("test/dummy/config/initializers/buttafly.rb") do
-        system "rm test/dummy/config/initializers/buttafly.rb"
-      # end
-      # File.exists?("test/dummy/config/routes/engine_routes.rb") do
-        system "rm -rf test/dummy/config/routes"
-        system "rm -rf test/dummy/config/routes/"
-      # end
-      system "rm test/dummy/config/initializers/buttafly.rb"
-      # system "cp Gemfile test/dummy/Gemfile"
-
-      filename = Rails.root.join "config/routes.rb"
-      mounter = "\textend EngineRoutes\n"
-      gsub_file(filename, mounter, '')
-
+      File.exists?("test/dummy/config/initializers/buttafly.rb") do
+        FileUtils.rm "test/dummy/config/initializers/buttafly.rb"
+      end
+      File.exists?("test/dummy/config/routes/engine_routes.rb") do
+        FileUtils.rm "test/dummy/config/routes/engine_routes.rb"
+      end
+      File.exists?("test/dummy/config/routes") do
+        FileUtils.rmdir "test/dummy/config/routes"
+      end
     end
 
     teardown do
-      run_generator
       system "git checkout test/dummy/config/application.rb"
       system "git checkout test/dummy/config/routes.rb"
-      system "git checkout test/dummy/config/initializers/buttafly.rb"
-      # system "rm test/dummy/Gemfile"
+      # system "git checkout test/dummy/config/routes/engine_routes.rb"
+      # system "git checkout test/dummy/config/initializers/buttafly.rb"
     end
 
     specify "creates initializer in host app" do
+      run_generator
       assert_file "config/initializers/buttafly.rb"
-      assert_file "config/routes/"
-      assert_file "config/routes/engine_routes.rb"
-      assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
-      assert_file Rails.root.join("Gemfile"), /buttafly/
-      assert_file Rails.root.join("config/application.rb"), /config\/routes/
     end
 
-    # specify "creates config/routes/ directory" do
-    # end
-    #
+    specify "creates config/routes directory" do
+      run_generator
+      assert_file Rails.root.join("config/routes")
+    end
+
+    specify "creates config/routes/engine_routes.rb" do
+      run_generator
+      assert_file Rails.root.join("config/routes/engine_routes.rb")
+    end
+
+    specify "adds EngineRoutes to " do
+      run_generator
+      assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
+    end
+
+    specify "adds engine_routes file to autoload path" do
+      filename = Rails.root.join "config/application.rb"
+      line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
+      gsub_file(filename, line, '')
+      run_generator
+      assert_file Rails.root.join("config/application.rb"), /config\/routes/
+    end
     # specify "creates config/routes/engine_routes.rb" do
     # end
 
-    # specify "adds EngineRoutes to " do
-    # end
 
-    # specify "adds gem to Gemfile" do
-    # end
-
-    # specify "adds engine_routes file to autoload path" do
-    # end
   end
 end
 
@@ -76,7 +78,6 @@ end
 
   #   autoload_config = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
     # assert_file Rails.root.join("config/application.rb")
-  #   # system "rm test/dummy/Gemfile"
   # end
   #
 #
