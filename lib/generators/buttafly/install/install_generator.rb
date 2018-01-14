@@ -19,16 +19,13 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
     config_line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
     addition = "\t\t" + config_line + "\n"
     previous = "class Application < Rails::Application\n"
-
     insert_into_file filename, addition, after: previous
   end
 
   def mount_engine_to_app
     filename = Rails.root.join("config/routes.rb")
-    unless File.read(filename).match "EngineRoutes"
-      mounter = "\textend EngineRoutes\n"
-      previous = "Rails.application.routes.draw do\n"
-      insert_into_file filename, mounter, after: previous
-    end
+    mounter = "\textend EngineRoutes\n"
+    previous = "Rails.application.routes.draw do\n"
+    insert_into_file filename, mounter, after: previous
   end
 end

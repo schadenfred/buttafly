@@ -7,7 +7,7 @@ module Buttafly
     include FileManipulationHelpers
     destination Rails.root.join('tmp/generators')
 
-    # specify { assert_nothing_raised { run_generator } }
+    specify { assert_nothing_raised { run_generator } }
 
     setup do
       :prepare_destination
@@ -19,23 +19,23 @@ module Buttafly
         system "rm -rf test/dummy/config/routes/"
       # end
       system "rm test/dummy/config/initializers/buttafly.rb"
-      system "cp Gemfile test/dummy/Gemfile"
+      # system "cp Gemfile test/dummy/Gemfile"
 
       filename = Rails.root.join "config/routes.rb"
-      mounter = "mount Buttafly::Engine => \"/buttafly\""
+      mounter = "\textend EngineRoutes\n"
       gsub_file(filename, mounter, '')
 
     end
 
     teardown do
+      run_generator
       system "git checkout test/dummy/config/application.rb"
       system "git checkout test/dummy/config/routes.rb"
       system "git checkout test/dummy/config/initializers/buttafly.rb"
-      system "rm test/dummy/Gemfile"
+      # system "rm test/dummy/Gemfile"
     end
 
     specify "creates initializer in host app" do
-      run_generator
       assert_file "config/initializers/buttafly.rb"
       assert_file "config/routes/"
       assert_file "config/routes/engine_routes.rb"
