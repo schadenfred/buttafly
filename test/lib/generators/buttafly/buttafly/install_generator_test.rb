@@ -44,11 +44,6 @@ module Buttafly
       assert_file Rails.root.join("config/routes/engine_routes.rb")
     end
 
-    specify "adds EngineRoutes to " do
-      run_generator
-      assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
-    end
-
     specify "adds engine_routes file to autoload path" do
       filename = Rails.root.join "config/application.rb"
       line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
@@ -56,6 +51,15 @@ module Buttafly
       run_generator
       assert_file Rails.root.join("config/application.rb"), /config\/routes/
     end
+
+    specify "adds EngineRoutes to " do
+      filename = Rails.root.join "config/application.rb"
+      line = %q[extend EngineRoutes]
+      gsub_file(filename, line, '')
+      run_generator
+      assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
+    end
+
     # specify "creates config/routes/engine_routes.rb" do
     # end
 
