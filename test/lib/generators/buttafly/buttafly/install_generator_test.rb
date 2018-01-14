@@ -25,8 +25,8 @@ module Buttafly
     teardown do
       system "git checkout test/dummy/config/application.rb"
       system "git checkout test/dummy/config/routes.rb"
-      # system "git checkout test/dummy/config/routes/engine_routes.rb"
-      # system "git checkout test/dummy/config/initializers/buttafly.rb"
+      system "git checkout test/dummy/config/routes/engine_routes.rb"
+      system "git checkout test/dummy/config/initializers/buttafly.rb"
     end
 
     specify "creates initializer in host app" do
@@ -59,31 +59,5 @@ module Buttafly
       run_generator
       assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
     end
-
-    # specify "creates config/routes/engine_routes.rb" do
-    # end
-
-
   end
 end
-
-    # describe "with originable model specified as first arg" do
-    #
-    #   describe "configures with default spreadsheet" do
-    #
-    #     Given { run_generator ["dick"]}
-    #     Then { assert_file "config/initializers/buttafly.rb", /Dick/ }
-    #   end
-    # end
-
-    # Given(:filename) { Rails.root.join "config/routes.rb" }
-    # Given(:mounter) { "mount Buttafly::Engine => \"/buttafly\"" }
-    # Given { gsub_file(filename, mounter, '') }
-
-  #   autoload_config = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
-    # assert_file Rails.root.join("config/application.rb")
-  # end
-  #
-#
-#   end
-# end
