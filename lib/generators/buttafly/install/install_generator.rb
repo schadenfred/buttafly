@@ -10,21 +10,18 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
     end
   end
 
-  def create_engine_routes_file
+  def copy_routes_to_host
     directory "routes", Rails.root.join("config/routes")
   end
 
-  def add_engine_routes_to_autoload_path
+  def add_routes_to_autoload_path
     filename = Rails.root.join("config/application.rb")
-    # unless File.read(filename).match "/config/routes"
-      config_line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
-      addition = "\t\t" + config_line + "\n"
-      previous = "class Application < Rails::Application\n"
+    config_line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
+    addition = "\t\t" + config_line + "\n"
+    previous = "class Application < Rails::Application\n"
 
-      insert_into_file filename, addition, after: previous
-    # end
+    insert_into_file filename, addition, after: previous
   end
-  #   copy_file "buttafly_routes.rb", "config/routes/engine_routes.rb"
 
   def mount_engine_to_app
     filename = Rails.root.join("config/routes.rb")
@@ -34,12 +31,4 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
       insert_into_file filename, mounter, after: previous
     end
   end
-
-  # def add_engine_routes_to_autoload_path
-  #   unless originable_model.nil?
-  #     initializer = "config/initializers/buttafly.rb"
-  #     gsub_file initializer, "Spreadsheet", originable_model.capitalize
-  #   end
-  # end
-
 end
