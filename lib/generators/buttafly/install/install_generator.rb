@@ -1,5 +1,6 @@
 class Buttafly::InstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
+
   def copy_buttafly_initializer_to_host
     originable_model = args.first
     copy_file "buttafly_initializer.rb", "config/initializers/buttafly.rb"
@@ -15,8 +16,8 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
 
   def add_routes_to_autoload_path
     filename = Rails.root.join("config/application.rb")
-    line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
-    addition = "\t\t" + line + "\n"
+    config_line = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
+    addition = "\t\t" + config_line + "\n"
     previous = "class Application < Rails::Application\n"
     insert_into_file filename, addition, after: previous
   end
@@ -26,16 +27,5 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
     mounter = "\textend EngineRoutes\n"
     previous = "Rails.application.routes.draw do\n"
     insert_into_file filename, mounter, after: previous
-  end
-
-  def include_originable_in_originable_model
-    Rails.application.eager_load!
-    originable_model = args.first.classify.constantize
-    if ActiveRecord::Base.descendants.include? originable_model
-      filename = Rails.root.join("app/models/#{args.first}.rb")
-      mounter = "\tinclude Buttafly::Originable\n"
-      previous = "ApplicationRecord\n"
-      insert_into_file filename, mounter, after: previous
-    end
   end
 end
