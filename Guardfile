@@ -1,6 +1,3 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
-
 guard 'livereload' do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})
@@ -23,11 +20,14 @@ guard :minitest do
   watch(%r{^test/.+_test\.rb$})
   watch(%r{^test/test_helper\.rb$}) { 'test' }
   watch(%r{^test/support/.+_helper\.rb$}) { 'test' }
+  watch(%r{^test/support/(.+)$}) { 'test' }
   watch(%r{^test/features/*\.rb$})
 
   watch(%r{^test/dummy/test/factories/(.+)\.rb$}) do
     'test/meta/factories_test.rb'
   end
+
+
   watch(%r{^lib/generators/buttafly/install/install_generator.rb$}) { |m| "test/lib/generators/buttafly/buttafly/install_generator_test.rb" }
 
 

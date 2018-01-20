@@ -3,7 +3,7 @@ require 'test_helper'
 describe ExcelSheet do
 
   subject { ExcelSheet }
-  
+
   describe "associations" do
 
     specify "belongs to" do
