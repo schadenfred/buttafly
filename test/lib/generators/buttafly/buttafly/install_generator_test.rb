@@ -11,7 +11,7 @@ describe Buttafly::InstallGenerator do
   setup :prepare_destination
 
   teardown do
-    system "git checkout test/dummy/config"
+    system "git checkout test/dummy"
   end
 
   describe "sanity" do
