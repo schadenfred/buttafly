@@ -7,9 +7,10 @@ module Buttafly
     include FileManipulationHelpers
     destination Rails.root.join('tmp/generators')
 
+    setup :prepare_destination
 
     setup do
-      :prepare_destination
+      system "git checkout test/dummy/"
       File.exists?("test/dummy/config/initializers/buttafly.rb") do
         FileUtils.rm "test/dummy/config/initializers/buttafly.rb"
       end
@@ -22,13 +23,11 @@ module Buttafly
     end
 
     teardown do
-      system "git checkout test/dummy/config/application.rb"
-      system "git checkout test/dummy/config/routes.rb"
-      system "git checkout test/dummy/config/routes/engine_routes.rb"
-      system "git checkout test/dummy/config/initializers/buttafly.rb"
+      system "git checkout test/dummy/"
     end
 
     specify { assert_nothing_raised { run_generator } }
+    specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
 
     specify "creates initializer in host app" do
       run_generator
@@ -63,14 +62,13 @@ module Buttafly
 
     describe "with originable_model argument" do
 
-      specify "adds EngineRoutes to " do
-        filename = Rails.root.join "config/application.rb"
-        line = %q[extend EngineRoutes]
-        gsub_file(filename, line, '')
+      specify "includes Buttafly::Originable in originable_model" do
+        file = "app/models/excel_sheet.rb"
+        line = %q[include Buttafly::Originable]
+        remove_line(file, line)
         run_generator ["excel_sheet"]
-        assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
+        assert_file dummy(file), /include Buttafly::Originable/
       end
     end
-
   end
 end

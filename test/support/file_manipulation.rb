@@ -7,4 +7,12 @@ module FileManipulationHelpers
     content.gsub!(flag, *args, &block)
     File.open(path, "wb") { |file| file.write(content) }
   end
+
+  def remove_line(file, line)
+    gsub_file(Rails.root.join(file), line, '')
+  end
+
+  def dummy(file)
+    Rails.root.join file
+  end
 end
