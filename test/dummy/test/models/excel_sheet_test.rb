@@ -1,9 +1,20 @@
-require "test_helper"
+require 'test_helper'
 
 describe ExcelSheet do
-  let(:excel_sheet) { ExcelSheet.new }
 
-  it "must be valid" do
-    value(excel_sheet).must_be :valid?
+  subject { ExcelSheet }
+  
+  describe "associations" do
+
+    specify "belongs to" do
+
+      must_have_many(:mappings)
+      must_have_many(:legends)
+    end
+  end
+
+  describe "originable? must be true" do
+
+    Then { subject.originable?.must_equal true}
   end
 end

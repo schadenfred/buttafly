@@ -12,6 +12,7 @@ require "minitest/rails/capybara"
 require "minitest/given"
 require "minitest/pride"
 require "byebug"
+require "buttafly"
 
 include TestMatchers
 

@@ -7,7 +7,6 @@ module Buttafly
     include FileManipulationHelpers
     destination Rails.root.join('tmp/generators')
 
-    specify { assert_nothing_raised { run_generator } }
 
     setup do
       :prepare_destination
@@ -28,6 +27,8 @@ module Buttafly
       system "git checkout test/dummy/config/routes/engine_routes.rb"
       system "git checkout test/dummy/config/initializers/buttafly.rb"
     end
+
+    specify { assert_nothing_raised { run_generator } }
 
     specify "creates initializer in host app" do
       run_generator
@@ -59,5 +60,17 @@ module Buttafly
       run_generator
       assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
     end
+
+    describe "with originable_model argument" do
+
+      specify "adds EngineRoutes to " do
+        filename = Rails.root.join "config/application.rb"
+        line = %q[extend EngineRoutes]
+        gsub_file(filename, line, '')
+        run_generator ["excel_sheet"]
+        assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/
+      end
+    end
+
   end
 end

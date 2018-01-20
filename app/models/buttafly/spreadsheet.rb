@@ -1,6 +1,6 @@
 module Buttafly
   class Spreadsheet < ApplicationRecord
 
-    include Buttafly::Originable
+    include Originable
   end
 end
