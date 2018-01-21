@@ -3,6 +3,7 @@ class CreateWines < ActiveRecord::Migration[5.1]
     create_table :wines do |t|
       t.string :name
       t.string :vintage
+      t.integer :winemaker_id
       t.integer :winery_id
 
       t.timestamps

@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180108233536) do
     t.string "name"
     t.string "mission"
     t.string "history"
+    t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(version: 20180108233536) do
   create_table "wines", force: :cascade do |t|
     t.string "name"
     t.string "vintage"
+    t.integer "winemaker_id"
     t.integer "winery_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
