@@ -14,6 +14,10 @@ describe Winery do
   end
 
   describe "associations" do
+    specify "belongs to" do
+
+      must_belong_to(:owner)
+    end
 
     specify "has many" do
 

@@ -8,7 +8,7 @@ describe Wine do
 
     specify "belongs to" do
 
-      must_belong_to(:owner)
+      must_belong_to(:winemaker)
       must_belong_to(:winery)
     end
 

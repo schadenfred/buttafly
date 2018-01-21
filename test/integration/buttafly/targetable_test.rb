@@ -6,20 +6,48 @@ describe "Buttafly::Targetable" do
 
   describe "self.parents_of(model)" do
 
+    specify "User" do
+      subject.parents_of(:user).sort.must_equal [].sort
+    end
+
     specify "Review" do
-      subject.parents_of(:review).must_equal [:user, :wine, :winery]
+      subject.parents_of(:review).sort.must_equal [:wine, :reviewer].sort
+    end
+
+    specify "Wine" do
+      subject.parents_of(:wine).sort.must_equal [:winery, :winemaker].sort
+    end
+
+    specify "winery" do
+      subject.parents_of(:winery).sort.must_equal [:owner]
+    end
+  end
+
+  describe "self.class_name_of(parent)" do
+    specify "User" do
+      skip
+      subject.class_name_of(:user).must_equal "blah"
     end
   end
 
   describe "self.ancestors_of(model)" do
 
-    specify "Review" do
-      subject.ancestors_of(:review).class.must_equal Hash
-      subject.ancestors_of(:review).to_s.must_equal "{:user=>{}, :winery=>{}, :wine=>{...}}"
-      subject.ancestors_of(:review).keys.must_equal [:user, :winery, :wine]
-      subject.ancestors_of(:review)[:wine].must_equal [:user, :winery, :wine]
+    specify "User" do
+      skip
+      subject.ancestors_of(:user).to_s.must_equal "[]"
+      subject.ancestors_of(:user).size.must_equal 0
     end
 
+    specify "Wine" do
+skip
+      subject.ancestors_of(:wine).to_s.must_equal "[]"
+      # subject.ancestors_of(:wine).size.must_equal 2
+      # byebug
+      # subject.ancestors_of(:user).must_equal {}
+      # subject.ancestors_of(:review).to_s.must_equal "{:user=>{}, :winery=>{}, :wine=>{...}}"
+      # subject.ancestors_of(:review).keys.must_equal [:user, :winery, :wine]
+      # subject.ancestors_of(:review)[:wine].must_equal [:user, :winery, :wine]
+    end
   end
 
 

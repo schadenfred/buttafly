@@ -1,6 +1,8 @@
+require 'tsort'
+
 module Buttafly
   class Targetable
-
+    include TSort
     extend ActiveSupport::Concern
 
     def self.models
@@ -16,30 +18,34 @@ module Buttafly
 
     def self.parents_of(model, parents = [])
       klassify(model).reflect_on_all_associations(:belongs_to).each do |parent|
-        if parent.options[:class_name].nil?
-          parents << parent.name
-        else
-          parents << parent.options[:class_name].constantize.model_name.i18n_key
-        end
+        parents << parent.name
       end
       parents
     end
 
-    def self.ancestors_of(model, hash = {})
+    def self.class_name_of(parent)
+      # klassify(parent).reflect_on_all_associations(:belongs_to).each do |parent|
+    end
+
+    def self.ancestors_of(model, ancestors=[])
       parents_of(model).each do |parent|
         if parents_of(parent).empty?
-          hash[parent] = {}
-        else
-
-          hash[parent] = ancestors_of(parent, hash)
+          ancestors << parent
         end
+        #   hash[parent] = ancestors_of(parent, hash)
+        # end
       end
       # ancestors[parents_of(model)] = ancestors_of(k,v)
       # ancestors.each do |k,v|
       #   if v.is_a? Hash
       #   end
       # end
-      hash
+      # if parent.options[:class_name].nil?
+      #   parents << parent.name
+      # else
+      #   parents << parent.options[:class_name].constantize.model_name.i18n_key
+      # end
+      ancestors
     end
 
     def targetable_order(parent=nil)

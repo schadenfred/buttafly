@@ -8,7 +8,6 @@ describe Review do
 
       must_belong_to(:reviewer)
       must_belong_to(:wine)
-      must_belong_to(:winery)
     end
   end
 end
