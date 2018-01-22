@@ -42,4 +42,8 @@ module FileManipulationHelpers
       end
     end
   end
+
+  def read_from_yaml(file)
+     YAML.load_file("test/support/#{file}_ancestors.yml")
+  end
 end
