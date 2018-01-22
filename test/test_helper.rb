@@ -11,7 +11,7 @@ ActiveRecord::Migration.maintain_test_schema!
 require "rails/test_help"
 require "minitest/rails"
 require "minitest/rails/capybara"
-require "minitest/pride"
+require "minitest/given"
 require "byebug"
 require "buttafly"
 
