@@ -7,44 +7,57 @@ module Buttafly
 
     def self.models
       Rails.application.eager_load!
-      @whitelist = Buttafly.whitelisted_models
-      @models = @whitelist.empty? ? targetable_models : @whitelist
+      if blacklisted_models.empty?
+        @whitelist = whitelisted_models
+        @models = @whitelist.empty? ? targetable_models : @whitelist
+      else
+        @models = targetable_models - blacklisted_models
+      end
+      @models - buttafly_blacklist
+    end
+
+    def self.blacklisted_models
+      return if Buttafly.blacklisted_models.nil?
+      Buttafly.blacklisted_models.map {|model| model.to_s }
+    end
+
+    def self.whitelisted_models
+      return if Buttafly.whitelisted_models.nil?
+      Buttafly.whitelisted_models.map {|model| model.downcase.to_sym }
+    end
+
+    def self.class_name_of(model, parent)
+      parent = (parent.is_a? Symbol) ? parent : parent.name
+      klass = klassify(model).reflect_on_association(parent)
+      klass_alias = klass.options[:class_name]
+      klass_alias.nil? ? klass.name : klass_alias.downcase.to_sym
+    end
+
+    def self.parent_ass_with_class_of(model, parent)
+      klass = klassify(model).reflect_on_association(klass_to_sym(parent))
+      klass_alias = klass.options[:class_name]
+      klass_alias.nil? ? { klass.name => nil} : { klass.name => klass_alias.downcase.to_sym }
     end
 
     def self.targetable_models
       descendants = ActiveRecord::Base.descendants.map(&:name)
-      descendants - blacklist
+      descendants.delete(Buttafly.originable_model.classify)
+      descendants.map { |model| model.to_s }
     end
 
     def self.parents_of(model, parents = [])
       klassify(model).reflect_on_all_associations(:belongs_to).each do |parent|
-        parents << parent.name
+        parents << parent_ass_with_class_of(model, parent)
       end
       parents
     end
 
-    def self.class_name_of(parent)
-      # klassify(parent).reflect_on_all_associations(:belongs_to).each do |parent|
-    end
-
     def self.ancestors_of(model, ancestors=[])
-      parents_of(model).each do |parent|
-        if parents_of(parent).empty?
-          ancestors << parent
-        end
-        #   hash[parent] = ancestors_of(parent, hash)
-        # end
+      klassify(model).reflect_on_all_associations(:belongs_to).each do |parent|
+        class_name = parent.options.empty? ? parent.name : parent.options[:class_name].downcase.to_sym
+
+        ancestors << { parent.name => { class_name => ancestors_of(class_name)} }
       end
-      # ancestors[parents_of(model)] = ancestors_of(k,v)
-      # ancestors.each do |k,v|
-      #   if v.is_a? Hash
-      #   end
-      # end
-      # if parent.options[:class_name].nil?
-      #   parents << parent.name
-      # else
-      #   parents << parent.options[:class_name].constantize.model_name.i18n_key
-      # end
       ancestors
     end
 
@@ -56,6 +69,11 @@ module Buttafly
       ancestors
     end
 
+    def self.targetable_columns(model)
+      cols = model.classify.constantize.column_names - %w[updated_at created_at id]
+      cols.reject! { |col| col.match? /_id/ }
+      cols
+    end
 
   private
 
@@ -63,11 +81,16 @@ module Buttafly
       string.to_s.classify.constantize
     end
 
-    def self.klassify(string)
-      string.to_s.classify.constantize
+    def self.klass_to_sym(klass)
+      (klass.is_a? Symbol) ? klass : klass.name
     end
 
-    def self.blacklist
+    def self.klassify(model)
+      model.to_s.classify.constantize
+    end
+
+    def self.buttafly_blacklist
+
       @blacklist = ["ActiveRecord::SchemaMigration", "ApplicationRecord", "Buttafly::ApplicationRecord", "Buttafly::Mapping",
         "Buttafly::Spreadsheet", "Buttafly::Legend"]
     end

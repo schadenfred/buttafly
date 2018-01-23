@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 20180122221006) do
     t.string "content"
     t.integer "reviewer_id"
     t.string "wine_id"
-    t.string "integer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -5,7 +5,6 @@ class CreateReviews < ActiveRecord::Migration[5.1]
       t.string :content
       t.integer :reviewer_id
       t.string :wine_id
-      t.string :integer
 
       t.timestamps
     end

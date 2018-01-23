@@ -4,67 +4,102 @@ describe "Buttafly::Targetable" do
 
   subject { Buttafly::Targetable }
 
+  specify "self.parent_ass_with_class_of(model, parent)" do
+    subject.parent_ass_with_class_of(:wine, :winery).to_s.must_equal "{:winery=>nil}"
+    subject.parent_ass_with_class_of(:review, :reviewer).to_s.must_equal "{:reviewer=>:user}"
+  end
+
+  specify "self.class_name_of(model, parent)" do
+    subject.class_name_of(:wine, :winery).must_equal :winery
+    subject.class_name_of(:review, :reviewer).must_equal :user
+  end
+
   describe "self.parents_of(model)" do
 
     specify "User" do
-      subject.parents_of(:user).sort.must_equal [].sort
+      subject.parents_of(:user).must_equal []
     end
 
     specify "Review" do
-      subject.parents_of(:review).sort.must_equal [:wine, :reviewer].sort
+      subject.parents_of(:review).must_equal [{:reviewer => :user },{:wine=>nil}]
     end
 
     specify "Wine" do
-      subject.parents_of(:wine).sort.must_equal [:winery, :winemaker].sort
+      subject.parents_of(:wine).must_equal [{:winemaker=>:user}, {:winery=>nil}]
     end
 
     specify "winery" do
-      subject.parents_of(:winery).sort.must_equal [:owner]
-    end
-  end
-
-  describe "self.class_name_of(parent)" do
-    specify "User" do
-      skip
-      subject.class_name_of(:user).must_equal "blah"
+      subject.parents_of(:winery).must_equal [{:owner=>:user}]
     end
   end
 
   describe "self.ancestors_of(model)" do
 
     specify "User" do
-      skip
-      subject.ancestors_of(:user).to_s.must_equal "[]"
-      subject.ancestors_of(:user).size.must_equal 0
-    end
-
-    specify "Wine" do
-skip
-      subject.ancestors_of(:wine).to_s.must_equal "[]"
-      # subject.ancestors_of(:wine).size.must_equal 2
-      # byebug
-      # subject.ancestors_of(:user).must_equal {}
-      # subject.ancestors_of(:review).to_s.must_equal "{:user=>{}, :winery=>{}, :wine=>{...}}"
-      # subject.ancestors_of(:review).keys.must_equal [:user, :winery, :wine]
-      # subject.ancestors_of(:review)[:wine].must_equal [:user, :winery, :wine]
+      subject.ancestors_of(:user).must_equal []
+      subject.ancestors_of(:winery).must_equal [owner: {user: []}]
+      subject.ancestors_of(:wine).must_equal read_from_yaml("wine")
+      subject.ancestors_of(:review).must_equal read_from_yaml("winery")
+      subject.ancestors_of(:review).must_equal read_from_yaml("review")
     end
   end
 
+  specify "targetable_columns" do
+    subject.targetable_columns("User").must_equal %w(name)
+    subject.targetable_columns("Review").must_equal %w(rating content)
+  end
 
   describe "self.models" do
 
-    describe "when whitelist is empty" do
+    before do
+      Rails.application.eager_load!
+    end
 
-      Given { Buttafly.whitelisted_models = %w() }
-      Given(:expected) { ["ExcelSheet", "Review", "User", "Wine", "Winery"]}
+    describe "with empty whitelist and blacklist and" do
+
+      Given { Buttafly.whitelisted_models = [] }
+      Given { Buttafly.blacklisted_models = [] }
+
+      describe "default originable_model configuration" do
+
+        Given { Buttafly.originable_model = "Spreadsheet" }
+
+        describe "leaves Blacklisted and ExcelSheet models targetable" do
+
+          Given(:expected) { %w[Blacklisted ExcelSheet Review User Wine Winery]}
+
+          Then { subject.models.sort.must_equal expected.sort }
+        end
+      end
+
+      describe "with ExcelSheet configured" do
+
+        Given { Buttafly.originable_model = "ExcelSheet" }
+
+        describe "leaves Blacklisted and ExcelSheet models targetable" do
+
+          Given(:expected) { %w[Blacklisted Review User Wine Winery] }
+
+          Then { subject.models.sort.must_equal expected.sort }
+        end
+      end
+    end
+
+    describe "with whitelist of three models" do
+
+      Given { Buttafly.whitelisted_models = %w(wine Winery Review) }
+      Given { Buttafly.blacklisted_models = [] }
+
+      Given(:expected) { [:review, :wine, :winery] }
 
       Then { subject.models.sort.must_equal expected.sort }
     end
 
-    describe "when whitelist has three models" do
+    describe "with whitelist of three models" do
 
-      Given { Buttafly.whitelisted_models = %w(wine winery review) }
-      Given(:expected) { %w(wine winery review)}
+      Given { Buttafly.blacklisted_models = %w(Blacklisted ExcelSheet) }
+      Given { Buttafly.whitelisted_models = [] }
+      Given(:expected) { %w[Review Wine Winery User] }
 
       Then { subject.models.sort.must_equal expected.sort }
     end
@@ -73,13 +108,7 @@ end
 
 
 
-#   # subject { Review }
-#
 #   describe "class methods" do
-#
-#     it "must return true for :targetable?" do
-#       # subject.targetable?.must_equal true
-#     end
 #
 #     # it "#self.targetable_ignored_columns" do
 #     #   assert_equal %w[updated_at created_at id], subject.targetable_ignored_columns
