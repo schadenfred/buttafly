@@ -1,5 +1,5 @@
 Buttafly.setup do |config|
-  config.originable_model = "Spreadsheet"
+  config.originable_model = "Buttafly::Spreadsheet"
 
   ## Buttafly makes assumptions about which models you want to expose to record
   ##   creation, but you can have better control using a whitelist or a

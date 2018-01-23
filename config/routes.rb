@@ -1,7 +1,7 @@
 Buttafly::Engine.routes.draw do
   get 'contents/index'
 
-  resources :contents do
+  resources :spreadsheets, :contents do
     member do
       patch 'archive'
       patch 'import'
@@ -9,5 +9,5 @@ Buttafly::Engine.routes.draw do
     end
   end
 
-  root to: "contents#index"
+  root to: "spreadsheets#index"
 end

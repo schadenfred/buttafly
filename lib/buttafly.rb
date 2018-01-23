@@ -5,7 +5,7 @@ module Buttafly
 
   class << self
     mattr_accessor :originable_model, :whitelisted_models, :blacklisted_models
-    self.originable_model = "Spreadsheet"
+    self.originable_model = "Buttafly::Spreadsheet"
     self.whitelisted_models = []
     self.blacklisted_models = []
   end

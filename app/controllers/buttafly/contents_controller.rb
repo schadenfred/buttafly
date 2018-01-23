@@ -3,26 +3,23 @@ require_dependency "buttafly/application_controller"
 module Buttafly
   class ContentsController < ApplicationController
     before_action :set_content, only: [:show, :edit, :update, :destroy]
+    before_action :set_originable_model, only: [:index]
 
-    # GET /contents
     def index
-      # @contents = Content.all
+      @contents = Buttafly::Spreadsheet.all
+      # @contents = @originable_model.all
     end
 
-    # GET /contents/1
     def show
     end
 
-    # GET /contents/new
     def new
       @content = Content.new
     end
 
-    # GET /contents/1/edit
     def edit
     end
 
-    # POST /contents
     def create
       @content = Content.new(content_params)
 
@@ -33,7 +30,6 @@ module Buttafly
       end
     end
 
-    # PATCH/PUT /contents/1
     def update
       if @content.update(content_params)
         redirect_to @content, notice: 'Content was successfully updated.'
@@ -42,19 +38,20 @@ module Buttafly
       end
     end
 
-    # DELETE /contents/1
     def destroy
       @content.destroy
       redirect_to contents_url, notice: 'Content was successfully destroyed.'
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
       def set_content
         @content = Content.find(params[:id])
       end
 
-      # Only allow a trusted parameter "white list" through.
+      def set_originable_model
+        # @originable_model = Buttafly.originable_model.classify.constantize
+      end
+
       def content_params
         params.fetch(:content, {})
       end
