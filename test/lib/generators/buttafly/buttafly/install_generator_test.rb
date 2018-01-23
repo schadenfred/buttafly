@@ -10,15 +10,12 @@ describe Buttafly::InstallGenerator do
 
   setup :prepare_destination
 
-  setup do
+  def cleanup
     system "git checkout test/dummy/config"
     system "git checkout test/dummy/app/models/excel_sheet.rb"
   end
-  teardown do
-
-    system "git checkout test/dummy/config" 
-    system "git checkout test/dummy/app/models/excel_sheet.rb"
-  end
+  setup { cleanup }
+  teardown { cleanup }
 
   describe "sanity" do
 

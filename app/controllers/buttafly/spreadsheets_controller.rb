@@ -5,7 +5,7 @@ module Buttafly
     before_action :set_spreadsheet, only: [:show, :edit, :update, :destroy]
 
     def index
-      
+
       @spreadsheets = Buttafly::Spreadsheet.all
     end
 
@@ -13,7 +13,7 @@ module Buttafly
     end
 
     def new
-      @spreadsheet = Spreadsheet.new
+      @spreadsheet = Buttafly::Spreadsheet.new
     end
 
     def edit

@@ -3,10 +3,24 @@
 %table
   %thead
     %tr
+      %th Name
+      %th Flat file
+      %th Aasm state
+      %th Uploader
+      %th Imported at
+      %th Processed at
+      %th Mtime
       %th{:colspan => "3"}
   %tbody
     - @spreadsheets.each do |spreadsheet|
       %tr
+        %td= spreadsheet.name
+        %td= spreadsheet.flat_file
+        %td= spreadsheet.aasm_state
+        %td= spreadsheet.uploader_id
+        %td= spreadsheet.imported_at
+        %td= spreadsheet.processed_at
+        %td= spreadsheet.mtime
         %td= link_to 'Show', spreadsheet
         %td= link_to 'Edit', edit_spreadsheet_path(spreadsheet)
         %td= link_to 'Destroy', spreadsheet, method: :delete, data: { confirm: 'Are you sure?' }
