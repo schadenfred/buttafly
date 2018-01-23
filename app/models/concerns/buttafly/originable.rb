@@ -12,6 +12,10 @@ module Buttafly
 
     included do
 
+      mount_uploader :flat_file, Buttafly::FlatFileUploader
+      serialize :avatars, JSON
+
+
       has_many :mappings
       has_many :legends, through: :mappings
     end

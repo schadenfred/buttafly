@@ -4,7 +4,7 @@
   %thead
     %tr
       %th Name
-      %th Flat file
+      %th Created at
       %th Aasm state
       %th Uploader
       %th Imported at
@@ -15,7 +15,7 @@
     - @spreadsheets.each do |spreadsheet|
       %tr
         %td= spreadsheet.name
-        %td= spreadsheet.flat_file
+        %td= time_ago_in_words(spreadsheet.updated_at) + " ago"
         %td= spreadsheet.aasm_state
         %td= spreadsheet.uploader_id
         %td= spreadsheet.imported_at

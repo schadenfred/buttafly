@@ -1,5 +1,12 @@
-%h1 Editing Spreadsheet
-= render 'form', spreadsheet: @spreadsheet
-= link_to 'Show', @spreadsheet
-|
--# = link_to 'Back', spreadsheets_path
+= form_with(model: spreadsheet, local: true) do |form|
+  - if spreadsheet.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(spreadsheet.errors.count, "error")
+        prohibited this spreadsheet from being saved:
+      %ul
+        - spreadsheet.errors.full_messages.each do |message|
+          %li= message
+  = form.file_field :avatars, multiple: true 
+  .actions
+    = form.submit

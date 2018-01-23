@@ -1,6 +1,8 @@
 require "buttafly/engine"
 
 module Buttafly
+  require 'carrierwave'
+
   require 'haml-rails'
 
   class << self
