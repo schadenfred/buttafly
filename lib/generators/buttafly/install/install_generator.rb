@@ -7,7 +7,7 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
     file = dummy("config/initializers/buttafly.rb")
     code = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
     after = "class Application < Rails::Application"
-    gsub_file file, "Spreadsheet", originable_model.to_s.classify
+    gsub_file file, "Buttafly::Spreadsheet", originable_model.to_s.classify
   end
 
   def copy_routes_to_host
@@ -55,6 +55,7 @@ private
   end
 
   def pretty_file_insert(file, code, after)
+
     insert_into_file dummy(file), newline(code), after: after
   end
 end
