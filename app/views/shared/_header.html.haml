@@ -5,11 +5,9 @@
   #navbarSupportedContent.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
       %li.nav-item.active
-
-        = link_to "#{Rails.application.class.parent.name}", main_app.root_url, class: "nav-link" 
+        = link_to main_app_name, main_app.root_url, class: "nav-link" 
         %a.nav-link{:href => "#"}
           Home
-          %span.sr-only (current)
       %li.nav-item
         %a.nav-link{:href => "#"} Link
       %li.nav-item

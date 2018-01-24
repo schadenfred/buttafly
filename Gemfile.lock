@@ -1,14 +1,9 @@
-GIT
-  remote: https://github.com/helios-technologies/skeleton-rails
-  revision: 6e46649d29006643b33c95b82bc9d0e28df2f8cc
-  specs:
-    skeleton-rails (1.1.0)
-
 PATH
   remote: .
   specs:
     buttafly (0.1.0)
       aasm
+      bootstrap (~> 4.0.0)
       carrierwave
       haml-rails
       jquery-rails
@@ -60,12 +55,18 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
+    autoprefixer-rails (7.2.5)
+      execjs
     better_errors (2.4.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     binding_of_caller (0.7.3)
       debug_inspector (>= 0.0.1)
+    bootstrap (4.0.0)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.9, < 2)
+      sass (>= 3.5.2)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.17.0)
@@ -90,6 +91,7 @@ GEM
     erubi (1.7.0)
     erubis (2.7.0)
     eventmachine (1.2.5)
+    execjs (2.7.0)
     ffi (1.9.18)
     formatador (0.2.5)
     given_core (3.8.0)
@@ -191,6 +193,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    popper_js (1.12.9)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -231,6 +234,11 @@ GEM
     ruby_dep (1.5.0)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
+    sass (3.5.5)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sexp_processor (4.10.0)
     shellany (0.0.1)
     sorcerer (1.0.2)
@@ -272,7 +280,6 @@ DEPENDENCIES
   minitest-rails-capybara
   puma
   rack-livereload
-  skeleton-rails!
   sqlite3
 
 BUNDLED WITH

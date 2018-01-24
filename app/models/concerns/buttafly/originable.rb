@@ -18,6 +18,8 @@ module Buttafly
 
       has_many :mappings
       has_many :legends, through: :mappings
+
+
     end
   end
 end

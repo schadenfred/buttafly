@@ -5,7 +5,6 @@ source 'https://rubygems.org'
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem "skeleton-rails", :git => 'https://github.com/helios-technologies/skeleton-rails'
 
 
 # Declare any dependencies that are still in development here instead of in

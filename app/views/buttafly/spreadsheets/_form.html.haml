@@ -7,6 +7,11 @@
       %ul
         - spreadsheet.errors.full_messages.each do |message|
           %li= message
-  = form.file_field :avatars, multiple: true 
+
+  .field
+    = form.label :name
+    = form.text_field :name
+  .field
+    = form.file_field :flat_file
   .actions
     = form.submit

@@ -14,7 +14,7 @@
   %tbody
     - @spreadsheets.each do |spreadsheet|
       %tr
-        %td= spreadsheet.name
+        %td= spreadsheet.name.blank? ? spreadsheet.flat_file.to_s.split("/").last : spreadsheet.name
         %td= time_ago_in_words(spreadsheet.updated_at) + " ago"
         %td= spreadsheet.aasm_state
         %td= spreadsheet.uploader_id

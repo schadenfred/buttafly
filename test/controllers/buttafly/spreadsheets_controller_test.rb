@@ -23,7 +23,7 @@ module Buttafly
         post spreadsheets_url, params: { spreadsheet: { name: @spreadsheet.name } }
       end
 
-      assert_redirected_to spreadsheet_url(Spreadsheet.last)
+      assert_redirected_to root_url
     end
 
     test "should show spreadsheet" do

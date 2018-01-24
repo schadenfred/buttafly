@@ -21,7 +21,7 @@ module Buttafly
     def create
       @spreadsheet = Spreadsheet.new(spreadsheet_params)
       if @spreadsheet.save
-        redirect_to @spreadsheet, notice: 'Spreadsheet was successfully created.'
+        redirect_to root_url, notice: 'Spreadsheet was successfully created.'
       else
         render :new
       end
@@ -42,12 +42,12 @@ module Buttafly
 
     private
       def set_spreadsheet
-        
+
         @spreadsheet = Spreadsheet.find(params[:id])
       end
 
       def spreadsheet_params
-        params.require(:spreadsheet).permit(:name, :flat_file, :aasm_state, :uploader_id, :imported_at, :processed_at, :mtime)
+        params.fetch(:spreadsheet, {}).permit(:name, :flat_file, :aasm_state, :uploader_id, :imported_at, :processed_at, :mtime)
       end
   end
 end
