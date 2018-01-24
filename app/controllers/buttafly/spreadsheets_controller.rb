@@ -21,7 +21,7 @@ module Buttafly
 
     def create
       @spreadsheet = Spreadsheet.new(spreadsheet_params)
-
+byebug
       if @spreadsheet.save
         redirect_to @spreadsheet, notice: 'Spreadsheet was successfully created.'
       else

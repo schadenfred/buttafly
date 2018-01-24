@@ -19,5 +19,4 @@ module Buttafly
   def self.setup(&block)
     yield self
   end
-
 end

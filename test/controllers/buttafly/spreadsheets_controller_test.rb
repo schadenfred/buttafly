@@ -13,19 +13,20 @@ module Buttafly
       assert_response :success
     end
 
-    # test "should get new" do
-    #   get new_spreadsheet_url
-    #   assert_response :success
-    # end
-    #
-    # test "should create spreadsheet" do
-    #   assert_difference('Spreadsheet.count') do
-    #     post spreadsheets_url, params: { spreadsheet: {  } }
-    #   end
-    #
-    #   assert_redirected_to spreadsheet_url(Spreadsheet.last)
-    # end
-    #
+    test "should get new" do
+      get new_spreadsheet_url
+      assert_response :success
+    end
+
+    test "should create spreadsheet" do
+      assert_difference('Spreadsheet.count') do
+        byebug
+        post spreadsheets_url, params: { spreadsheet: { name: @spreadsheet.name } }
+      end
+
+      # assert_redirected_to spreadsheet_url(Spreadsheet.last)
+    end
+
     # test "should show spreadsheet" do
     #   get spreadsheet_url(@spreadsheet)
     #   assert_response :success
