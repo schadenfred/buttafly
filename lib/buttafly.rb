@@ -5,6 +5,7 @@ module Buttafly
   require 'jquery-rails'
   require 'bootstrap'
   require 'haml-rails'
+  require 'aasm'
 
   class << self
     mattr_accessor :originable_model, :whitelisted_models, :blacklisted_models,

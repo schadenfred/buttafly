@@ -1,5 +1,6 @@
-%p#notice= notice
-%h2= @spreadsheet.name
+.card
+  .card-body
+    = @spreadsheet.name
 %br= link_to 'select legend'
 %br= link_to 'create new legend'
 %hr= link_to 'Edit', edit_spreadsheet_path(@spreadsheet)
