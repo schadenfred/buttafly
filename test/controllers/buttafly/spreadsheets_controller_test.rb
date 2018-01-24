@@ -5,7 +5,7 @@ module Buttafly
     include Engine.routes.url_helpers
 
     setup do
-      # @spreadsheet = spreadsheets(:one)
+      @spreadsheet = buttafly_spreadsheets(:one)
     end
 
     test "should get index" do
