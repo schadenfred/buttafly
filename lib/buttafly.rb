@@ -2,7 +2,7 @@ require "buttafly/engine"
 
 module Buttafly
   require 'carrierwave'
-
+  require 'jquery-rails'
   require 'haml-rails'
 
   class << self

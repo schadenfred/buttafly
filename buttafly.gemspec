@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "aasm"
   s.add_dependency "carrierwave"
   s.add_dependency "kaminari"
+  s.add_dependency "jquery-rails"
 
 
   # development & testing

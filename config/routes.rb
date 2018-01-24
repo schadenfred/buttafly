@@ -1,5 +1,5 @@
 Buttafly::Engine.routes.draw do
-  get 'contents/index'
+  # get 'contents/index'
 
   resources :spreadsheets, :contents do
     member do

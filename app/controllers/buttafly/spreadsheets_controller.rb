@@ -42,6 +42,7 @@ module Buttafly
 
     private
       def set_spreadsheet
+        
         @spreadsheet = Spreadsheet.find(params[:id])
       end
 
