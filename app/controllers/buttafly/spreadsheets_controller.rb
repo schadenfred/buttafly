@@ -5,7 +5,6 @@ module Buttafly
     before_action :set_spreadsheet, only: [:show, :edit, :update, :destroy]
 
     def index
-
       @spreadsheets = Buttafly::Spreadsheet.all
     end
 
@@ -21,7 +20,6 @@ module Buttafly
 
     def create
       @spreadsheet = Spreadsheet.new(spreadsheet_params)
-byebug
       if @spreadsheet.save
         redirect_to @spreadsheet, notice: 'Spreadsheet was successfully created.'
       else
