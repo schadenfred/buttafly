@@ -1,3 +1,4 @@
+
 = form_with(model: spreadsheet, local: true) do |form|
   - if spreadsheet.errors.any?
     #error_explanation
@@ -8,10 +9,10 @@
         - spreadsheet.errors.full_messages.each do |message|
           %li= message
 
-  .field
+  .form-group
     = form.label :name
-    = form.text_field :name
-  .field
-    = form.file_field :flat_file
-  .actions
-    = form.submit
+    = form.text_field :name, class: "form-control"
+    %small#emailHelp.form-text.text-muted
+  .form-group
+    = form.file_field :flat_file, class: "form-control-file"
+  = form.submit class: "btn btn-primary"

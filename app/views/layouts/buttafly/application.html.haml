@@ -7,7 +7,8 @@
     = javascript_include_tag "buttafly/application"
     = csrf_meta_tags
   %body
-    .container
+    .container-fluid
       = render "shared/header"
       %br
-      = yield
+      .container-fluid
+        = yield

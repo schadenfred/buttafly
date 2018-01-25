@@ -27,4 +27,12 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+Rake::TestTask.new(:test_slow) do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/lib/generators/buttafly/buttafly/install_generator_test_slow.rb']
+
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
+end
+
 task default: :test

@@ -12,7 +12,7 @@ module FileManipulationHelpers
   end
 
   def remove_file_for_testing(file)
-    if File.exists?(dummy(file))
+    if File.exist?(dummy(file))
       FileUtils.rm dummy(file)
     end
   end

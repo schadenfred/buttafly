@@ -19,11 +19,16 @@ module Buttafly
       include AASM
 
       mount_uploader :flat_file, Buttafly::FlatFileUploader
-      serialize :avatars, JSON
 
+      serialize :avatars, JSON
 
       has_many :mappings
       has_many :legends, through: :mappings
+
+      def originable_headers
+        data = CSV.read(flat_file.path)
+        data.first
+      end
     end
   end
 end
