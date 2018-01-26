@@ -21,6 +21,6 @@
         %td= spreadsheet.processed_at
         %td= link_to 'Show', spreadsheet
         %td= link_to 'Edit', edit_spreadsheet_path(spreadsheet)
-        %td= link_to 'Destroy', spreadsheet, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= button_to 'Destroy', spreadsheet, method: :delete, data: { confirm: 'Are you sure?' }
 %br/
 = link_to 'New Spreadsheet', new_spreadsheet_path

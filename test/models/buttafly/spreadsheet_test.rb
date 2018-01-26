@@ -32,11 +32,21 @@ describe Buttafly::Spreadsheet do
     Then { subject.originable?.must_equal true}
   end
 
-  it "#originable_headers must return correct headers" do
-    skip
-    @spreadsheet = buttafly_spreadsheets(:one)
-    headers = @spreadsheet.name
-    headers.must_equal %w[wine winery vintage review rating]
+  describe "has a flat_file of some kind stored" do
+    Given(:spreadsheet) { buttafly_spreadsheets(:spreadsheet_with_flat_file) }
+    Then { assert File.exists?(spreadsheet.flat_file.file.path) }
   end
 
+  # test "uploads an avatar" do
+  #   user = User.create!(:avatar, fixture_file_upload('/files/tapir.jpg', 'image/jpg'))
+  #   assert(File.exists?(user.reload.avatar.file.path))
+  # end
+
+  it "#originable_headers must return correct headers" do
+    # post :change_avatar, avatar: fixture_file_upload('files/spongebob.png', 'image/png')
+
+    # @spreadsheet = buttafly_spreadsheets(:one)
+    # headers = @spreadsheet.originable_headers
+    # headers.must_equal %w[wine winery vintage review rating]
+  end
 end
