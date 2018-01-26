@@ -25,7 +25,8 @@ module Buttafly
       has_many :mappings, as: :originable
       has_many :legends, through: :mappings
 
-      def originable_headers
+      def originable_headers(file=flat_file)
+
         data = CSV.read(flat_file.path)
         data.first
       end

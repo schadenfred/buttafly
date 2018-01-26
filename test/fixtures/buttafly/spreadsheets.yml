@@ -2,11 +2,11 @@
 
 one:
   name: MyString
-  flat_file: MyString
+  flat_file: reviews.csv
   aasm_state: MyString
   uploader_id: 1
   imported_at: 2018-01-05 19:19:13
-  processed_at: 
+  processed_at:
   mtime: 1
 
 two:
@@ -15,5 +15,5 @@ two:
   aasm_state: MyString
   uploader_id: 1
   imported_at: 2018-01-05 19:19:13
-  processed_at: 
+  processed_at:
   mtime: 1
