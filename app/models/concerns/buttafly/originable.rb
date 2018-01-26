@@ -22,7 +22,7 @@ module Buttafly
 
       serialize :avatars, JSON
 
-      has_many :mappings
+      has_many :mappings, as: :originable
       has_many :legends, through: :mappings
 
       def originable_headers

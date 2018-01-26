@@ -31,4 +31,12 @@ describe Buttafly::Spreadsheet do
 
     Then { subject.originable?.must_equal true}
   end
+
+  it "#originable_headers must return correct headers" do
+    skip
+    @spreadsheet = buttafly_spreadsheets(:one)
+    headers = @spreadsheet.name
+    headers.must_equal %w[wine winery vintage review rating]
+  end
+
 end
