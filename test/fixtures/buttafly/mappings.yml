@@ -2,8 +2,7 @@
 
 one:
   legend_id: 1
-  originable_id: 1
-  originable_type: MyString
+  originable: review_with_mapping (Buttafly::Spreadsheet)
 
 two:
   legend_id: 1

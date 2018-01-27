@@ -27,26 +27,114 @@ describe Buttafly::Spreadsheet do
     end
   end
 
-  describe "originable? must be true" do
+  describe "Originable" do
+    Given(:sheet) { Buttafly::Spreadsheet.new }
+    Given { sheet.flat_file = File.open('test/samples/reviews.csv') }
 
-    Then { subject.originable?.must_equal true}
-  end
+    describe "has a flat_file of some kind stored" do
 
-  describe "has a flat_file of some kind stored" do
-    Given(:spreadsheet) { buttafly_spreadsheets(:spreadsheet_with_flat_file) }
-    Then { assert File.exists?(spreadsheet.flat_file.file.path) }
-  end
+      Then { assert File.exists?(sheet.flat_file.file.path) }
+    end
 
-  # test "uploads an avatar" do
-  #   user = User.create!(:avatar, fixture_file_upload('/files/tapir.jpg', 'image/jpg'))
-  #   assert(File.exists?(user.reload.avatar.file.path))
-  # end
+    describe "#originable_headers(file_location) must return correct headers" do
 
-  it "#originable_headers must return correct headers" do
-    # post :change_avatar, avatar: fixture_file_upload('files/spongebob.png', 'image/png')
+      Given(:headers) { sheet.originable_headers }
 
-    # @spreadsheet = buttafly_spreadsheets(:one)
-    # headers = @spreadsheet.originable_headers
-    # headers.must_equal %w[wine winery vintage review rating]
+      Then { headers.must_equal %w[wine winery vintage review rating] }
+    end
+
+    describe "states" do
+
+      describe "initial must be :uploaded" do
+
+        Then { sheet.uploaded?.must_equal true }
+      end
+
+      describe "permissions for" do
+
+        Given(:spreadsheet) { subject.new }
+
+        describe ":uploaded" do
+
+          # Then { spreadsheet.may_map?.must_equal true }
+          # And { spreadsheet.may_import?.must_equal false }
+          # And { spreadsheet.may_archive?.must_equal true }
+        end
+
+        describe ":mapped" do
+
+          # Given { spreadsheet.aasm_state = "mapped"}
+          #
+          # Then { spreadsheet.may_map?.must_equal true }
+          # And { spreadsheet.may_import?.must_equal true }
+          # And { spreadsheet.may_archive?.must_equal true }
+        end
+
+        describe ":imported" do
+
+          # Given { spreadsheet.aasm_state = "imported"}
+
+          # Then { spreadsheet.may_map?.must_equal true }
+          # And { spreadsheet.may_import?.must_equal true }
+          # And { spreadsheet.may_archive?.must_equal true }
+        end
+
+        describe "#transmogrify!" do
+
+
+          # let(:file) { FactoryGirl.create(:originable) }
+          describe ":create_records" do
+
+            it "without parents" do
+      skip
+      file.mappings.create(FactoryGirl.attributes_for(
+                :mapping_without_parents))
+              file.create_records!
+              Winery.count.must_equal 5
+            end
+
+            it "with one parent" do
+  skip
+              file.mappings.create(FactoryGirl.attributes_for(:mapping_with_parent))
+              file.create_records!
+              # Winery.count.must_equal 5
+              Wine.count.must_equal 5
+            end
+          end
+
+          describe "must create" do
+
+            it "target objects" do
+  skip
+              file.transmogrify!
+              Review.count.must_equal 1
+            end
+
+            it "parent_objects" do
+skip
+            end
+          end
+        end
+
+        describe "#import!" do
+
+          # let(:file) { create(:uploaded_file) }
+
+  #         it "#convert_data_to_json!" do
+  #           file.convert_data_to_json!
+  #           file.data.first["child name"].must_equal "ella mac"
+  #           file.data.first["parent name"].must_equal "sara"
+  #           file.data.first["grandparent name"].must_equal "kc shekhar"
+  #         end
+
+  #         it "must populate data column with json" do
+  #           file.import!
+  #           file.data.first.wont_equal nil
+  #           file.data.size.must_equal 2
+  #           file.aasm_state.must_equal "imported"
+  #         end
+        end
+      end
+    end
   end
 end

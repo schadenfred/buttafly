@@ -1,16 +1,23 @@
 .card
   .card-body
-    = @spreadsheet.name
-    = link_to 'create new legend'
+    .card
+      %h3
+        Name:
+        = @spreadsheet.name.blank? ? "no name supplied" : @spreadsheet.name
+    .card
+      %span.badge.badge-dark= @spreadsheet.aasm_state
+    .card
+      Headers:
+      = @spreadsheet.originable_headers.join(" | ")
     = link_to 'Edit', edit_spreadsheet_path(@spreadsheet)
     |
     = link_to 'Back', spreadsheets_path
 
     %p
       %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample", :role => "button"}
-        'select legend'
-      %button.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#collapseExample", "data-toggle" => "collapse", :type => "button"}
-        Button with data-target
+        Create a new legend with headers from this spreadsheet
+      %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample", :role => "button"}
+        selected existing legend
 #collapseExample.collapse
   .card.card-body
     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.

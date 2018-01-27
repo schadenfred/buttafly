@@ -5,7 +5,7 @@ module Buttafly
     include Engine.routes.url_helpers
 
     setup do
-      @spreadsheet = buttafly_spreadsheets(:one)
+      @spreadsheet = buttafly_spreadsheets(:review)
     end
 
     test "should get index" do
@@ -38,10 +38,11 @@ module Buttafly
 
     test "should update spreadsheet" do
       patch spreadsheet_url(@spreadsheet), params: { spreadsheet: { name: "newname" } }
-      assert_redirected_to spreadsheet_url(@spreadsheet)
+      assert_response 302
     end
 
     test "should destroy spreadsheet" do
+      @spreadsheet = Spreadsheet.create(flat_file: Rails.root.join('test/samples/reviews.csv'))
       assert_difference('Spreadsheet.count', -1) do
         delete spreadsheet_url(@spreadsheet)
       end

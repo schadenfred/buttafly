@@ -1,26 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-spreadsheet_with_flat_file:
-  name: MyString
+review:
+  name: review
   flat_file: reviews.csv
-  aasm_state: MyString
-  uploader_id: 1
-  imported_at: 2018-01-05 19:19:13
-  processed_at:
-  mtime: 1
-
-one:
-  name: MyString
-  flat_file: reviews.csv
-  aasm_state: MyString
-  uploader_id: 1
-  imported_at: 2018-01-05 19:19:13
-  processed_at:
-  mtime: 1
-
-two:
-  name: MyString
-  flat_file: MyString
-  aasm_state: MyString
+  aasm_state:
   uploader_id: 1
   imported_at: 2018-01-05 19:19:13
   processed_at:

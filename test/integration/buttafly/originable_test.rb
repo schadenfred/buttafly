@@ -6,6 +6,7 @@ describe Buttafly::Originable do
 
     Given { Buttafly.setup { |c| c.originable_model = "Buttafly::Spreadsheet" } }
     Then { Buttafly.originable_model.must_equal "Buttafly::Spreadsheet" }
+    And { Buttafly::Spreadsheet.originable?.must_equal true}
   end
 
   describe "specified as spreadsheet is titleized" do
