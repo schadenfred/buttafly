@@ -56,31 +56,32 @@ describe Buttafly::Spreadsheet do
 
         describe ":uploaded" do
 
-          # Then { spreadsheet.may_map?.must_equal true }
-          # And { spreadsheet.may_import?.must_equal false }
-          # And { spreadsheet.may_archive?.must_equal true }
+          Given { spreadsheet.aasm_state = "uploaded" }
+
+          Then { spreadsheet.may_map?.must_equal true }
+          And { spreadsheet.may_import?.must_equal false }
+          And { spreadsheet.may_archive?.must_equal true }
         end
 
         describe ":mapped" do
 
-          # Given { spreadsheet.aasm_state = "mapped"}
-          #
-          # Then { spreadsheet.may_map?.must_equal true }
-          # And { spreadsheet.may_import?.must_equal true }
-          # And { spreadsheet.may_archive?.must_equal true }
+          Given { spreadsheet.aasm_state = "mapped"}
+
+          Then { spreadsheet.may_map?.must_equal true }
+          And { spreadsheet.may_import?.must_equal true }
+          And { spreadsheet.may_archive?.must_equal true }
         end
 
         describe ":imported" do
 
-          # Given { spreadsheet.aasm_state = "imported"}
+          Given { spreadsheet.aasm_state = "imported"}
 
-          # Then { spreadsheet.may_map?.must_equal true }
-          # And { spreadsheet.may_import?.must_equal true }
-          # And { spreadsheet.may_archive?.must_equal true }
+          Then { spreadsheet.may_map?.must_equal true }
+          And { spreadsheet.may_import?.must_equal false }
+          And { spreadsheet.may_archive?.must_equal true }
         end
 
         describe "#transmogrify!" do
-
 
           # let(:file) { FactoryGirl.create(:originable) }
           describe ":create_records" do
