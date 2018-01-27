@@ -6,7 +6,7 @@ Buttafly.setup do |config|
   ##   blacklist -- but not both. If you choose the whitelist, only models you
   ##   put into the array below will be exposed:
 
-  # config.whitelisted_models = []
+  config.whitelisted_models = ["wine", "winery", "review", "user"]
 
   ## Inverse to the the whitelist is the blacklist. If you choose the blacklist,
   ##   models you put into the array below will be added to the list of models

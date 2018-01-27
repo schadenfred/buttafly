@@ -20,4 +20,12 @@
         selected existing legend
 #collapseExample.collapse
   .card.card-body
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    = form_with url: new_spreadsheet_mapping_path(@spreadsheet) do |f|
+      = f.select("targetable_model", Buttafly::Targetable.models, {include_blank: true})
+
+    -# select("post", "person_id", Person.all.collect {|p| [ p.name, p.id ] }, {include_blank: 'None'})
+
+    -# = form_with(model: [@spreadsheet, Mapping.new] ) do |f|
+    -#   f.select :targetable_model
+
+    -# = form.submit class: "btn btn-primary"

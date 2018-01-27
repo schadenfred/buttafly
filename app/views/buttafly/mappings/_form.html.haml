@@ -1,0 +1,10 @@
+= form_for @mapping do |f|
+  - if @mapping.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@mapping.errors.count, "error")} prohibited this mapping from being saved:"
+      %ul
+        - @mapping.errors.full_messages.each do |message|
+          %li= message
+
+  .actions
+    = f.submit 'Save'
