@@ -13,7 +13,7 @@ module Buttafly
 
     def new
       @spreadsheet = Buttafly::Spreadsheet.find(params[:spreadsheet_id])
-      @mapping = @spreadsheet.mappings.create
+      @mapping = @spreadsheet.mappings.new
       @targetable_model = mapping_params["targetable_model"]
     end
 
@@ -21,11 +21,12 @@ module Buttafly
     end
 
     def create
-      byebug
-      @mapping = Mapping.new(mapping_params)
 
+      @spreadsheet = Spreadsheet.find(params[:spreadsheet_id])
+      @mapping = @spreadsheet.legends.new(data: mapping_params["legend"]["data"])
       if @mapping.save
-        redirect_to @mapping, notice: 'Mapping was successfully created.'
+
+        redirect_to @spreadsheet, notice: 'Mapping was successfully created.'
       else
         render :new
       end
@@ -46,11 +47,12 @@ module Buttafly
 
     private
       def set_mapping
+
         @mapping = Mapping.find(params[:id])
       end
 
       def mapping_params
-        params.permit!
-      end
+        params.require(:mapping).permit!
+       end
   end
 end

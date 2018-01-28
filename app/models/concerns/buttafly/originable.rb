@@ -21,7 +21,7 @@ module Buttafly
       serialize :avatars, JSON
 
       has_many :mappings, as: :originable
-      has_many :legends, through: :mappings
+      has_many :legends, through: :mappings, as: :originable
 
       accepts_nested_attributes_for :legends
 

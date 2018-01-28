@@ -17,4 +17,16 @@ describe ExcelSheet do
 
     Then { subject.originable?.must_equal true}
   end
+
+  specify "has many :legends, through: :mappings" do
+skip
+    spreadsheet = excel_sheets(:review)
+    spreadsheet.mappings.must_include buttafly_mappings(:twoone)
+    spreadsheet.legends.must_include buttafly_legends(:one)
+  end
+
+
+
+
+
 end

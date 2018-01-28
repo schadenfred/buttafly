@@ -27,6 +27,12 @@ describe Buttafly::Spreadsheet do
     end
   end
 
+  specify "has many :legends, through: :mappings" do
+    spreadsheet = buttafly_spreadsheets(:review)
+    spreadsheet.mappings.must_include buttafly_mappings(:one)
+    spreadsheet.legends.must_include buttafly_legends(:one)
+  end
+
   describe "Originable" do
     Given(:sheet) { Buttafly::Spreadsheet.new }
     Given { sheet.flat_file = File.open('test/samples/reviews.csv') }

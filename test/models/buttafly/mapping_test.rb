@@ -24,4 +24,11 @@ describe Buttafly::Mapping do
       must_belong_to(:originable)
     end
   end
+
+  specify "can belong to a spreadsheet through polymorphism" do
+    mapping = buttafly_mappings(:one)
+    mapping.originable.class.name.must_equal "Buttafly::Spreadsheet"
+    mapping.legend.class.name.must_equal "Buttafly::Legend"
+
+  end
 end
