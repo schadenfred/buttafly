@@ -61,6 +61,15 @@ module Buttafly
       ancestors
     end
 
+    def self.dancestors_of(model, ancestors=[])
+      klassify(model).reflect_on_all_associations(:belongs_to).each do |parent|
+        class_name = parent.options.empty? ? parent.name : parent.options[:class_name].downcase.to_sym
+
+        ancestors << { parent.name => { class_name => ancestors_of(class_name)} }
+      end
+      ancestors
+    end
+
     def targetable_order(parent=nil)
       ancestors = Hash.new
       targetable_parents(parent).each do |p|
@@ -70,7 +79,7 @@ module Buttafly
     end
 
     def self.targetable_columns(model)
-      cols = (model.classify.constantize.column_names - %w[updated_at created_at id])
+      cols = (model.to_s.classify.constantize.column_names - %w[updated_at created_at id])
       cols.reject! { |col| col.split('_').last.match? /\id/ }
       cols
     end

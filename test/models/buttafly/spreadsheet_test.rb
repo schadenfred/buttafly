@@ -39,8 +39,11 @@ describe Buttafly::Spreadsheet do
     describe "#originable_headers(file_location) must return correct headers" do
 
       Given(:headers) { sheet.originable_headers }
+      Given(:expected) do ["wine name", "winemaker name", "winery name",
+        "vintage", "review content", "rating", "winery owner", "reviewer name"]
+      end
 
-      Then { headers.must_equal %w[wine winery vintage review rating] }
+      Then { headers.must_equal expected }
     end
 
     describe "states" do

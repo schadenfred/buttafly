@@ -1,5 +1,20 @@
-%h1 New mapping
-
-= render 'form'
-
-= link_to 'Back', mappings_path
+%h1
+  New legend for mapping rows from
+  = @spreadsheet.flat_file.file.path.split("/").last
+  into the
+  .badge.badge-dark
+    = @targetable_model
+  model of
+  = main_app_name
+%h3
+  Originable
+  = Buttafly.originable_model
+- ancestors = Buttafly::Targetable.ancestors_of(@targetable_model)
+%hr
+= form_with url: spreadsheet_mappings_path(@spreadsheet) do |f|
+  = f.fields_for :legend, @spreadsheet.legends.new do |f|
+    = f.fields_for :data do |f|
+      -# = render partial: "mapping", locals: {f: f, a: @targetable_model, m: @targetable_model, ancestors: ancestors, i: i=0 }
+      = render partial: "mapping", locals: {f: f, a: ancestors, m: m=@targetable_model, i: i=1}
+  %br
+  = f.submit "Create legend", class: "btn btn-primary btn-block"

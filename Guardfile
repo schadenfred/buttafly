@@ -17,10 +17,10 @@ guard :minitest do
   watch(%r{^lib/(.+)\.rb$})                               { |m| "test/lib/#{m[1]}_test.rb" }
   watch(%r{^lib/buttafly.rb$})                            { 'test' }
   watch(%r{^test/.+_test\.rb$})
-  watch(%r{^test/test_helper\.rb$})                       { 'test' }
-  watch(%r{^test/support/(.+)$})                          { 'test' }
+  # watch(%r{^test/test_helper\.rb$})                       { 'test' }
+  # watch(%r{^test/support/(.+)$})                          { 'test' }
   watch(%r{^test/features/*\.rb$})
   watch(%r{^app/views/(.+)\.haml$})                          { 'test' }
-  watch(%r{^lib/generators/(.+).rb$})                     { "test/lib/generators/" }
+  # watch(%r{^lib/generators/(.+).rb$})                     { "test/lib/generators/" }
   # watch(%r{^lib/generators/buttafly/install/install_generator.rb$}) { |m| "test/lib/generators/buttafly/buttafly/install_generator_test.rb" }
 end

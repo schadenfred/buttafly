@@ -49,7 +49,5 @@ module Buttafly
         data.first
       end
     end
-
-
   end
 end

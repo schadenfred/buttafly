@@ -1,6 +1,6 @@
 Buttafly::Engine.routes.draw do
 
-  resources :spreadsheets, :contents do
+  resources :spreadsheets do
     resources :mappings
     member do
       patch 'archive'

@@ -1,0 +1,10 @@
+.row
+  -# .badge.badge-dark
+  = "#{a.to_s} (#{m.to_s}) attributes:"
+.row
+  - Buttafly::Targetable.targetable_columns(m).each do |col|
+    .row
+      .form-group
+        = f.label col
+        -# = f.text_field col
+        = f.select(col, @spreadsheet.originable_headers, {include_blank: true}, class: "custom-select custom-select-sm")

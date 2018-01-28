@@ -20,9 +20,9 @@
         selected existing legend
 #collapseExample.collapse
   .card.card-body
-    = form_with url: new_spreadsheet_mapping_path(@spreadsheet) do |f|
-      = f.select("targetable_model", Buttafly::Targetable.models, {include_blank: true})
-
+    = form_with url: new_spreadsheet_mapping_path(@spreadsheet), method: :get do |f|
+      = f.select("targetable_model", Buttafly::Targetable.models)
+      = f.submit
     -# select("post", "person_id", Person.all.collect {|p| [ p.name, p.id ] }, {include_blank: 'None'})
 
     -# = form_with(model: [@spreadsheet, Mapping.new] ) do |f|

@@ -1,0 +1,37 @@
+.row
+  .div{class: "col-sm-#{i}"}
+  .div{class: "col-sm-#{12 - i}"}
+
+    %br
+    -
+    - Buttafly::Targetable.targetable_columns(m).each do |col|
+      .form-group
+        -# - model = "#{a} (#{m}) attributes:"
+        - model = "(#{m}) attributes:"
+        = f.label col, "#{[model, col].join(" => ")}"
+        = f.select(col, @spreadsheet.originable_headers, {include_blank: true}, class: "custom-select custom-select-sm")
+-#
+-#     - ancestors.each do |ancestor|
+-#       - ancestor.each do |k,v|
+-#         %hr
+-#
+-#         = "k: " + k.to_s
+-#         |
+-#         -# - v == v.nil? ? "nil" : v.to_s
+-#         = "v: "
+-#         = v.nil? ? "nil" : v
+-#         |
+-#         - unless v.nil?
+-#           -# = ancestor
+-#           = render partial: "mapping", locals: {f: f, a: k, m: v.first.first, ancestors: ancestor, i: i+1 }
+-#
+-#         -# = "#{k} (#{v.first.first}) attributes:"
+-#         -# = f.fields_for v.first.first.to_sym do |dv|
+-#         -#
+-#         -#   - Buttafly::Targetable.targetable_columns(v.first.first.to_s).each do |col|
+-#         -#     .col-sm
+-#         -#       = col
+-#         -#       = dv.select(col, @spreadsheet.originable_headers, {include_blank: true}, class: "custom-select custom-select-sm")
+-#         -#
+-#         -#   -# = render partial: "targetable_fields", locals: { f: f, a: v, m: v.first.first.to_s}
+-#         -#   -# = render partial: "mapping", locals: { f: f, ancestors: v.values.first }
