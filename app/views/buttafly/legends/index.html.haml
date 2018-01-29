@@ -1,0 +1,19 @@
+%h1 Listing legends
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @legends.each do |legend|
+      %tr
+        %td= link_to 'Show', legend
+        %td= link_to 'Edit', edit_legend_path(legend)
+        %td= link_to 'Destroy', legend, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Legend', new_legend_path

@@ -1,0 +1,10 @@
+= form_for @legend do |f|
+  - if @legend.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@legend.errors.count, "error")} prohibited this legend from being saved:"
+      %ul
+        - @legend.errors.full_messages.each do |message|
+          %li= message
+
+  .actions
+    = f.submit 'Save'

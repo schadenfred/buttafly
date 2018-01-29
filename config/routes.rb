@@ -1,5 +1,6 @@
 Buttafly::Engine.routes.draw do
 
+  resources :legends
   resources :spreadsheets do
     resources :mappings
     member do
