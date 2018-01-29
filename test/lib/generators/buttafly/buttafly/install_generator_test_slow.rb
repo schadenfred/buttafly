@@ -4,8 +4,6 @@ require 'generators/buttafly/install/install_generator'
 describe Buttafly::InstallGenerator do
   tests Buttafly::InstallGenerator
 
-  include FileManipulationHelpers
-
   destination Rails.root.join('tmp/generators')
 
   setup :prepare_destination
@@ -14,11 +12,13 @@ describe Buttafly::InstallGenerator do
     system "git checkout test/dummy/config"
     system "git checkout test/dummy/app/models/excel_sheet.rb"
   end
-  setup { cleanup }
+  setup {
+    generate_sample_app
+    cleanup
+   }
   teardown { cleanup }
 
   describe "sanity" do
-    generate_sample_app
     specify { assert_nothing_raised { run_generator } }
     specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
   end

@@ -1,7 +1,7 @@
 module GeneratorsTestHelper
 
   def generate_sample_app
-    system "rails new dummy --skip-active-record --skip-test-unit --skip-spring --skip-bundle"
+    system "rails new idiot --skip-active-record --skip-test-unit --skip-spring --skip-bundle"
   end
 
   def gsub_file(path, flag, *args, &block)
