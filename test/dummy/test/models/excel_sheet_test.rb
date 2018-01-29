@@ -19,7 +19,7 @@ describe ExcelSheet do
   end
 
   specify "has many :legends, through: :mappings" do
-skip
+
     spreadsheet = excel_sheets(:review)
     spreadsheet.mappings.must_include buttafly_mappings(:twoone)
     spreadsheet.legends.must_include buttafly_legends(:one)

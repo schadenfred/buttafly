@@ -53,6 +53,6 @@ module Buttafly
 
       def mapping_params
         params.require(:mapping).permit!
-       end
+      end
   end
 end

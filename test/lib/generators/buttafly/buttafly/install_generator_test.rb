@@ -1,8 +1,10 @@
-require 'test_helper'
+require "test_helper"
 require 'generators/buttafly/install/install_generator'
 
 describe Buttafly::InstallGenerator do
   tests Buttafly::InstallGenerator
+
+  include GeneratorsTestHelper
 
   destination Rails.root.join('tmp/generators')
 
@@ -12,13 +14,12 @@ describe Buttafly::InstallGenerator do
     system "git checkout test/dummy/config"
     system "git checkout test/dummy/app/models/excel_sheet.rb"
   end
-  setup {
-    generate_sample_app
-    cleanup
-   }
+
+  setup { cleanup }
   teardown { cleanup }
 
   describe "sanity" do
+
     specify { assert_nothing_raised { run_generator } }
     specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
   end

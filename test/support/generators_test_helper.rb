@@ -1,9 +1,5 @@
 module GeneratorsTestHelper
 
-  def generate_sample_app
-    system "rails new idiot --skip-active-record --skip-test-unit --skip-spring --skip-bundle"
-  end
-
   def gsub_file(path, flag, *args, &block)
     path = File.expand_path(path, destination_root)
     content = File.binread(path)

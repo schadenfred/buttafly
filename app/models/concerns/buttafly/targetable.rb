@@ -80,7 +80,7 @@ module Buttafly
 
     def self.targetable_columns(model)
       cols = (model.to_s.classify.constantize.column_names - %w[updated_at created_at id])
-      cols.reject! { |col| col.split('_').last.match? /\id/ }
+      cols.reject! { |col| (col.split('_')).last.match? "id" }
       cols
     end
 

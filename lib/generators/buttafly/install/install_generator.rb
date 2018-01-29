@@ -6,7 +6,6 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
     return if originable_model.nil?
     file = dummy("config/initializers/buttafly.rb")
     code = originable_model.to_s.classify
-    after = "class Application < Rails::Application"
     gsub_file file, "Buttafly::Spreadsheet", code
   end
 
@@ -39,7 +38,7 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
 private
 
   def originable_model
-    originable_model = args.empty? ? nil : args.first
+    args.empty? ? nil : args.first
   end
 
   def dummy(filename)
