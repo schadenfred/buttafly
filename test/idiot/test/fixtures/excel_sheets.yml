@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  flat_file: MyString
+  aasm_state: MyString
+
+two:
+  name: MyString
+  flat_file: MyString
+  aasm_state: MyString
