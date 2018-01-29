@@ -5,6 +5,7 @@ module Buttafly
   describe Legend do
 
     Then { assert_kind_of Module, Buttafly }
+    And  { assert_kind_of Module, Buttafly::Originable }
   end
 
   describe Mapping do
@@ -21,6 +22,6 @@ end
 describe Buttafly do
 
   Then { assert_kind_of Class, Buttafly::Legend }
-  And { assert_kind_of Class, Buttafly::Mapping }
-  And { assert_kind_of Class, Buttafly::Spreadsheet }
+  And  { assert_kind_of Class, Buttafly::Mapping }
+  And  { assert_kind_of Class, Buttafly::Spreadsheet }
 end

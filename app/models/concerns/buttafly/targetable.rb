@@ -41,7 +41,7 @@ module Buttafly
 
     def self.targetable_models
       descendants = ActiveRecord::Base.descendants.map(&:name)
-      descendants.delete(Buttafly.originable_model.classify)
+      descendants.delete(Buttafly.originable_model)
       descendants.map { |model| model.to_s }
     end
 

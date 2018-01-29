@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20180122221006) do
     t.string "name"
     t.string "flat_file"
     t.string "aasm_state"
+    t.string "custom_state"
+    t.string "sheet"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

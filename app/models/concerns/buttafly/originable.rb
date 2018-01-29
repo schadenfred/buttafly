@@ -44,8 +44,8 @@ module Buttafly
         end
       end
 
-      def originable_headers(file=flat_file)
-        data = CSV.read(flat_file.path)
+      def originable_headers(file=flat_file.path)
+        data = CSV.read(file)
         data.first
       end
     end

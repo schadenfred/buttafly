@@ -4,6 +4,10 @@ one:
   legend: one
   originable: review (Buttafly::Spreadsheet)
 
-excel_sheet_mapping:
+buttafly_spreadsheets_mapping:
+  legend: one
+  originable: review (Buttafly::Spreadsheet)
+
+excel_sheets_mapping:
   legend: one
   originable: review (ExcelSheet)
