@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+review:
+  name: review
+  flat_file: reviews.csv
+  aasm_state:
+  

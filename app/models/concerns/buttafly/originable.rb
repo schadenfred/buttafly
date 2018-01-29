@@ -20,8 +20,8 @@ module Buttafly
 
       serialize :avatars, JSON
 
-      has_many :mappings, as: :originable
-      has_many :legends, through: :mappings, as: :originable
+      has_many :mappings, class_name: "Buttafly::Mapping", as: :originable
+      has_many :legends, class_name: "Buttafly::Legend", through: :mappings, as: :originable
 
       accepts_nested_attributes_for :legends
 

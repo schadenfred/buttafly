@@ -4,7 +4,6 @@ one:
   legend: one
   originable: review (Buttafly::Spreadsheet)
 
-two:
-  legend_id: 1
-  originable_id: 1
-  originable_type: MyString
+excel_sheet_mapping:
+  legend: one
+  originable: review (ExcelSheet)
