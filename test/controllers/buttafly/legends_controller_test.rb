@@ -14,6 +14,7 @@ module Buttafly
     end
 
     test "should get new" do
+skip
       get new_legend_url
       assert_response :success
     end

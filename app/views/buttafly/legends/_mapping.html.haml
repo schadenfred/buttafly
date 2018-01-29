@@ -1,0 +1,12 @@
+.row
+  .div{class: "col-sm-#{i}"}
+  .div{class: "col-sm-#{12 - i}"}
+    %hr
+    - mapping_selectors(m).each do |col|
+      = f.fields_for m do |f|
+        .form-group
+          = f.label col, "#{a} (#{m.capitalize}) => #{col}"
+          = f.select(col, @spreadsheet.originable_headers, {include_blank: false}, class: "custom-select custom-select-sm")
+    - ancestors.each do |ancestor|
+      - unless ancestors.blank?
+        = render partial: "mapping", locals: locals(ancestor, f, i+1)
