@@ -5,9 +5,9 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
     copy_file "buttafly_initializer.rb", "config/initializers/buttafly.rb"
     return if originable_model.nil?
     file = dummy("config/initializers/buttafly.rb")
-    code = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
+    code = originable_model.to_s.classify
     after = "class Application < Rails::Application"
-    gsub_file file, "Buttafly::Spreadsheet", originable_model.to_s.classify
+    gsub_file file, "Buttafly::Spreadsheet", code
   end
 
   def copy_routes_to_host
