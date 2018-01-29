@@ -12,7 +12,8 @@ require "byebug"
 require "buttafly"
 
 include TestMatchers
-include FileManipulationHelpers
+include GeneratorsTestHelper
+
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.

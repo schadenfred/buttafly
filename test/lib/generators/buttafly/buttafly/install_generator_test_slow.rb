@@ -18,7 +18,7 @@ describe Buttafly::InstallGenerator do
   teardown { cleanup }
 
   describe "sanity" do
-
+    generate_sample_app
     specify { assert_nothing_raised { run_generator } }
     specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
   end
