@@ -6,5 +6,12 @@ test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/public/uploads/
+
+test/idiot/db/*.sqlite3
+test/idiot/db/*.sqlite3-journal
+test/idiot/log/*.log
+test/idiot/tmp/
+test/idiot/public/uploads/
+
 test/fixtures/files/uploads/tmp/
 .byebug_history
