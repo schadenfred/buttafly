@@ -32,7 +32,6 @@ require 'test_helper'
     Given(:sheet) { originables_fixture(:review) }
 
     describe "has many :mappings" do
-      Then { subject.originable?.must_equal true}
 
       Given(:expected) { buttafly_mappings("#{table_name}_mapping")}
 
@@ -97,7 +96,6 @@ require 'test_helper'
 
     describe "#transmogrify!" do
 
-      # let(:file) { FactoryGirl.create(:originable) }
       describe ":create_records" do
 
         it "without parents" do
