@@ -4,7 +4,6 @@ require 'generators/buttafly/install/install_generator'
 describe Buttafly::InstallGenerator do
   tests Buttafly::InstallGenerator
 
-
   destination Rails.root.join('tmp/generators')
 
   setup :prepare_destination
@@ -57,6 +56,12 @@ describe Buttafly::InstallGenerator do
       Given(:file) { "config/routes.rb" }
 
       Then { File.read(dummy(file)).must_match "extend EngineRoutes" }
+    end
+
+    describe "must copy migration files" do
+
+      Then { assert_migration "db/migrate/buttafly_legends.rb" }
+
     end
   end
 
