@@ -1,7 +1,7 @@
 module FileManipulationSupport
 
   def hash_to_yaml(hash, file, path=nil)
-    path ||= "test/support/yaml/files"
+    path ||= "test/support/yaml"
     File.open("#{path}/#{file}.yml", "w+") do |file|
       file.write hash.to_yaml
     end

@@ -1,0 +1,15 @@
+---
+legend:
+  data:
+    review:
+      rating: rating
+      content: review content
+    user:
+      name: winery owner
+    wine:
+      name: wine name
+      vintage: vintage
+    winery:
+      name: winery name
+      mission: wine name
+      history: wine name

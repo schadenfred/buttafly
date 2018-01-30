@@ -21,7 +21,7 @@ module Buttafly
     end
 
     def create
-      # hash_to_yaml(params["legend"], "xxx")
+
       @legend = Legend.new(legend_params)
 
       if @legend.save

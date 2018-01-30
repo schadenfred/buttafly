@@ -20,7 +20,7 @@
         selected existing legend
 #collapseExample.collapse.show
   .card.card-body
-    = form_with url: new_spreadsheet_legend_path(@spreadsheet) do |f|
+    = form_with url: new_spreadsheet_legend_path(@spreadsheet), method: :get do |f|
       .form-group
         = f.label "targetable model"
         = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control")

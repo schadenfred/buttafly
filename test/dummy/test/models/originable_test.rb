@@ -48,7 +48,8 @@ require 'test_helper'
       Given(:excel_sheet_path) {Rails.root.join("../../test/fixtures/files/uploads/buttafly/spreadsheet/flat_file/960725447/reviews.csv")}
       Given(:headers) { (subject == ExcelSheet) ? sheet.originable_headers(excel_sheet_path) : sheet.originable_headers }
       Given(:expected) do ["wine name", "winemaker name", "winery name",
-        "vintage", "review content", "rating", "winery owner", "reviewer name"]
+                           "vintage", "review content", "rating",
+                           "winery owner", "reviewer name"]
       end
 
       Then { headers.must_equal expected }

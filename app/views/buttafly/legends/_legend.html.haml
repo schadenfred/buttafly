@@ -6,7 +6,7 @@
       = f.fields_for m do |f|
         .form-group
           = f.label col, "#{a} (#{m.capitalize}) => #{col}"
-          = f.select(col, @spreadsheet.originable_headers, {include_blank: false}, class: "custom-select custom-select-sm")
+          = f.select(col, @spreadsheet.originable_headers, {include_blank: false}, class: "custom-select")
     - ancestors.each do |ancestor|
       - unless ancestors.blank?
         = render partial: "legend", locals: locals(ancestor, f, i+1)
