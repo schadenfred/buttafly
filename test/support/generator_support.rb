@@ -1,4 +1,5 @@
-module GeneratorsTestHelper
+module GeneratorSupport
+
 
   def gsub_file(path, flag, *args, &block)
     path = File.expand_path(path, destination_root)
@@ -22,7 +23,7 @@ module GeneratorsTestHelper
   end
 
   def reset_dummy_app
-    substitutions = YAML.load_file("test/support/substitutions.yml")
+    substitutions = hash_from_yaml("substitutions")
     substitutions.each do |item|
       if item.is_a? String
         remove_file_for_testing(item)
@@ -33,7 +34,7 @@ module GeneratorsTestHelper
   end
 
   def verify_dummy_app_initial_state
-    substitutions = YAML.load_file("test/support/substitutions.yml")
+    substitutions = hash_from_yaml("substitutions")
     substitutions.each do |item|
       if item.is_a? String
         assert_no_file dummy(item)
@@ -41,9 +42,5 @@ module GeneratorsTestHelper
         File.read(dummy(item.first)).wont_match item.second
       end
     end
-  end
-
-  def read_from_yaml(file)
-     YAML.load_file("test/support/#{file}_ancestors.yml")
   end
 end

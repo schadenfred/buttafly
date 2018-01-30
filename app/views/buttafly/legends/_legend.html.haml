@@ -9,4 +9,4 @@
           = f.select(col, @spreadsheet.originable_headers, {include_blank: false}, class: "custom-select custom-select-sm")
     - ancestors.each do |ancestor|
       - unless ancestors.blank?
-        = render partial: "mapping", locals: locals(ancestor, f, i+1)
+        = render partial: "legend", locals: locals(ancestor, f, i+1)

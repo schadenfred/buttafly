@@ -12,13 +12,16 @@ module Buttafly
     end
 
     def new
-      @legend = Legend.new
+      @spreadsheet = Buttafly::Spreadsheet.find(params["spreadsheet_id"])
+      @legend = @spreadsheet.legends.new
+      @targetable_model = params["targetable_model"]
     end
 
     def edit
     end
 
     def create
+      # hash_to_yaml(params["legend"], "xxx")
       @legend = Legend.new(legend_params)
 
       if @legend.save
@@ -47,7 +50,7 @@ module Buttafly
       end
 
       def legend_params
-        params.fetch(:legend, {})
+        params.require(:legend).permit(:data => {})
       end
   end
 end

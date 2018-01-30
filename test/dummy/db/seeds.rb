@@ -7,7 +7,6 @@ sample_sheets.each do |sheet|
 
   flat_file = File.open(sheet)
   spreadsheet = Buttafly::Spreadsheet.new(
-    # name: sheet.split("/").last,
     flat_file: flat_file)
-  spreadsheet.save!
+  spreadsheet.save
 end

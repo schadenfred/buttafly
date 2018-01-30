@@ -1,0 +1,16 @@
+--- !ruby/object:ActionController::Parameters
+parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  data: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    review: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      rating: rating
+      content: review content
+    user: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: winery owner
+    wine: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: wine name
+      vintage: vintage
+    winery: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      name: winery name
+      mission: wine name
+      history: wine name
+permitted: false

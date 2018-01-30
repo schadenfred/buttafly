@@ -1,4 +1,4 @@
-module TestMatchers
+module TestMatcherSupport
 
   def subject
     subject ||= self.class.name.split("::").first.constantize

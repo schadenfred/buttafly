@@ -4,7 +4,6 @@ require 'generators/buttafly/install/install_generator'
 describe Buttafly::InstallGenerator do
   tests Buttafly::InstallGenerator
 
-  include GeneratorsTestHelper
 
   destination Rails.root.join('tmp/generators')
 

@@ -9,15 +9,12 @@ end
 guard :minitest, cli: '' do
 
   watch(%r{^app/(.+)\.rb$})                               { |m| "test/#{m[1]}_test.rb" }
-  watch(%r{^test/dummy/app/(.+)\.rb$})                    { |m| "test/dummy/test/#{m[1]}_test.rb" }
+  watch(%r{^app/controllers/(.+)_controller\.rb$})        { |m| "test/controllers/#{m[1]}_controller_test.rb" }
   watch(%r{^app/controllers/application_controller\.rb$}) { 'test/controllers' }
-  watch(%r{^app/models/concerns/(.+)\.rb$})               { 'test' }
-  watch(%r{^app/controllers/(.+)_controller\.rb$})        { |m| "test/integration/#{m[1]}_test.rb" }
-  watch(%r{^app/views/(.+)_mailer/.+})                    { |m| "test/mailers/#{m[1]}_mailer_test.rb" }
+  watch(%r{^app/models/concerns/(.+)\.rb$})               { 'test/dummy/test/models/' }
   watch(%r{^lib/(.+)\.rb$})                               { |m| "test/lib/#{m[1]}_test.rb" }
   watch(%r{^test/.+_test\.rb$})
-  watch(%r{^test/test_helper\.rb$})                       { 'test' }
   watch(%r{^test/features/*\.rb$})
-  watch(%r{^app/views/(.+)\.haml$})                       { 'test' }
+  watch(%r{^app/views/(.+)\.haml$})                       { "test" }
   watch(%r{^lib/generators/(.+).rb$})                     { "test/lib/generators/" }
 end
