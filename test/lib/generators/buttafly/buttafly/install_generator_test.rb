@@ -13,7 +13,12 @@ describe Buttafly::InstallGenerator do
     system "git checkout test/dummy/app/models/excel_sheet.rb"
   end
 
-  setup { cleanup }
+
+  setup do
+    remove_files_for_testing("buttafly", "db/migrate/")
+    remove_file_for_testing(dummy("config/initializers/buttafly.rb"))
+    cleanup
+  end
   teardown { cleanup }
 
   describe "sanity" do
@@ -58,9 +63,15 @@ describe Buttafly::InstallGenerator do
       Then { File.read(dummy(file)).must_match "extend EngineRoutes" }
     end
 
+    describe "remove_files_for_testing(pattern, directory)" do
+      Given { File.open(dummy("db/migrate/test_file_with_buttafly_in_name.rb", "w"))}
+      Given { remove_files_for_testing("db/migrate/", "buttafly")}
+    end
+
+
     describe "must copy migration files" do
 
-      Then { assert_migration "db/migrate/buttafly_legends.rb" }
+      Then { assert_migration "/db/migrate/create_buttafly_legends.rb" }
 
     end
   end

@@ -15,6 +15,7 @@ guard :minitest, cli: '' do
   watch(%r{^lib/(.+)\.rb$})                               { |m| "test/lib/#{m[1]}_test.rb" }
   watch(%r{^test/.+_test\.rb$})
   watch(%r{^test/features/*\.rb$})
+  watch(%r{^test/support/.+_support.rb$}) { 'test/meta_test.rb' }
   watch(%r{^app/views/(.+)\.haml$})                       { "test" }
   watch(%r{^lib/generators/(.+).rb$})                     { "test/lib/generators/" }
 end

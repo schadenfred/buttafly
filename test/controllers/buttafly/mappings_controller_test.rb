@@ -22,7 +22,6 @@ skip
       end
 
       assert_redirected_to @spreadsheet
-      # byebug
       skip
       Buttafly::Legend.last.originables.must_equal @spreadsheet
     end

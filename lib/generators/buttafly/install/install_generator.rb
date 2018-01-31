@@ -1,8 +1,7 @@
 require 'date'
-require 'byebug'
+
 class Buttafly::InstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
-
 
   def copy_buttafly_initializer_to_host
     copy_file "buttafly_initializer.rb", "config/initializers/buttafly.rb"
@@ -40,10 +39,17 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
 
   def copy_migrations
     migrations = Dir[Buttafly::Engine.root.join("db/migrate/*.rb")]
-    migrations.each do |m|
-      timestamp = (DateTime.now.strftime "%Y%m%d%H%M%S")
-      name = m.split("_").last
-      copy_file m, "db/migrate/#{timestamp}_buttafly_#{name}"
+    migrations.each_with_index do |migration, i|
+      seconds = (DateTime.now.strftime("%S").to_i + i).to_s
+      seconds = seconds.to_s.length == 2 ? seconds : "0#{seconds}"
+
+      timestamp = (DateTime.now.strftime "%Y%m%d%H%M") + seconds
+      name = migration.split("_").last
+      if dummy("db/migrate/*#{name}").exist?
+        puts "Migration #{name} has already been copied to your app"
+      else
+        copy_file migration, "db/migrate/#{timestamp}_buttafly_#{name}"
+      end
     end
   end
 

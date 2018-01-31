@@ -38,9 +38,9 @@ describe "Buttafly::Targetable" do
     specify do
       subject.ancestors_of(:user).must_equal []
       subject.ancestors_of(:winery).must_equal [owner: { user: [] } ]
-      subject.ancestors_of(:winery).must_equal hash_from_yaml("winery_ancestors")
-      subject.ancestors_of(:wine).must_equal hash_from_yaml("wine_ancestors")
-      subject.ancestors_of(:review).must_equal hash_from_yaml("review_ancestors")
+      subject.ancestors_of(:winery).must_equal read_hash_from_yaml("winery_ancestors")
+      subject.ancestors_of(:wine).must_equal read_hash_from_yaml("wine_ancestors")
+      subject.ancestors_of(:review).must_equal read_hash_from_yaml("review_ancestors")
     end
 
     def expected
