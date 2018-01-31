@@ -38,7 +38,7 @@ describe "meta testing" do
   describe "file creation and destruction" do
 
     Given(:engine_file) { engine( "test/support/temporary/test_file_name.rb" ) }
-    Given(:engine_file_two) { engine( "test/support/temporarytest_file_name_two.rb" ) }
+    Given(:engine_file_two) { engine( "test/support/temporary/test_file_name_two.rb" ) }
     Given(:dummy_file) { dummy( "public/temporary/test_file_name.rb" ) }
 
     Given { create_file_for_testing( engine_file ) }
