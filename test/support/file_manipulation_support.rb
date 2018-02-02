@@ -21,7 +21,18 @@ module FileManipulationSupport
     end
   end
 
-  def remove_files_for_testing(pattern, directory)
+  def file_exists?(directory, pattern=nil)
+    directory_files = Dir["#{directory}**/*"]
+    directory_files.each do |file|
+      name = file.split("/").last
+      if name.match pattern
+        return true
+      end
+      false
+    end
+  end
+
+  def remove_files_for_testing(directory, pattern)
     directory_files = Dir["#{directory}**/*"]
     directory_files.each do |file|
       name = file.split("/").last
