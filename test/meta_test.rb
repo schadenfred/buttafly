@@ -50,12 +50,12 @@ describe "meta testing" do
       Then { File.exist?( engine_file ).must_equal true }
       And { File.exist?( engine_file_two ).must_equal true }
       And { File.exist?( dummy_file ).must_equal true }
+      # Then { file_exists?(dummy("db/migrate/"), "spreadsheets").must_equal true }
+      # Then { file_exists?(dummy("db/migrate/"), "legends").must_equal true }
+      # Then { file_exists?(dummy("db/migrate/"), "mappings").must_equal true }
 
       describe "file_exists(directory, pattern)" do
 
-        Then { file_exists?(dummy("db/migrate/"), "spreadsheets").must_equal true }
-        Then { file_exists?(dummy("db/migrate/"), "legends").must_equal true }
-        Then { file_exists?(dummy("db/migrate/"), "mappings").must_equal true }
       end
     end
 
