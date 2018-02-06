@@ -8,6 +8,7 @@
   = main_app_name
 %h3
   Originable
+  = @targetable_columns
   = Buttafly.originable_model
 %hr
 = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
@@ -15,4 +16,4 @@
     = f.fields_for :data do |f|
       = render partial: "legend", locals: {f: f, ancestors: ancestors, a: @targetable_model, m: @targetable_model, i: 0}
   %br
-  = f.submit class: "btn btn-primary btn-block"
+  = f.submit "create legend", class: "btn btn-primary btn-block"

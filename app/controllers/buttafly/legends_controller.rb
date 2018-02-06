@@ -1,6 +1,7 @@
 require_dependency "buttafly/application_controller"
 
 module Buttafly
+
   class LegendsController < ApplicationController
     before_action :set_legend, only: [:show, :edit, :update, :destroy]
 
@@ -22,8 +23,7 @@ module Buttafly
 
     def create
 
-      @legend = Legend.new(legend_params)
-
+      @legend = Legend.new(data: legend_params[:data].to_json)
       if @legend.save
         redirect_to @legend, notice: 'Legend was successfully created.'
       else

@@ -22,11 +22,11 @@ module Buttafly
 
     test "should create legend" do
       assert_difference('Legend.count') do
-        post legends_url, params: read_hash_from_yaml("create_legend_params")
+        post legends_url, params: { legend: { data: read_hash_from_yaml("review_legend_data") } }
       end
 
       assert_redirected_to legend_url(Legend.last)
-      assert_equal Legend.last.data, read_hash_from_yaml("create_legend_params")["legend"]["data"].to_s
+      assert_equal JSON.parse(Legend.last.data)["review"]["reviewer"]["name"], "reviewer name"
     end
 
     test "should show legend" do
