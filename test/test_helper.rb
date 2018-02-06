@@ -4,7 +4,6 @@ require File.expand_path("../../test/dummy/config/environment.rb", __FILE__)
 Dir[File.expand_path('test/support/*.rb')].each { |file| require file }
 
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db/migrate", __FILE__)]
-ActiveRecord::Migrator.migrations_paths << File.expand_path('../../db/migrate', __FILE__)
 ActiveRecord::Migration.maintain_test_schema!
 
 require "rails/test_help"
