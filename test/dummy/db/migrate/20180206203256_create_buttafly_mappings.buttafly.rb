@@ -1,3 +1,4 @@
+# This migration comes from buttafly (originally 20180106034152)
 class CreateButtaflyMappings < ActiveRecord::Migration[5.1]
   def change
     create_table :buttafly_mappings do |t|
