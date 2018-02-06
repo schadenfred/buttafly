@@ -11,47 +11,47 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
     gsub_file file, "Buttafly::Spreadsheet", code
   end
 
-  # def copy_routes_to_host
-  #   directory "routes", dummy("config/routes")
-  # end
-  #
-  # def add_routes_to_autoload_path
-  #   file = dummy("config/application.rb")
-  #   code = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
-  #   after = "class Application < Rails::Application"
-  #   pretty_file_insert(file, code, after)
-  # end
-  #
-  # def mount_engine_to_app
-  #   file = dummy("config/routes.rb")
-  #   code = "extend EngineRoutes"
-  #   after = "Rails.application.routes.draw do"
-  #   pretty_file_insert(file, code, after)
-  # end
-  #
-  # def include_originable_module_in_originable_model
-  #   return if originable_model.nil?
-  #   file = "app/models/#{originable_model.to_s.singularize.underscore}.rb"
-  #   code = %q[include Buttafly::Originable]
-  #   after = "ApplicationRecord"
-  #   pretty_file_insert(file, code, after)
-  # end
-  #
-  # def copy_migrations
-  #   migrations = Dir[Buttafly::Engine.root.join("db/migrate/*.rb")]
-  #   migrations.each_with_index do |migration, i|
-  #     seconds = (DateTime.now.strftime("%S").to_i + i).to_s
-  #     seconds = seconds.to_s.length == 2 ? seconds : "0#{seconds}"
-  #
-  #     timestamp = (DateTime.now.strftime "%Y%m%d%H%M") + seconds
-  #     name = migration.split("_").last
-  #     if dummy("db/migrate/*#{name}").exist?
-  #       puts "Migration #{name} has already been copied to your app"
-  #     else
-  #       copy_file migration, "db/migrate/#{timestamp}_buttafly_#{name}"
-  #     end
-  #   end
-  # end
+  def copy_routes_to_host
+    directory "routes", dummy("config/routes")
+  end
+
+  def add_routes_to_autoload_path
+    file = dummy("config/application.rb")
+    code = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
+    after = "class Application < Rails::Application"
+    pretty_file_insert(file, code, after)
+  end
+
+  def mount_engine_to_app
+    file = dummy("config/routes.rb")
+    code = "extend EngineRoutes"
+    after = "Rails.application.routes.draw do"
+    pretty_file_insert(file, code, after)
+  end
+
+  def include_originable_module_in_originable_model
+    return if originable_model.nil?
+    file = "app/models/#{originable_model.to_s.singularize.underscore}.rb"
+    code = %q[include Buttafly::Originable]
+    after = "ApplicationRecord"
+    pretty_file_insert(file, code, after)
+  end
+
+  def copy_migrations
+    migrations = Dir[Buttafly::Engine.root.join("db/migrate/*.rb")]
+    migrations.each_with_index do |migration, i|
+      seconds = (DateTime.now.strftime("%S").to_i + i).to_s
+      seconds = seconds.to_s.length == 2 ? seconds : "0#{seconds}"
+
+      timestamp = (DateTime.now.strftime "%Y%m%d%H%M") + seconds
+      name = migration.split("_").last
+      if dummy("db/migrate/*#{name}").exist?
+        puts "Migration #{name} has already been copied to your app"
+      else
+        copy_file migration, "db/migrate/#{timestamp}_buttafly_#{name}"
+      end
+    end
+  end
 
 private
 

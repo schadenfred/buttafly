@@ -5,5 +5,10 @@ module Buttafly
     belongs_to :originable, polymorphic: true
 
     accepts_nested_attributes_for :legend
+
+    def transmogrify!
+      # byebug
+
+    end
   end
 end
