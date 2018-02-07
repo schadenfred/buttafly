@@ -14,14 +14,14 @@
     = link_to 'Back', spreadsheets_path
 
     %p
-      %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample", :role => "button"}
+      %a.btn.btn-primary{"aria-controls" => "newLegend", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#newLegend", :role => "button"}
         Create a new legend with headers from this spreadsheet
       %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample", :role => "button"}
         selected existing legend
-#collapseExample.collapse.show
+#newLegend.collapse.show
   .card.card-body
     = form_with url: new_spreadsheet_legend_path(@spreadsheet), method: :get do |f|
       .form-group
         = f.label "targetable model"
-        = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control")
+        = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
       = f.submit "write new legend", class: "btn btn-primary btn-block"

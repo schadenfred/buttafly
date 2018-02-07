@@ -40,4 +40,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "byebug"
   s.add_development_dependency "better_errors"
   s.add_development_dependency "binding_of_caller"
+  s.add_development_dependency "capybara-webkit"
+
 end

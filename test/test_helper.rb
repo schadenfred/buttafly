@@ -9,6 +9,7 @@ ActiveRecord::Migration.maintain_test_schema!
 require "rails/test_help"
 require "minitest/rails"
 require "minitest/rails/capybara"
+require "capybara-webkit"
 require "minitest/given"
 require "byebug"
 require "buttafly"
@@ -32,9 +33,12 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 class ActiveSupport::TestCase
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
   # Add more helper methods to be used by all tests here...
 end
+Capybara.javascript_driver = :webkit
 
+Capybara.default_max_wait_time = 10
 CarrierWave.root = 'test/fixtures/files'

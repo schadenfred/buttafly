@@ -1,7 +1,28 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  data: MyText
+  originable_headers:  [
+    "wine name", "winemaker name", "winery name", "vintage", "review content",
+    "rating", "winery owner", "reviewer name"
+  ]
+  data:
+    review:
+      rating: rating
+      content: review content
+      reviewer:
+        name: reviewer name
+      wine:
+        name: wine name
+        vintage: vintage
+        winemaker:
+          name: winemaker name
+        winery:
+          name: winery name
+          mission: ''
+          history: ''
+          owner:
+            name: winery owner
+
 
 two:
   data: MyText

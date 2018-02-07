@@ -3,6 +3,7 @@
 %table
   %thead
     %tr
+      %th targetable model
       %th
       %th
       %th
@@ -10,6 +11,7 @@
   %tbody
     - @legends.each do |legend|
       %tr
+        %td= legend.data
         %td= link_to 'Show', legend
         %td= link_to 'Edit', edit_legend_path(legend)
         %td= link_to 'Destroy', legend, method: :delete, data: { confirm: 'Are you sure?' }

@@ -6,6 +6,8 @@ module Buttafly
 
     accepts_nested_attributes_for :legend
 
+
+
     def transmogrify!
       # byebug
 

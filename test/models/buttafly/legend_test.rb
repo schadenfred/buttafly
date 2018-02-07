@@ -10,6 +10,7 @@ describe Buttafly::Legend do
 
       must_have_column(:data, :text)
       must_have_column(:targetable_model)
+      must_have_column(:originable_headers)
     end
   end
 
@@ -20,6 +21,14 @@ describe Buttafly::Legend do
       must_have_many(:mappings)
       must_have_many(:originables)
     end
+  end
+
+  describe "fixture" do
+
+    Given(:legend) { buttafly_legends(:one) }
+    Then { legend.data.first.first.must_equal "review" }
+    And { legend.originable_headers.must_include "wine name" }
+
   end
 
   specify "has many :originables through :mappings" do

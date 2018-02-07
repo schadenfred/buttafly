@@ -8,6 +8,7 @@ describe Buttafly::Mapping do
 
     specify "columns & types" do
 
+      must_have_column(:aasm_state, :string)
       must_have_column(:legend_id, :integer)
       must_have_column(:originable_id, :integer)
     end

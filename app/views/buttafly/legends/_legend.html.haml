@@ -6,7 +6,7 @@
       = f.fields_for a do |f|
         .form-group
           = f.label col, "#{a} (#{m.capitalize}) => #{col}"
-          = f.select(col, @spreadsheet.originable_headers, {include_blank: true}, class: "custom-select")
+          = f.select(col, @originable_headers, {include_blank: true}, class: "custom-select")
     - ancestors.each do |ancestor|
       - unless ancestors.blank?
         = f.fields_for a do |f|

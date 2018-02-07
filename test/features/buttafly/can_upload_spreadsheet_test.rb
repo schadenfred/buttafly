@@ -9,10 +9,10 @@ end
 
 feature "CanCreateLegend" do
   scenario "for user model and parents" do
+    spreadsheet = buttafly_spreadsheets(:review)
+    visit buttafly.spreadsheet_path(spreadsheet)
     assert_difference('Buttafly::Legend.count') do
-      spreadsheet = buttafly_spreadsheets(:review)
-      visit buttafly.spreadsheet_path(spreadsheet)
-      select "review", from: "targetable_model"
+      select "review", from: "targetableModel"
       click_button "write new legend"
       select "rating", from: '_legend_data_review_rating'
       select "review content", from: '_legend_data_review_content'
@@ -27,7 +27,8 @@ feature "CanCreateLegend" do
       click_button "create legend"
     end
 
-    expected = read_hash_from_yaml("review_legend_data")
-    JSON.parse(Buttafly::Legend.last.data).must_equal expected
+    Buttafly::Legend.last.data.first.first.must_equal "review"
+    Buttafly::Legend.last.targetable_model.must_equal "review"
+    Buttafly::Legend.last.originable_headers.must_include "wine name"
   end
 end
