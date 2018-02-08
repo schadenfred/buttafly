@@ -3,6 +3,7 @@ require_dependency "buttafly/application_controller"
 module Buttafly
 
   class LegendsController < ApplicationController
+
     before_action :set_legend, only: [:show, :edit, :update, :destroy]
 
     def show

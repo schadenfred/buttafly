@@ -25,12 +25,12 @@ module Buttafly
 
     describe "#update" do
 
-      # Given(:data) { { data: { "review" => "blah" } } }
-      #
-      # When { patch legend_url(legend), params: { legend: data } }
-      #
-      # Then { assert_equal legend.reload.data.first.first, "review" }
-      # And { assert_redirected_to legend_url(legend) }
+      Given(:data) { { data: { "review" => "blah" } } }
+
+      When { patch legend_url(legend), params: { legend: data } }
+
+      Then { assert_equal legend.reload.data.first.first, "review" }
+      And { assert_redirected_to edit_legend_url(legend) }
     end
 
     describe "#destroy" do

@@ -1,33 +1,30 @@
-.card
-  .card-body
-    .card
-      %h3
-        Name:
-        = @spreadsheet.name.blank? ? "no name supplied" : @spreadsheet.name
-    .card
+.container
+  .row
+    %h1
       %span.badge.badge-dark= @spreadsheet.aasm_state
-    .card
-      Headers:
-      = @spreadsheet.originable_headers.join(" | ")
+      Name:
+      = @spreadsheet.name.blank? ? "no name supplied" : @spreadsheet.name
+  .row
+    %br
+    Headers:
+    = @spreadsheet.originable_headers.join(" | ")
+    %br
+    %br
 
-    %p
-      %a.btn.btn-primary{"aria-controls" => "newLegend", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#newLegend", :role => "button"}
-        Create a new legend with headers from this spreadsheet
-      %a.btn.btn-primary{"aria-controls" => "chooseLegend", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#chooseLegend", :role => "button"}
-        selected existing legend
-#newLegend.collapse
-  .card.card-body
-    = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
-      = f.fields_for :legend do |f|
-        .form-group
-          = f.label "targetable model"
-          = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
-          = f.submit "begin new legend", class: "btn btn-primary btn-block"
-#chooseLegend.collapse
-  .card.card-body
-    = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
-      = f.fields_for :legend do |f|
-        .form-group
-          = f.label "existing legends"
-          = f.select("legend", Buttafly::Legend.pluck(:targetable_model), {}, class: "form-control", id: "legend")
-          = f.submit "choose legend", class: "btn btn-primary btn-block"
+  .row
+    .col
+      .card.card-body
+        = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
+          = f.fields_for :legend do |f|
+            .form-group
+              = f.label "targetable model"
+              = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
+              = f.submit "begin new legend", class: "btn btn-primary btn-block"
+    .col
+      .card.card-body
+        = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
+          = f.fields_for :legend do |f|
+            .form-group
+              = f.label "existing legends"
+              = f.select("legend", Buttafly::Legend.pluck(:targetable_model), {}, class: "form-control", id: "legend")
+              = f.submit "choose legend", class: "btn btn-primary btn-block"

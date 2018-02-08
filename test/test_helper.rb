@@ -21,8 +21,6 @@ include FileManipulationSupport
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
-ActiveRecord::Migration.maintain_test_schema!
-
 
 # Load fixtures from the engine
 if ActiveSupport::TestCase.respond_to?(:fixture_path=)
@@ -40,5 +38,5 @@ class ActiveSupport::TestCase
 end
 Capybara.javascript_driver = :webkit
 
-Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 30
 CarrierWave.root = 'test/fixtures/files'
