@@ -5,9 +5,12 @@
     - mapping_selectors(m).each do |col|
       = f.fields_for a do |f|
         .form-group
-          = f.label col, "#{a} (#{m.capitalize}) => #{col}"
-          = f.select(col, @originable_headers, {include_blank: true}, class: "custom-select")
+          = lineage.join(" => ")
+          = "(#{m.capitalize}) => #{col}"
+          - field_value = @legend.data.nil? ? "not yet mapped" : eval("@legend.data\[\"" + lineage.join("\"][\"") + "\"\][col]")
+          = f.select(col, options_for_select(@legend.originable_headers, field_value), {include_blank: true}, class: "custom-select")
+
     - ancestors.each do |ancestor|
       - unless ancestors.blank?
         = f.fields_for a do |f|
-          = render partial: "legend", locals: locals(ancestor, f, i+1)
+          = render partial: "legend", locals: locals(ancestor, f, i+1, lineage)

@@ -9,19 +9,25 @@
     .card
       Headers:
       = @spreadsheet.originable_headers.join(" | ")
-    = link_to 'Edit', edit_spreadsheet_path(@spreadsheet)
-    |
-    = link_to 'Back', spreadsheets_path
 
     %p
       %a.btn.btn-primary{"aria-controls" => "newLegend", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#newLegend", :role => "button"}
         Create a new legend with headers from this spreadsheet
-      %a.btn.btn-primary{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#collapseExample", :role => "button"}
+      %a.btn.btn-primary{"aria-controls" => "chooseLegend", "aria-expanded" => "false", "data-toggle" => "collapse", :href => "#chooseLegend", :role => "button"}
         selected existing legend
-#newLegend.collapse.show
+#newLegend.collapse
   .card.card-body
-    = form_with url: new_spreadsheet_legend_path(@spreadsheet), method: :get do |f|
-      .form-group
-        = f.label "targetable model"
-        = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
-      = f.submit "write new legend", class: "btn btn-primary btn-block"
+    = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
+      = f.fields_for :legend do |f|
+        .form-group
+          = f.label "targetable model"
+          = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
+          = f.submit "begin new legend", class: "btn btn-primary btn-block"
+#chooseLegend.collapse
+  .card.card-body
+    = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
+      = f.fields_for :legend do |f|
+        .form-group
+          = f.label "existing legends"
+          = f.select("legend", Buttafly::Legend.pluck(:targetable_model), {}, class: "form-control", id: "legend")
+          = f.submit "choose legend", class: "btn btn-primary btn-block"

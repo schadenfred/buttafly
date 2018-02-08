@@ -1,7 +1,11 @@
-%h1 Editing legend
-
-= render 'form'
-
--# = link_to 'Show', @legend
--# \|
--# = link_to 'Back', legends_path
+%h1
+  Legend for mapping spreadsheet rows into the
+  .badge.badge-dark
+    = @legend.targetable_model
+  model, as well as required belongs_to models of
+  = main_app_name
+= form_with model: @legend do |f|
+  = f.fields_for :data do |f|
+    = render partial: "legend", locals: {f: f, ancestors: ancestors, a: @legend.targetable_model, m: @legend.targetable_model, i: 0, lineage: [@legend.targetable_model]}
+  %br
+  = f.submit class: "btn btn-primary btn-block"

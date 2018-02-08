@@ -11,7 +11,7 @@
   %tbody
     - @legends.each do |legend|
       %tr
-        %td= legend.data
+        %td= legend.data.first.first
         %td= link_to 'Show', legend
         %td= link_to 'Edit', edit_legend_path(legend)
         %td= link_to 'Destroy', legend, method: :delete, data: { confirm: 'Are you sure?' }

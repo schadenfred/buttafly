@@ -9,7 +9,6 @@ module Buttafly
 
 
     def transmogrify!
-      # byebug
 
     end
   end

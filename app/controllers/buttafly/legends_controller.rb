@@ -5,41 +5,31 @@ module Buttafly
   class LegendsController < ApplicationController
     before_action :set_legend, only: [:show, :edit, :update, :destroy]
 
-    def index
-      @legends = Legend.all
-    end
-
     def show
     end
 
-    def new
-      @spreadsheet = Buttafly::Spreadsheet.find(params["spreadsheet_id"])
-      @targetable_model = params["targetable_model"]
-      @legend = @spreadsheet.legends.new(targetable_model: @targetable_model)
-      @originable_headers = @spreadsheet.originable_headers
-    end
-
     def edit
-      @targetable_model = @legend.data.first.first
+      @targetable_model = @legend.targetable_model
       @originable_headers = @legend.originable_headers
     end
 
     def create
-      @legend = Legend.new(legend_params)
-      # @legend = Legend.new(
-      #   originable_headers: legend_params[:originable_headers],
-      #   targetable_model: legend_params[:targetable_model],
-      #   data: legend_params[:data].to_json)
+      @spreadsheet = Buttafly::Spreadsheet.find(params["spreadsheet_id"])
+      @legend = @spreadsheet.legends.new(legend_params)
+      @legend.originable_headers = @spreadsheet.originable_headers
+
       if @legend.save
-        redirect_to @legend, notice: 'Legend was successfully created.'
+
+        redirect_to edit_legend_path(@legend), notice: 'Legend was successfully created.'
       else
-        render :new
+        render "spredsheets/show", @spreadsheet
       end
     end
 
     def update
+
       if @legend.update(legend_params)
-        redirect_to @legend, notice: 'Legend was successfully updated.'
+        redirect_to edit_legend_url(@legend), notice: 'Legend was successfully updated.'
       else
         render :edit
       end
@@ -56,7 +46,7 @@ module Buttafly
       end
 
       def legend_params
-        params.require(:legend).permit(:originable_headers, :targetable_model, :data => {})
+        params.require(:legend).permit!# (:originable_headers, :targetable_model, :data => {})
       end
   end
 end

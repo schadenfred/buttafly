@@ -9,5 +9,6 @@ module Buttafly
     serialize :data
     serialize :originable_headers
 
+
   end
 end
