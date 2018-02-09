@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207025148) do
+ActiveRecord::Schema.define(version: 20180209232910) do
 
   create_table "blacklisteds", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20180207025148) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "originable_headers"
+    t.string "name"
   end
 
   create_table "buttafly_mappings", force: :cascade do |t|

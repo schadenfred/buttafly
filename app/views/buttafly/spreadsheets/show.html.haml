@@ -19,6 +19,7 @@
             .form-group
               = f.label "targetable model"
               = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
+            .form-group
               = f.submit "begin new legend", class: "btn btn-primary btn-block"
     .col
       .card.card-body
@@ -27,4 +28,5 @@
             .form-group
               = f.label "existing legends"
               = f.select("legend", Buttafly::Legend.pluck(:targetable_model), {}, class: "form-control", id: "legend")
+            .form-group
               = f.submit "choose legend", class: "btn btn-primary btn-block"
