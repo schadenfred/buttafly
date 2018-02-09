@@ -1,6 +1,6 @@
 require 'test_helper'
 
-[Buttafly::Spreadsheet, ExcelSheet].each do |originable|
+[Buttafly::Spreadsheet].each do |originable|
 
   describe originable do
 

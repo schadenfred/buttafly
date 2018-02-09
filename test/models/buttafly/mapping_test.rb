@@ -73,7 +73,6 @@ describe Buttafly::Mapping do
     end
   end
 #   it "" do
-#     skip
 #     file.mappings.create(FactoryGirl.attributes_for(
 #           :mapping_without_parents))
 #         file.create_records!
@@ -81,7 +80,6 @@ describe Buttafly::Mapping do
 #   end
 #
 #   it "with one parent" do
-# skip
 #     file.mappings.create(FactoryGirl.attributes_for(:mapping_with_parent))
 #     file.create_records!
 #     # Winery.count.must_equal 5
@@ -91,7 +89,6 @@ describe Buttafly::Mapping do
 #   describe "must create" do
 #
 #     it "target objects" do
-# skip
 #       file.transmogrify!
 #       Review.count.must_equal 1
 #     end

@@ -30,13 +30,11 @@ module Buttafly
     end
 
     describe "#show" do
-      Given { skip }
+
       Given { spreadsheet }
       Given { get spreadsheet_url(spreadsheet) }
 
-      Then {
-        skip
-        assert_response 200 }
+      Then { assert_response 200 }
     end
 
     describe "#edit" do
@@ -48,10 +46,10 @@ module Buttafly
 
     describe "#update" do
 
-      Given { skip spreadsheet }
+      Given { spreadsheet }
       Given { patch spreadsheet_url(spreadsheet), params: { spreadsheet: { name: "newname" } } }
 
-      Then { assert_response 200 }
+      Then { assert_response 302 }
       And { spreadsheet.reload.name.must_equal "newname"}
     end
 
