@@ -7,3 +7,22 @@ review:
   imported_at: 2018-01-05 19:19:13
   processed_at:
   mtime: 1
+
+duplicate:
+  name: review
+  flat_file: reviews2.csv
+  aasm_state:
+  uploader_id: 1
+  imported_at: 2018-01-05 19:19:13
+  processed_at:
+  mtime: 1
+
+test:
+  name: review
+  flat_file: reviews.csv
+
+  aasm_state:
+  uploader_id: 1
+  imported_at: 2018-01-05 19:19:13
+  processed_at:
+  mtime: 1

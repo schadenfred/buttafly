@@ -33,6 +33,26 @@ describe Buttafly::Mapping do
     And { mapping.legend.class.name.must_equal "Buttafly::Legend" }
   end
 
+  Given(:mapping) { buttafly_mappings(:one) }
+  Given(:legend) { buttafly_legends(:one) }
+  Given(:sheet) { buttafly_spreadsheets(:review) }
+
+  describe "utility methods" do
+
+    Then { mapping.originable.must_equal sheet }
+    And { mapping.legend.must_equal legend }
+
+    describe "headers" do
+
+      Then { mapping.headers.must_equal sheet.originable_headers}
+    end
+
+    describe "data" do
+
+      Then { mapping.data.must_equal legend.data }
+    end
+  end
+
   describe "create records" do
 
     describe "without parents" do

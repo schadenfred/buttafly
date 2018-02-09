@@ -50,6 +50,10 @@ module FileManipulationSupport
     Buttafly::Engine.root.join file
   end
 
+  def sample_csv
+    fixture_file_upload(engine('test/samples/reviews.csv') )
+  end
+
   def reset_dummy_app
     substitutions = read_hash_from_yaml("substitutions")
     substitutions.each do |item|

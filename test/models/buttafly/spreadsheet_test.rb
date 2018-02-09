@@ -18,15 +18,18 @@ describe Buttafly::Spreadsheet do
     end
   end
 
-  describe "associations" do
+  describe "validations" do
 
-    specify "belongs to" do
+    Given(:sheet) { buttafly_spreadsheets( :review ) }
+    Given(:duplicate) { buttafly_spreadsheets( :duplicate ) }
 
-      must_have_many(:mappings)
-      must_have_many(:legends)
+    describe "uniqueness of name" do
+
+      Given { sheet.save }
+
+      Then { duplicate.valid?.wont_equal true }
     end
   end
-
 
   describe "uploader" do
 

@@ -39,4 +39,3 @@ end
 Capybara.javascript_driver = :webkit
 
 Capybara.default_max_wait_time = 30
-CarrierWave.root = 'test/fixtures/files'

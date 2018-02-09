@@ -6,7 +6,17 @@ module Buttafly
 
     accepts_nested_attributes_for :legend
 
+    def headers
+      self.originable.originable_headers
+    end
 
+    def data
+      legend.data
+    end
+
+    def create_records!
+
+    end
 
     def transmogrify!
 

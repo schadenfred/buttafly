@@ -45,12 +45,10 @@ require 'test_helper'
 
     describe "#originable_headers(file_location) must return correct headers" do
 
-      Given(:excel_sheet_path) {Rails.root.join("../../test/fixtures/files/uploads/buttafly/spreadsheet/flat_file/960725447/reviews.csv")}
-      Given(:headers) { (subject == ExcelSheet) ? sheet.originable_headers(excel_sheet_path) : sheet.originable_headers }
-      Given(:expected) do ["wine name", "winemaker name", "winery name",
-                           "vintage", "review content", "rating",
-                           "winery owner", "reviewer name"]
-      end
+      Given(:headers) { sheet.originable_headers }
+      Given(:expected) { [
+        "wine name", "winemaker name", "winery name", "vintage",
+        "review content", "rating", "winery owner", "reviewer name"]}
 
       Then { headers.must_equal expected }
     end
