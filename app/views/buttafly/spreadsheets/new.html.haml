@@ -1,7 +1,7 @@
-.row
+.card.card-body
   .col-sm-r
     %h3 New Spreadsheet
     %small.text-muted With faded secondary text
   .col-sm-8
-    = render 'form', spreadsheet: @spreadsheet
+    = render 'form', spreadsheet: Buttafly::Spreadsheet.new
     = link_to 'Back', spreadsheets_path

@@ -1,12 +1,19 @@
 .row
   .div{class: "col-sm-#{i}"}
   .div{class: "col-sm-#{12 - i}"}
-    %hr
     - mapping_selectors(m).each do |col|
       = f.fields_for a do |f|
         .form-group
-          = lineage.join(" => ")
-          = "(#{m.capitalize}) => #{col}"
+          %nav{"aria-label" => "breadcrumb"}
+            %ol.breadcrumb
+              - lineage.each do |line|
+                %li.breadcrumb-item.text-info= line
+              %li.breadcrumb-item.active
+                = m.capitalize
+                |
+                table_column: #{col}
+
+              -# = " (#{m.capitalize}) => #{col}"
           - field_value = @legend.data.nil? ? "not yet mapped" : eval("@legend.data\[\"" + lineage.join("\"][\"") + "\"\][col]")
           = f.select(col, options_for_select(@legend.originable_headers, field_value), {include_blank: true}, class: "custom-select")
 

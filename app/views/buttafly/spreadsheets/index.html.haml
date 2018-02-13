@@ -1,4 +1,4 @@
-%table.table.table-sm.table-hover
+%table.table.table-hover
   %thead
     %tr
       %th{:scope => "col"} Name
@@ -21,6 +21,6 @@
         %td= spreadsheet.processed_at
         %td= link_to 'Show', spreadsheet
         %td= link_to 'Edit', edit_spreadsheet_path(spreadsheet)
-        %td= button_to 'Destroy', spreadsheet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary"
+        %td= button_to 'Destroy', spreadsheet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger"
 %br/
 = link_to 'New Spreadsheet', new_spreadsheet_path

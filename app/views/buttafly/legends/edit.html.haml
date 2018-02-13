@@ -1,11 +1,22 @@
-%h1
-  Legend for mapping spreadsheet rows into the
-  .badge.badge-dark
-    = @legend.targetable_model
-  model, as well as required belongs_to models of
-  = main_app_name
+.card.card-body
+  %dl.row
+    %dt.col-sm-3.text-right Host Application name
+    %dd.col-sm-9= main_app_name
+    %dt.col-sm-3.text-right Targetable model
+    %dd.col-sm-9= @legend.targetable_model.classify
+    %dt.col-sm-3.text-right Legend name
+    %dd.col-sm-9
+      = @legend.name.blank? ? @legend.targetable_model.classify : @legend.name
+    %dt.col-sm-3.text-right Headers
+    %dd.col-sm-9
+      .text-info
+        = @legend.originable_headers.join(" | ")
+    %dt.col-sm-3.text-right
+    %dd.col-sm-9
+      = form_with model: @legend, method: :delete do |f|
+        = f.submit "Destroy Legend", class: "btn btn-danger"
+%br
 = form_with model: @legend do |f|
   = f.fields_for :data do |f|
     = render partial: "legend", locals: {f: f, ancestors: ancestors, a: @legend.targetable_model, m: @legend.targetable_model, i: 0, lineage: [@legend.targetable_model]}
-  %br
   = f.submit class: "btn btn-primary btn-block"

@@ -1,15 +1,18 @@
-.container
-  .row
-    %h1
-      %span.badge.badge-dark= @spreadsheet.aasm_state
-      Name:
-      = @spreadsheet.name.blank? ? "no name supplied" : @spreadsheet.name
-  .row
-    %br
-    Headers:
-    = @spreadsheet.originable_headers.join(" | ")
-    %br
-    %br
+.card.card-body
+  %dl.row
+    %dt.col-sm-3.text-right Host Application name
+    %dd.col-sm-9= main_app_name
+    %dt.col-sm-3.text-right Filename
+    %dd.col-sm-9= @spreadsheet.name.blank? ? "no name supplied" : @spreadsheet.name
+
+    %dt.col-sm-3.text-right Status
+    %dd.col-sm-9= @spreadsheet.aasm_state
+    %dt.col-sm-3.text-right Headers
+    %dd.col-sm-9
+      .text-info
+        = @spreadsheet.originable_headers.join(" | ")
+    %dt.col-sm-3.text-right
+    %dd.col-sm-9
 
   .row
     .col
@@ -30,3 +33,4 @@
               = f.select("legend", Buttafly::Legend.pluck(:targetable_model), {}, class: "form-control", id: "legend")
             .form-group
               = f.submit "choose legend", class: "btn btn-primary btn-block"
+.card.card-body
