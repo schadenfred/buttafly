@@ -67,16 +67,47 @@ describe Buttafly::Mapping do
 
   describe "#create_records" do
 
-    describe "no ancestors" do
+    describe "no parents" do
+Given { skip }
+
+      Given(:mapping) { buttafly_mappings(:review_review) }
+      Given(:csv_row) { csv = CSV.open(sheet.flat_file.path, headers:true).readlines.first}
+
+      Then { assert_difference("User.count") { mapping.create_records(csv_row) } }
+    end
+
+    describe "parents" do
+Given { skip }
 
       Given(:mapping) { buttafly_mappings(:review_winery) }
       Given(:csv_row) { csv = CSV.open(sheet.flat_file.path, headers:true).readlines.first}
 
-      Then { assert_difference("User.count") { mapping.create_records(csv_row) } }
-      And { assert_difference("Winery.count") { mapping.create_records(csv_row) } }
-      # Then { assert_difference("User.count") { mapping.transmogrify } }
+      Then { assert_difference("Winery.count") { mapping.create_records(csv_row) } }
     end
 
+    describe "grandparents" do
+Given { skip }
+      Given(:mapping) { buttafly_mappings(:review_wine) }
+      Given(:csv_row) { csv = CSV.open(sheet.flat_file.path, headers:true).readlines.first}
+
+      Then { assert_difference("Wine.count") { mapping.create_records(csv_row) } }
+    end
+
+    describe "great grandparents" do
+
+      Given(:mapping) { buttafly_mappings(:review_review) }
+      Given(:csv_row) { csv = CSV.open(sheet.flat_file.path, headers:true).readlines.first}
+
+      # Given { mapping.create_records(csv_row) }
+      # Then { byebug}
+      Then { assert_difference("Review.count") { mapping.create_records(csv_row) } }
+      # Then { assert_difference("Review.count") { mapping.create_records(csv_row) } }
+      # And { Review.count.must_equal 1 }
+      # And { Wine.count.must_equal 1 }
+      # And { Winery.count.must_equal 1 }
+
+      And { User.pluck(:name).must_equal ["madonna", "joe montana", "jim klein"] }
+    end
   end
 
   describe "#create_records_from_csv_row" do

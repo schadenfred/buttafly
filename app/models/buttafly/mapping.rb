@@ -40,14 +40,12 @@ module Buttafly
           attrs[key] = row[value]
         end
       end
-      # parent_id = klass.classify.constantize.where(value.first.first => row[value.first.last])
-      # attrs["#{key}_id"] = parent_id
       parents = klass.classify.constantize.reflect_on_all_associations(:belongs_to)
       parents.each do |parent|
         parent_id = parent.class_name.constantize.where(hash[parent.class_name.to_s]).first.id
         attrs["#{parent.name}_id"] = parent_id
       end
-      record = klass.classify.constantize.create(attrs)
+      record = klass.classify.constantize.first_or_create(attrs)
     end
 
     def transmogrify
