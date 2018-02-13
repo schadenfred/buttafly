@@ -33,8 +33,8 @@ describe Buttafly::Mapping do
     And { mapping.legend.class.name.must_equal "Buttafly::Legend" }
   end
 
-  Given(:mapping) { buttafly_mappings(:one) }
-  Given(:legend) { buttafly_legends(:one) }
+  Given(:mapping) { buttafly_mappings(:review_review) }
+  Given(:legend) { buttafly_legends(:review) }
   Given(:sheet) { buttafly_spreadsheets(:review) }
 
   describe "utility methods" do
@@ -51,6 +51,35 @@ describe Buttafly::Mapping do
 
       Then { mapping.data.must_equal legend.data }
     end
+
+    describe "targetable_models" do
+
+      Given(:expected) { [:wine, :winery, :review, :user] }
+
+      Then { mapping.targetable_models.must_equal expected }
+    end
+  end
+
+  describe "ancestors" do
+
+    Then { mapping.ancestors.first.keys.first.must_equal :reviewer }
+  end
+
+  describe "#create_records" do
+
+    describe "no ancestors" do
+
+      Given(:mapping) { buttafly_mappings(:review_winery) }
+      Given(:csv_row) { csv = CSV.open(sheet.flat_file.path, headers:true).readlines.first}
+
+      Then { assert_difference("User.count") { mapping.create_records(csv_row) } }
+      And { assert_difference("Winery.count") { mapping.create_records(csv_row) } }
+      # Then { assert_difference("User.count") { mapping.transmogrify } }
+    end
+
+  end
+
+  describe "#create_records_from_csv_row" do
   end
 
   describe "create records" do
@@ -68,7 +97,7 @@ describe Buttafly::Mapping do
   describe "#transmogrify!" do
 
     describe ":create_records" do
-      Given(:mapping)
+      # Given(:mapping)
 
     end
   end

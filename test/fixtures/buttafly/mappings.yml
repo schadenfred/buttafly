@@ -4,6 +4,22 @@ one:
   legend: one
   originable: review (Buttafly::Spreadsheet)
 
+review_review:
+  legend: review
+  originable: review (Buttafly::Spreadsheet)
+
+review_wine:
+  legend: wine
+  originable: review (Buttafly::Spreadsheet)
+
+review_winery:
+  legend: winery
+  originable: review (Buttafly::Spreadsheet)
+
+review_user:
+  legend: user
+  originable: review (Buttafly::Spreadsheet)
+
 buttafly_spreadsheets_mapping:
   legend: one
   originable: review (Buttafly::Spreadsheet)
