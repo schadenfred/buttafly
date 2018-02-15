@@ -1,13 +1,32 @@
 class Buttafly::Mapping < ApplicationRecord
 
   require "tsortable"
+  require "csv"
+  require "json"
+  require "roo"
 
+  include AASM
   include Buttafly
 
   belongs_to :legend, class_name: "Buttafly::Legend"
   belongs_to :originable, polymorphic: true
 
+  has_many :artifacts
+
   accepts_nested_attributes_for :legend
+
+  aasm do
+    state :importable
+    state :imported
+
+    event :import do
+      transitions from: :importable, to: :imported, after: :transmogrify
+    end
+
+    event :revert do
+      transitions from: [:imported], to: :impoortable
+    end
+  end
 
   def headers
     self.originable.originable_headers
@@ -55,9 +74,14 @@ class Buttafly::Mapping < ApplicationRecord
             end
           end
         end
+        create_artifact(klass, attrs)
         klassify(klass).create(attrs)
       end
     end
+  end
+
+  def create_artifact(model, attrs)
+    artifacts.create(is_new: true, data: { model => attrs} )
   end
 
   def transmogrify

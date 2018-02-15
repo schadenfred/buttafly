@@ -18,8 +18,6 @@ module Buttafly
 
       include AASM
 
-      serialize :avatars, JSON
-
       has_many :mappings, class_name: "Buttafly::Mapping", as: :originable, dependent: :destroy
       has_many :legends, class_name: "Buttafly::Legend", through: :mappings, as: :originable
 

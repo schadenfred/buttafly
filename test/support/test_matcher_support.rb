@@ -58,4 +58,12 @@ module TestMatcherSupport
   def wont_have_many(model)
     subject.reflections[child_model].macro.wont_equal :has_many
   end
+
+  def originables_fixture(fixture_name)
+    eval("#{subject.table_name}(fixture_name.to_sym)")
+  end
+
+  def table_name
+    subject.table_name
+  end
 end

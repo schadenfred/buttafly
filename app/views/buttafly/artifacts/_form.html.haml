@@ -1,0 +1,13 @@
+= form_for @artifact do |f|
+  - if @artifact.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@artifact.errors.count, "error")} prohibited this artifact from being saved:"
+      %ul
+        - @artifact.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :mapping
+    = f.text_field :mapping
+  .actions
+    = f.submit 'Save'

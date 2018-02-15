@@ -1,14 +1,19 @@
 Buttafly::Engine.routes.draw do
 
+  resources :artifacts
   resources :legends
-  resources :mappings
+  resources :mappings do
+    member do
+      patch 'import'
+      patch 'revert'
+    end
+  end
   resources :spreadsheets do
     resources :mappings
     resources :legends
     member do
-      patch 'archive'
       patch 'import'
-      patch 'transmogrify'
+      patch 'revert'
     end
   end
 

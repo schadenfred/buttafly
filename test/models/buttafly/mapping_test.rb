@@ -11,6 +11,8 @@ describe Buttafly::Mapping do
       must_have_column(:aasm_state, :string)
       must_have_column(:legend_id, :integer)
       must_have_column(:originable_id, :integer)
+      must_have_column(:originable_type)
+      must_have_column(:aasm_state)
     end
 
     specify "indexes" do
@@ -22,6 +24,8 @@ describe Buttafly::Mapping do
 
       must_belong_to(:legend)
       must_belong_to(:originable)
+
+      must_have_many(:artifacts)
     end
   end
 
@@ -50,6 +54,20 @@ describe Buttafly::Mapping do
     describe "data" do
 
       Then { mapping.data.must_equal legend.data }
+    end
+
+    describe "#create_artifact" do
+
+      describe "from new" do
+
+        Given(:attrs) { { name: "Cool name" } }
+        Given(:stimulus) { mapping.create_artifact("user", attrs)  }
+        Given(:expected) { { "user"=>{ :name=>"Cool name" } } }
+
+        Then { assert_difference("Buttafly::Artifact.count") { stimulus } }
+        And { Buttafly::Artifact.last.data.must_equal expected }
+        And { Buttafly::Artifact.last.is_new?.must_equal true }
+      end
     end
 
     describe "targetable_models" do
@@ -115,6 +133,17 @@ describe Buttafly::Mapping do
       Then { assert_difference("Wine.count", 4) { mapping.transmogrify } }
       Then { assert_difference("Winery.count", 4) { mapping.transmogrify } }
       Then { assert_difference("User.count", 12) { mapping.transmogrify } }
+    end
+  end
+
+  describe "states" do
+
+    describe "initial must be :importable" do
+
+      Then { mapping.importable?.must_equal true }
+    end
+
+    describe "permissions for" do
     end
   end
 end

@@ -15,20 +15,6 @@ require 'test_helper'
       end
     end
 
-    def originables_fixture(fixture_name)
-      eval("#{subject.table_name}(fixture_name.to_sym)")
-    end
-
-    def table_name
-      subject.table_name
-    end
-
-    Given { Buttafly.originable_model = subject }
-
-    describe "originable? must be true" do
-
-    end
-
     Given(:sheet) { originables_fixture(:review) }
 
     describe "has many :mappings" do
@@ -94,7 +80,7 @@ require 'test_helper'
     end
 
     describe "#legend_candidates" do
-      
+
       Given(:candidate)  { buttafly_legends(:review) }
       Given(:noncandidate) { buttafly_legends(:one) }
       Given { noncandidate.update(originable_headers: ["bogus", "headers"]) }
