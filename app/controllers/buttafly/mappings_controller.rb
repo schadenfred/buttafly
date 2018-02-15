@@ -5,8 +5,9 @@ module Buttafly
     before_action :set_mapping, only: [:show, :edit, :update, :destroy]
 
     def create
+
       @spreadsheet = Buttafly::Spreadsheet.find(params[:spreadsheet_id])
-      @mapping = @spreadsheet.mappings.new(legend_id: params[:legend_id] )
+      @mapping = @spreadsheet.mappings.new(legend_id: mapping_params[:legend_id] )
       if @mapping.save
         redirect_to @spreadsheet, notice: 'Mapping was successfully created.'
       else

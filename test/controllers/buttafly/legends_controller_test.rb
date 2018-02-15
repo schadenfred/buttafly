@@ -1,7 +1,8 @@
 require 'test_helper'
 
 module Buttafly
-  class LegendsControllerTest < ActionDispatch::IntegrationTest
+  describe "LegendsController" do
+
     include Engine.routes.url_helpers
 
     Given(:sheet) { buttafly_spreadsheets(:review) }
@@ -12,7 +13,7 @@ module Buttafly
       Given(:params) { { legend: { targetable_model: "review"}} }
       Given(:request) { post legends_url(spreadsheet_id: sheet), params: params}
 
-      Then { assert_difference('Legend.count') { request } }
+      Then { assert_difference(['Legend.count', 'Mapping.count']) { request } }
       And { assert_redirected_to edit_legend_url(Legend.last) }
     end
 
@@ -35,10 +36,13 @@ module Buttafly
 
     describe "#destroy" do
 
+      Given { buttafly_mappings(:review_review) }
+      Given(:count) { legend.mappings.count }
       Given(:make_request) { delete legend_url(legend) }
 
       Then { assert_difference('Legend.count', -1) { make_request } }
-      And { assert_redirected_to legends_url }
+      Then { assert_difference('Mapping.count', count * -1) { make_request } }
+      And { assert_redirected_to root_url }
     end
   end
 end

@@ -6,9 +6,8 @@ feature "CanCreateLegend" do
     spreadsheet = buttafly_spreadsheets(:review)
     visit buttafly.spreadsheet_path(spreadsheet)
     assert page.has_select?(id: "targetableModel", options: ["review", "wine", "user", "winery"])
-
     select "review", from: "targetableModel"
-    click_button "begin new legend"
+    click_button "Create new legend"
     page.has_current_path?("/buttafly/legends/*/edit")
   end
 end

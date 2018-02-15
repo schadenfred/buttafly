@@ -13,7 +13,7 @@ module Buttafly
     test "should create mapping" do
 
       assert_difference('Buttafly::Mapping.count') do
-        post spreadsheet_mappings_url(@spreadsheet, legend_id: @legend.id)
+        post spreadsheet_mappings_url(@spreadsheet), params: { mapping: { legend_id: @legend.id } }
       end
 
       assert_redirected_to @spreadsheet

@@ -92,5 +92,15 @@ require 'test_helper'
         end
       end
     end
+
+    describe "#legend_candidates" do
+      
+      Given(:candidate)  { buttafly_legends(:review) }
+      Given(:noncandidate) { buttafly_legends(:one) }
+      Given { noncandidate.update(originable_headers: ["bogus", "headers"]) }
+
+      Then { sheet.legend_candidates.must_include candidate }
+      And { sheet.legend_candidates.wont_include noncandidate }
+    end
   end
 end

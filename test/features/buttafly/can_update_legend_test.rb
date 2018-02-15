@@ -5,6 +5,7 @@ feature "CanUpdateLegend" do
     spreadsheet = buttafly_legends(:one)
     legend = buttafly_legends(:one)
     visit buttafly.edit_legend_path(legend)
+    fill_in id: "legendName", with: "Cool legend name"
     select "rating", from: 'legend_data_review_rating'
     select "review content", from: 'legend_data_review_content'
     select "wine name", from: 'legend_data_review_wine_name'

@@ -16,8 +16,7 @@ module Buttafly
 
     def create
       @spreadsheet = Buttafly::Spreadsheet.find(params["spreadsheet_id"])
-      @legend = @spreadsheet.legends.new(legend_params)
-      @legend.originable_headers = @spreadsheet.originable_headers
+      @legend = @spreadsheet.legends.create(legend_params.merge(originable_headers: @spreadsheet.originable_headers))
 
       if @legend.save
 
@@ -38,7 +37,7 @@ module Buttafly
 
     def destroy
       @legend.destroy
-      redirect_to legends_url, notice: 'Legend was successfully destroyed.'
+      redirect_to root_url, notice: 'Legend was successfully destroyed.'
     end
 
     private

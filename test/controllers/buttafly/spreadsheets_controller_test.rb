@@ -26,7 +26,7 @@ module Buttafly
       Given(:request) { post spreadsheets_url, params: { spreadsheet: attrs } }
 
       Then { assert_difference('Spreadsheet.count') { request } }
-      And { assert_redirected_to root_url }
+      And { assert_redirected_to spreadsheet_url(Spreadsheet.last) }
     end
 
     describe "#show" do

@@ -20,7 +20,7 @@ module Buttafly
 
       serialize :avatars, JSON
 
-      has_many :mappings, class_name: "Buttafly::Mapping", as: :originable
+      has_many :mappings, class_name: "Buttafly::Mapping", as: :originable, dependent: :destroy
       has_many :legends, class_name: "Buttafly::Legend", through: :mappings, as: :originable
 
       accepts_nested_attributes_for :legends
@@ -47,6 +47,10 @@ module Buttafly
       def originable_headers(file=flat_file.path)
         data = CSV.read(file)
         data.first
+      end
+
+      def legend_candidates
+        Legend.where(originable_headers: originable_headers)
       end
     end
   end

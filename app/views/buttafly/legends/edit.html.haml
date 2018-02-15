@@ -1,9 +1,9 @@
 .card.card-body
   %dl.row
     %dt.col-sm-3.text-right Host Application name
-    %dd.col-sm-9= main_app_name
+    %dd.col-sm-3= main_app_name
     %dt.col-sm-3.text-right Targetable model
-    %dd.col-sm-9= @legend.targetable_model.classify
+    %dd.col-sm-3= @legend.targetable_model.classify
     %dt.col-sm-3.text-right Legend name
     %dd.col-sm-9
       = @legend.name.blank? ? @legend.targetable_model.classify : @legend.name
@@ -12,11 +12,16 @@
       .text-info
         = @legend.originable_headers.join(" | ")
     %dt.col-sm-3.text-right
-    %dd.col-sm-9
+      Actions
+    %dd.col-sm-3
       = form_with model: @legend, method: :delete do |f|
-        = f.submit "Destroy Legend", class: "btn btn-danger"
+        = f.submit "Destroy legend", class: "btn btn-danger"
+
 %br
 = form_with model: @legend do |f|
+  = f.text_field :name, id: "legendName", class: "form-control"
+
+
   = f.fields_for :data do |f|
     = render partial: "legend", locals: {f: f, ancestors: ancestors, a: @legend.targetable_model, m: @legend.targetable_model, i: 0, lineage: [@legend.targetable_model]}
   = f.submit class: "btn btn-primary btn-block"

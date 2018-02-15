@@ -21,7 +21,7 @@ module Buttafly
     def create
       @spreadsheet = Spreadsheet.new(spreadsheet_params)
       if @spreadsheet.save
-        redirect_to root_url, notice: 'Spreadsheet was successfully created.'
+        redirect_to @spreadsheet, notice: 'Spreadsheet was successfully created.'
       else
         render :new
       end

@@ -8,5 +8,6 @@ feature "CanUploadSpreadsheet" do
     fill_in "spreadsheet[name]", with: "sweet name"
     attach_file('spreadsheet[flat_file]', File.absolute_path('./test/samples/reviews.csv'))
     click_button "Create Spreadsheet"
+    page.has_current_path?("/buttafly/spreadshets/*")
   end
 end
