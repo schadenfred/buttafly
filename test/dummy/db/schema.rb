@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215074702) do
+ActiveRecord::Schema.define(version: 20180218035348) do
 
   create_table "blacklisteds", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20180215074702) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "age"
+    t.string "astrological_sign"
   end
 
   create_table "wineries", force: :cascade do |t|

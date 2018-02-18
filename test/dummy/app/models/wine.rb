@@ -4,5 +4,7 @@ class Wine < ApplicationRecord
   belongs_to :winery
   has_many :reviews
 
+  validates :name, presence: true
+
   validates_uniqueness_of [:name, :winery]
 end

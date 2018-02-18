@@ -80,6 +80,19 @@ class Buttafly::Mapping < ApplicationRecord
     end
   end
 
+  def findable_attrs(model)
+    attrs = []
+    klass = model.to_s.classify.constantize
+    klass.validators.select do |validator|
+      validator.attributes.each do |attr|
+        if (klass.column_names.include? attr.to_s) && (!attr.match? /_id/)
+          attrs << attr
+        end
+      end
+    end
+    attrs.uniq
+  end
+
   def create_artifact(model, attrs)
     artifacts.create(is_new: true, data: { model => attrs} )
   end
