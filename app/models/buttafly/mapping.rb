@@ -53,8 +53,7 @@ class Buttafly::Mapping < ApplicationRecord
     parent
   end
 
-  def create_records(row, klass = nil, hash=nil)
-    hash ||= data
+  def create_records(row, klass = nil, hash=data)
     attrs = {}
     hash.each do |key, value|
       if value.is_a? Hash

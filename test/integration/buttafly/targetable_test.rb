@@ -45,8 +45,8 @@ describe "Buttafly::Targetable" do
   end
 
   specify "targetabl_columns" do
-    subject.targetable_columns("User").must_equal %w(name)
-    subject.targetable_columns(:user).must_equal %w(name)
+    subject.targetable_columns("User").must_equal %w(name age astrological_sign)
+    subject.targetable_columns(:user).must_equal %w(name age astrological_sign)
     subject.targetable_columns("Review").must_equal %w(rating content)
   end
 

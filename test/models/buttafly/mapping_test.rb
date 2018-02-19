@@ -60,18 +60,18 @@ describe Buttafly::Mapping do
 
       describe "from new" do
 
-        # Given(:attrs) { { name: "Cool name", owner:  } }
-        # Given(:stimulus) { mapping.create_artifact("winery", attrs)  }
-        # Given(:expected) { { "user"=>{ :name=>"Cool name" } } }
+        Given(:attrs) { { name: "Cool name" } }
+        Given(:stimulus) { mapping.create_artifact("user", attrs)  }
+        Given(:expected) { { "user"=>{ :name=>"Cool name" } } }
 
-        # Then { assert_difference("Buttafly::Artifact.count") { stimulus } }
-        # And { Buttafly::Artifact.last.data.must_equal expected }
-        # And { Buttafly::Artifact.last.is_new?.must_equal true }
-        # Then { assert_no_difference("Review.count") { stimulus } }
+        Then { assert_difference("Buttafly::Artifact.count") { stimulus } }
+        And { Buttafly::Artifact.last.data.must_equal expected }
+        And { Buttafly::Artifact.last.is_new?.must_equal true }
+        Then { assert_no_difference("Review.count") { stimulus } }
       end
 
       describe "from existing" do
-
+Given { skip }
         Given(:user) { User.create!(name: "Veronica Dean") }
         # Given(:attrs) { { name: "Veronica Dean" } }
         Given { Winery.create!(name: "Hollywood Wines", owner: user) }
