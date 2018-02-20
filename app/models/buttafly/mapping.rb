@@ -59,7 +59,7 @@ class Buttafly::Mapping < ApplicationRecord
       if value.is_a? Hash
         create_records(row, get_parent(key, klass), value)
       else
-        attrs[key] = row[value]
+        attrs[key.to_s] = row[value]
       end
       unless klass.nil?
         parents = klassify(klass).reflect_on_all_associations(:belongs_to)
@@ -73,31 +73,43 @@ class Buttafly::Mapping < ApplicationRecord
             end
           end
         end
-        create_artifact(klass, attrs)
-        klassify(klass).create(attrs)
       end
+    end
+
+    unless klass.nil?
+      create_artifact(klass, attrs)
     end
   end
 
-  def findable_attrs(model)
+  def findable_attrs(model, all_attrs)
     attrs = []
     klass = model.to_s.classify.constantize
     klass.validators.select do |validator|
-      validator.attributes.each do |attr|
-        if (klass.column_names.include? attr.to_s) && (!attr.match? /_id/)
-          attrs << attr
+      if validator.is_a? ActiveRecord::Validations::UniquenessValidator
+        validator.attributes.each do |attr|
+          parents = klass.reflect_on_all_associations(:belongs_to).map(&:name)
+          attrs << ((parents.include?(attr)) ? (attr.to_s + "_id") : attr.to_s)
         end
       end
     end
-    attrs.uniq
+    (all_attrs.slice *attrs)
   end
 
   def create_artifact(model, attrs)
+    attrs.stringify_keys!
     klass = klassify(model)
-    # byebug
-    # if klass.find(attrs)
-    artifacts.create(is_new: true, data: { model => attrs} )
-    klassify(model).where(attrs).first_or_create
+    case
+    when klass.find_by(attrs)
+      artifacts.create(status: "was_duplicate", data: {
+                       "artifactable_id" => nil, model => attrs} )
+    when record = klass.find_by(findable_attrs(model, attrs))
+      artifacts.create(status: "was_updated", data: {
+                       "artifactable_id" => record.id, model => attrs} )
+      record.update(attrs)
+    when record = klass.create(attrs)
+      artifacts.create(status: "was_new", data: {
+                       "artifactable_id" => record.id, model => attrs} )
+    end
   end
 
   def transmogrify

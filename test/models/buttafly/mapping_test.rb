@@ -40,6 +40,7 @@ describe Buttafly::Mapping do
   Given(:mapping) { buttafly_mappings(:review_review) }
   Given(:legend) { buttafly_legends(:review) }
   Given(:sheet) { buttafly_spreadsheets(:review) }
+  Given(:artifact_count) { "Buttafly::Artifact.count" }
 
   describe "utility methods" do
 
@@ -58,45 +59,57 @@ describe Buttafly::Mapping do
 
     describe "#create_artifact" do
 
-      describe "from new" do
+      Given { User.create!(name: "Veronica Dean") }
+      Given(:stimulus) { mapping.create_artifact("user", attrs)  }
+
+      describe "from 'new' status is :was_new" do
 
         Given(:attrs) { { name: "Cool unique name" } }
-        Given(:stimulus) { mapping.create_artifact("user", attrs)  }
-        Given(:expected) { { "user"=>{ :name=>"Cool unique name" } } }
+        Given(:expected) { { "name" => "Cool unique name" } }
 
-        Then { assert_difference(["User.count", "Buttafly::Artifact.count"]) { stimulus } }
-        And { Buttafly::Artifact.last.data.must_equal expected }
-        And { Buttafly::Artifact.last.is_new?.must_equal true }
-        Then { assert_no_difference("Review.count") { stimulus } }
+        Then { assert_difference(["User.count", artifact_count]) { stimulus } }
+        And { Buttafly::Artifact.last.data["user"].must_equal expected }
       end
 
-      describe "from existing" do
-        Given(:user) { User.create!(name: "Veronica Dean") }
+      describe "from 'duplicate' is :was_dupliate" do
+
         Given(:attrs) { { name: "Veronica Dean" } }
-        Given(:stimulus) { mapping.create_artifact("user", attrs)  }
         Given(:expected) { { "user"=>{ :name=>"Veronica Dean" } } }
 
-        Then { assert_difference("Buttafly::Artifact.count") { stimulus } }
+        Then { assert_difference(artifact_count) { stimulus } }
         And { assert_no_difference("User.count") { stimulus } }
-        And { Buttafly::Artifact.last.data.must_equal "duplicate" }
-        # And { Buttafly::Artifact.last.is_new?.must_equal true }
+        And { Buttafly::Artifact.last.status.must_equal "was_duplicate" }
+      end
+
+      describe "from 'update' is :was_updated" do
+
+        Given(:attrs) { { name: "Veronica Dean", age: 21, astrological_sign: "taurus" } }
+        Given(:expected) { { "user"=>{ :name=>"Veronica Dean" } } }
+
+        Then { assert_difference(artifact_count) { stimulus } }
+        And { Buttafly::Artifact.last.status.must_equal "was_updated" }
+        And { assert_no_difference("User.count") { stimulus } }
       end
     end
 
     describe "#findable_attrs(model)" do
 
-      describe "review" do
+      describe "User" do
 
-        Given(:expected) { [:content] }
+        Given(:expected) { { "name" => "Garland Maverock" } }
+        Given(:attrs) { { "name" => "Garland Maverock", age: 55, astrological_sign: "Cancer" } }
 
-        Then { mapping.findable_attrs(:review).must_equal expected}
+        Then { mapping.findable_attrs(:user, attrs ).must_equal expected}
       end
 
       describe "wine" do
 
-        Given(:expected) {  [:name]  }
+        Given(:owner) { User.create(name: "Bill Blinker" ) }
+        Given(:winery) { Winery.create(name: "Gallo", owner: owner) }
+        Given(:attrs) { { "name" => "Ella's Reserve", "vintage" => "2001", "winery_id" => winery.id } }
+        Given(:expected) { { "name" => "Ella's Reserve", "winery_id" => 1 }  }
 
-        Then { mapping.findable_attrs(:wine).must_equal expected}
+        Then { mapping.findable_attrs(:wine, attrs).must_equal expected}
       end
     end
 
@@ -122,9 +135,10 @@ describe Buttafly::Mapping do
       When(:mapping) { buttafly_mappings(:review_user) }
 
       Then { assert_difference("User.count") { mapping.create_records(csv_row) } }
-      Then { refute_difference("Winery.count") { mapping.create_records(csv_row) } }
       Then { refute_difference("Wine.count") { mapping.create_records(csv_row) } }
+      Then { refute_difference("Winery.count") { mapping.create_records(csv_row) } }
       Then { refute_difference("Review.count") { mapping.create_records(csv_row) } }
+      Then { assert_difference(artifact_count, 1) { mapping.create_records(csv_row) } }
     end
 
     describe "with parent, targetable Winery" do
@@ -135,8 +149,8 @@ describe Buttafly::Mapping do
       Then { assert_difference("Winery.count") { mapping.create_records(csv_row) } }
       Then { refute_difference("Wine.count") { mapping.create_records(csv_row) } }
       Then { refute_difference("Review.count") { mapping.create_records(csv_row) } }
+      Then { assert_difference(artifact_count, 2) { mapping.create_records(csv_row) } }
     end
-
     describe "with parent and grandparents, targetable Wine" do
 
       When(:mapping) { buttafly_mappings(:review_wine) }
@@ -145,6 +159,7 @@ describe Buttafly::Mapping do
       Then { assert_difference("Winery.count") { mapping.create_records(csv_row) } }
       Then { assert_difference("Wine.count") { mapping.create_records(csv_row) } }
       Then { refute_difference("Review.count") { mapping.create_records(csv_row) } }
+      Then { assert_difference(artifact_count, 4) { mapping.create_records(csv_row) } }
     end
 
     describe "great grandparents" do
@@ -155,14 +170,15 @@ describe Buttafly::Mapping do
       Then { assert_difference("Winery.count") { mapping.create_records(csv_row) } }
       Then { assert_difference("Wine.count") { mapping.create_records(csv_row) } }
       Then { assert_difference("Review.count") { mapping.create_records(csv_row) } }
+      Then { assert_difference(artifact_count, 6) { mapping.create_records(csv_row) } }
     end
 
     describe "#transmogrify must create records in all models for each row" do
-
       Then { assert_difference("Review.count", 4) { mapping.transmogrify } }
       Then { assert_difference("Wine.count", 4) { mapping.transmogrify } }
       Then { assert_difference("Winery.count", 4) { mapping.transmogrify } }
       Then { assert_difference("User.count", 12) { mapping.transmogrify } }
+      Then { assert_difference(artifact_count, 24) { mapping.transmogrify } }
     end
   end
 
@@ -171,9 +187,6 @@ describe Buttafly::Mapping do
     describe "initial must be :importable" do
 
       Then { mapping.importable?.must_equal true }
-    end
-
-    describe "permissions for" do
     end
   end
 end
