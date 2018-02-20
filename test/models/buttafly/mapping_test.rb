@@ -60,28 +60,26 @@ describe Buttafly::Mapping do
 
       describe "from new" do
 
-        Given(:attrs) { { name: "Cool name" } }
+        Given(:attrs) { { name: "Cool unique name" } }
         Given(:stimulus) { mapping.create_artifact("user", attrs)  }
-        Given(:expected) { { "user"=>{ :name=>"Cool name" } } }
+        Given(:expected) { { "user"=>{ :name=>"Cool unique name" } } }
 
-        Then { assert_difference("Buttafly::Artifact.count") { stimulus } }
+        Then { assert_difference(["User.count", "Buttafly::Artifact.count"]) { stimulus } }
         And { Buttafly::Artifact.last.data.must_equal expected }
         And { Buttafly::Artifact.last.is_new?.must_equal true }
         Then { assert_no_difference("Review.count") { stimulus } }
       end
 
       describe "from existing" do
-Given { skip }
         Given(:user) { User.create!(name: "Veronica Dean") }
-        # Given(:attrs) { { name: "Veronica Dean" } }
-        Given { Winery.create!(name: "Hollywood Wines", owner: user) }
-        # Given(:stimulus) { mapping.create_artifact("user", attrs)  }
-        # Given(:expected) { { "user"=>{ :name=>"Veronica Dean" } } }
+        Given(:attrs) { { name: "Veronica Dean" } }
+        Given(:stimulus) { mapping.create_artifact("user", attrs)  }
+        Given(:expected) { { "user"=>{ :name=>"Veronica Dean" } } }
 
         Then { assert_difference("Buttafly::Artifact.count") { stimulus } }
-        And { assert_no_difference("Review.count") { stimulus } }
-        And { Buttafly::Artifact.last.data.must_equal expected }
-        And { Buttafly::Artifact.last.is_new?.must_equal true }
+        And { assert_no_difference("User.count") { stimulus } }
+        And { Buttafly::Artifact.last.data.must_equal "duplicate" }
+        # And { Buttafly::Artifact.last.is_new?.must_equal true }
       end
     end
 

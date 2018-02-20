@@ -93,7 +93,11 @@ class Buttafly::Mapping < ApplicationRecord
   end
 
   def create_artifact(model, attrs)
+    klass = klassify(model)
+    # byebug
+    # if klass.find(attrs)
     artifacts.create(is_new: true, data: { model => attrs} )
+    klassify(model).where(attrs).first_or_create
   end
 
   def transmogrify

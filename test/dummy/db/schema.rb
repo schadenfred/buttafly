@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218035348) do
+ActiveRecord::Schema.define(version: 20180219235630) do
 
   create_table "blacklisteds", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20180218035348) do
     t.boolean "is_new"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
     t.index ["mapping_id"], name: "index_buttafly_artifacts_on_mapping_id"
   end
 
