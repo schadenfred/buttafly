@@ -1,11 +1,9 @@
 require 'test_helper'
 
 module Buttafly
-  # describe Artifact do
   class ArtifactTest < ActiveSupport::TestCase
 
     subject { Buttafly::Artifact}
-    Given(:artifact) { buttafly_artifacts(:one) }
 
     describe "db" do
 
@@ -23,8 +21,28 @@ module Buttafly
       end
     end
 
-    specify "#is_new" do
-      artifact.respond_to? :is_new
+    describe "#revert_record" do
+
+      Given { User.create!(name: "keena turner") }
+      Given { User.create!(name: "madonna", age: 69, astrological_sign: "Aquarius") }
+
+      Given(:artifact_count) { "Buttafly::Artifact.count" }
+      Given(:mapping) { buttafly_mappings(:review_review) }
+      Given { mapping.transmogrify }
+
+      describe "from new deletes the record and the artifact" do
+
+        Given(:artifact) { Buttafly::Artifact.where(status: "was_new").last }
+
+        Then { assert_difference(["Review.count", artifact_count], -1) { artifact.revert_record } }
+      end
+
+      describe "from new deletes the record and the artifact" do
+Given { skip }
+        Given(:artifact) { Buttafly::Artifact.where(status: "was_updated").last }
+        Then { byebug }
+        # Then { assert_difference([artifact_count], -1) { artifact.revert_record } }
+      end
     end
   end
 end

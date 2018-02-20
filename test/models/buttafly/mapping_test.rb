@@ -29,9 +29,10 @@ describe Buttafly::Mapping do
     end
   end
 
-  Given(:mapping) { buttafly_mappings(:one) }
 
   describe "can belong to a spreadsheet through polymorphism" do
+
+    Given(:mapping) { buttafly_mappings(:one) }
 
     Then { mapping.originable.class.name.must_equal "Buttafly::Spreadsheet" }
     And { mapping.legend.class.name.must_equal "Buttafly::Legend" }
