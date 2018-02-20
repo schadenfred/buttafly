@@ -99,12 +99,12 @@ class Buttafly::Mapping < ApplicationRecord
     attrs.stringify_keys!
     klass = klassify(model)
     case
-    when klass.find_by(attrs)
+    when record = klass.find_by(attrs)
       artifacts.create(status: "was_duplicate", data: {
-                       "artifactable_id" => nil, model => attrs} )
+                       "artifactable_id" => record.id, model => attrs} )
     when record = klass.find_by(findable_attrs(model, attrs))
       artifacts.create(status: "was_updated", data: {
-                       "artifactable_id" => record.id, model => attrs} )
+                       "artifactable_id" => record.id, model => record.attributes} )
       record.update(attrs)
     when record = klass.create(attrs)
       artifacts.create(status: "was_new", data: {
