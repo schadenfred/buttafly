@@ -20,11 +20,13 @@ class Buttafly::Mapping < ApplicationRecord
     state :imported
 
     event :import do
-      transitions from: :importable, to: :imported, after: :transmogrify
+      transitions from: :importable, to: :imported,
+                                     after: :transmogrify
     end
 
     event :revert do
-      transitions from: [:imported], to: :impoortable
+      transitions from: :imported, to: :importable,
+                                     after: :revert_all_records
     end
   end
 
@@ -115,6 +117,12 @@ class Buttafly::Mapping < ApplicationRecord
   def transmogrify
     csv = CSV.open(originable.flat_file.path, headers:true).readlines
     csv.each { |row| create_records(row) }
+  end
+
+  def revert_all_records
+    artifacts.each do |artifact|
+      artifact.revert_record
+    end
   end
 
 private

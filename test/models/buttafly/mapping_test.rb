@@ -175,6 +175,7 @@ describe Buttafly::Mapping do
     end
 
     describe "#transmogrify must create records in all models for each row" do
+
       Then { assert_difference("Review.count", 4) { mapping.transmogrify } }
       Then { assert_difference("Wine.count", 4) { mapping.transmogrify } }
       Then { assert_difference("Winery.count", 4) { mapping.transmogrify } }
@@ -183,11 +184,24 @@ describe Buttafly::Mapping do
     end
   end
 
-  describe "states" do
+  describe "#revert_all_records" do
 
-    describe "initial must be :importable" do
+    Given { mapping.transmogrify }
 
-      Then { mapping.importable?.must_equal true }
-    end
+    Then { assert_difference(artifact_count, -24) { mapping.revert_all_records } }
+  end
+
+  describe "#import!" do
+
+    Then { assert_difference(artifact_count, 24) { mapping.import! } }
+    And { mapping.aasm_state.must_equal "imported" }
+  end
+
+  describe "#revert!" do
+
+    Given { mapping.import! }
+
+    Then { assert_difference(artifact_count, -24) { mapping.revert! } }
+    And { mapping.aasm_state.must_equal "importable" }
   end
 end

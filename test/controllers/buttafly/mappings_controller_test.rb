@@ -5,7 +5,7 @@ module Buttafly
     include Engine.routes.url_helpers
 
     Given(:sheet) { buttafly_spreadsheets(:review) }
-    Given(:mapping) { buttafly_mappings(:one) }
+    Given(:mapping) { buttafly_mappings(:review_review) }
     Given(:legend) { buttafly_legends(:one) }
 
     describe "#create" do
@@ -19,10 +19,30 @@ module Buttafly
 
     describe "#import" do
 
-      Given(:params) { { mapping: { legend_id: legend.id } } }
       Given(:request) { patch import_mapping_url( mapping ) }
-      Then { assert_difference('User.count', 12) { request } }
-      And { assert_redirected_to sheet }
+
+      describe "must create records" do
+
+        Then { assert_difference('User.count', 12) { request } }
+        And { assert_redirected_to sheet }
+      end
+
+      describe "must create artifacts" do
+
+        Then { assert_difference('Buttafly::Artifact.count', 24) { request } }
+      end
+    end
+
+    describe "#revert" do
+
+      Given { mapping.import! }
+
+      describe "must remove artifacts" do
+
+        Given(:request) { patch revert_mapping_url(mapping) }
+        Then { assert_difference('Buttafly::Artifact.count', -24) { request } }
+        And { assert_redirected_to sheet }
+      end
     end
 
     describe "#destroy" do

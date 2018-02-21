@@ -17,18 +17,23 @@ module Buttafly
 
     def import
 
-      if @mapping.transmogrify
-        redirect_to @mapping.originable, notice: "#{@mapping.originable.name} successfully imported."
+      if @mapping.import!
+        redirect_to @mapping.originable,
+              notice: "#{@mapping.originable.name} successfully imported."
       else
-        redirect_to @mapping.originable, alert: "Could not import #{@mapping.originable.name}."
+        redirect_to @mapping.originable,
+              alert: "Could not import #{@mapping.originable.name}."
       end
     end
 
     def revert
-      if @originable.transmogrify!
-        redirect_to :back, notice: "#{@originable.name} successfully archived."
+
+      if @mapping.revert!
+        redirect_to @mapping.originable,
+              notice: "#{@mapping.originable.name} successfully reverted."
       else
-        redirect_to :back, notice: "#{@originable.name} could not be archived."
+        redirect_to @mapping.originable,
+              alert: "Could not revert #{@mapping.originable.name}."
       end
     end
 

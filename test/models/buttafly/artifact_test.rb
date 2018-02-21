@@ -21,10 +21,11 @@ module Buttafly
       end
     end
 
+    Given(:mapping) { buttafly_mappings(:review_review) }
+    Given(:artifact_count) { "Buttafly::Artifact.count" }
+
     describe "#revert_record" do
 
-      Given(:artifact_count) { "Buttafly::Artifact.count" }
-      Given(:mapping) { buttafly_mappings(:review_review) }
       Given(:joemontana) { User.where(name: "joe montana").first }
       Given { User.create!(name: "joe montana") }
       Given { mapping.transmogrify }
@@ -33,22 +34,31 @@ module Buttafly
 
         Given(:artifact) { Buttafly::Artifact.where(status: "was_new").last }
 
-        Then { assert_difference(["Review.count", artifact_count], -1) { artifact.revert_record } }
+        Then do
+          assert_difference(["Review.count", artifact_count], -1) do
+            artifact.revert_record
+          end
+        end
       end
 
       describe "from duplicate deletes the artifact" do
 
-        Given(:artifact) { Buttafly::Artifact.where(status: "was_duplicate").last }
+        Given(:artifact) { subject.where(status: "was_duplicate").last }
 
-        Then { assert_difference([artifact_count], -1) { artifact.revert_record } }
+        Then do
+          assert_difference([artifact_count], -1) do
+            artifact.revert_record
+          end
+        end
       end
 
       describe "from updated" do
 
         Given(:artifact) { Buttafly::Artifact.where(status: "was_updated").last}
-        Given(:updated_record_attrs) { { name: "joe montana", age: 55,
-                                         astrological_sign: "taurus" } }
-        Given { mapping.create_artifact("user", updated_record_attrs)  }
+        Given(:attrs) { { name: "joe montana",
+                          age: 55,
+                          astrological_sign: "taurus" } }
+        Given { mapping.create_artifact("user", attrs)  }
 
         describe "has age and astrological_sign attrs before reversion" do
 
