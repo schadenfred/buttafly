@@ -50,4 +50,7 @@
             %td= link_to(mapping.legend.name, mapping.legend)
             %td= mapping.legend.targetable_model
             %td= mapping.aasm_state
-            %td= button_to "import", import_mapping_url(mapping), method: :patch
+            %td
+              .btn-group
+                - event_buttons_for(mapping).each do |button|
+                  = button

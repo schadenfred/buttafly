@@ -32,7 +32,7 @@ module Buttafly
       describe "must create records" do
 
         Then { assert_difference('User.count', 12) { request } }
-        And { assert_redirected_to sheet }
+        And { assert_redirected_to mapping }
       end
 
       describe "must create artifacts" do

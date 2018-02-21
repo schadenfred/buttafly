@@ -15,6 +15,26 @@ module Buttafly
       children[parent] = col
     end
 
+    def event_buttons_for(model_with_aasm)
+      buttons = []
+      model_with_aasm.aasm.events.map(&:name).each do |a|
+        action = a.to_s
+        singularized_model = model_with_aasm.class.to_s.split(":").last.to_s.downcase
+        path = eval("#{action}_#{singularized_model}_url(model_with_aasm)")
+        id = "#{action}Mapping-#{model_with_aasm.id}"
+        buttons << (button_to action, path, method: :patch, class: btn_class(action), id: id)
+      end
+      buttons
+    end
+
+    def btn_class(action)
+      hash = {
+        "import" => "success",
+        "revert" => "warning" 
+      }
+      "btn btn-#{hash[action]}"
+    end
+
     def mapping_selectors(model)
       Buttafly::Targetable.targetable_columns(model)
     end

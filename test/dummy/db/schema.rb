@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20180219235630) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
-    t.index ["mapping_id"], name: "index_buttafly_artifacts_on_mapping_id"
   end
 
   create_table "buttafly_legends", force: :cascade do |t|

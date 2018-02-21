@@ -1,6 +1,6 @@
 Buttafly::Engine.routes.draw do
 
-  resources :artifacts, :legends, :mappings
+  resources :artifacts, :legends#, :mappings
 
   resources :mappings do
     member do

@@ -1,6 +1,8 @@
 module Buttafly
   class Artifact < ApplicationRecord
-    belongs_to :mapping
+    include Buttafly
+
+    belongs_to :mapping, class_name: "Buttafly::Mapping"
 
     enum status: [ :was_new, :was_updated, :was_duplicate ]
     serialize :data

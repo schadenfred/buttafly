@@ -21,18 +21,14 @@ module Buttafly
     end
 
     def import
-
       if @mapping.import!
-        redirect_to @mapping.originable,
-              notice: "#{@mapping.originable.name} successfully imported."
+        redirect_to @mapping, notice: "Successfully imported rows."
       else
-        redirect_to @mapping.originable,
-              alert: "Could not import #{@mapping.originable.name}."
+        redirect_to @mapping, alert: "Could not import rows."
       end
     end
 
     def revert
-
       if @mapping.revert!
         redirect_to @mapping.originable,
               notice: "#{@mapping.originable.name} successfully reverted."
