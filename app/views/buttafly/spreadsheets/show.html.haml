@@ -36,5 +36,18 @@
   %br
   .card.card-body
     .card-title Current mappings from this sheet to existing legends
-    - @spreadsheet.legends.each do |l|
-      = "lah"
+    %table.table.table-hover
+      %thead
+        %tr
+          %th{:scope => "col"} Legend
+          %th{:scope => "col"} Targetable model
+          %th{:scope => "col"} Status
+          %th{:scope => "col"} Actions
+
+      %tbody
+        - @spreadsheet.mappings.each do |mapping|
+          %tr
+            %td= link_to(mapping.legend.name, mapping.legend)
+            %td= mapping.legend.targetable_model
+            %td= mapping.aasm_state
+            %td= button_to "import", import_mapping_url(mapping), method: :patch

@@ -8,6 +8,14 @@ module Buttafly
     Given(:mapping) { buttafly_mappings(:review_review) }
     Given(:legend) { buttafly_legends(:one) }
 
+    describe "#show" do
+
+      Given { mapping }
+      Given { get mapping_url(mapping) }
+
+      Then { assert_response 200 }
+    end
+
     describe "#create" do
 
       Given(:params) { { params: { mapping: { legend_id: legend.id } } } }

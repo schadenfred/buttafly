@@ -2,7 +2,12 @@ require_dependency "buttafly/application_controller"
 
 module Buttafly
   class MappingsController < ApplicationController
-    before_action :set_mapping, only: [:import, :revert, :destroy]
+    before_action :set_mapping, only: [:show, :import, :revert, :destroy]
+
+    def show
+      @legend = @mapping.legend
+      @originable = @mapping.originable
+    end
 
     def create
 

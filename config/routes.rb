@@ -1,7 +1,7 @@
 Buttafly::Engine.routes.draw do
 
-  resources :artifacts
-  resources :legends
+  resources :artifacts, :legends, :mappings
+
   resources :mappings do
     member do
       patch 'import'

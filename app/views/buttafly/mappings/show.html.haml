@@ -1,6 +1,50 @@
-%p#notice= notice
+.card.card-body
+  %dl.row
+    %dt.col-sm-3.text-right Host Application name
+    %dd.col-sm-9= main_app_name
+    %dt.col-sm-3.text-right Filename
+    %dd.col-sm-9= @originable.name.blank? ? "no name supplied" : @originable.name
+
+    %dt.col-sm-3.text-right Status
+    %dd.col-sm-9= @originable.aasm_state
+    %dt.col-sm-3.text-right Headers
+    %dd.col-sm-9
+      .text-info
+        = @originable.originable_headers.join(" | ")
+    %dt.col-sm-3.text-right
+    %dd.col-sm-9
+
+  .row
+    .col
+      .card.card-body
+        -# = form_with url: spreadsheet_legends_path(@originable) do |f|
+        -#   = f.fields_for :legend do |f|
+        -#     .form-group
+        -#       = f.label "targetable model"
+        -#       = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
+        -#     .form-group
+        -#       = f.submit "Create new legend", class: "btn btn-primary btn-block"
+    .col
+      .card.card-body
+  -#       = form_with url: spreadsheet_mappings_url(@originable) do |f|
+  -#         = f.fields_for :mapping do |f|
+  -#           .form-group
+  -#             = f.label "existing legends"
+  -#             = f.collection_select(:legend_id, @originable.legend_candidates, :id, :default_name, {}, class: "form-control", id: "existingLegend")
+  -#           .form-group
+  -#             = f.submit "Choose from existing legend", class: "btn btn-primary btn-block"
+  %br
+  .card.card-body
+    .card-title Current mappings from this sheet to existing legends
+    %table.table.table-hover
+      %thead
+        %tr
+          %th{:scope => "col"} Status
+          %th{:scope => "col"} Created at
+          %th{:scope => "col"} Model
 
 
-= link_to 'Edit', edit_mapping_path(@mapping)
-\|
-= link_to 'Back', mappings_path
+    - @mapping.artifacts.each do |artifact|
+      %tr
+        %td= artifact.status
+        %td= artifact.data.keys.second
