@@ -49,7 +49,7 @@ module Buttafly
 
         Given(:request) { patch revert_mapping_url(mapping) }
         Then { assert_difference('Buttafly::Artifact.count', -24) { request } }
-        And { assert_redirected_to sheet }
+        And { assert_redirected_to mapping }
       end
     end
 

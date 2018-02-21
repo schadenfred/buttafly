@@ -30,11 +30,9 @@ module Buttafly
 
     def revert
       if @mapping.revert!
-        redirect_to @mapping.originable,
-              notice: "#{@mapping.originable.name} successfully reverted."
+        redirect_to @mapping, notice: "Successfully reverted."
       else
-        redirect_to @mapping.originable,
-              alert: "Could not revert #{@mapping.originable.name}."
+        redirect_to @mapping, alert: "Could not revert."
       end
     end
 

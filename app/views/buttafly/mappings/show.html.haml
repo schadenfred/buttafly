@@ -15,36 +15,25 @@
     %dd.col-sm-9
 
   .row
-    .col
-      .card.card-body
-        -# = form_with url: spreadsheet_legends_path(@originable) do |f|
-        -#   = f.fields_for :legend do |f|
-        -#     .form-group
-        -#       = f.label "targetable model"
-        -#       = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
-        -#     .form-group
-        -#       = f.submit "Create new legend", class: "btn btn-primary btn-block"
-    .col
-      .card.card-body
-  -#       = form_with url: spreadsheet_mappings_url(@originable) do |f|
-  -#         = f.fields_for :mapping do |f|
-  -#           .form-group
-  -#             = f.label "existing legends"
-  -#             = f.collection_select(:legend_id, @originable.legend_candidates, :id, :default_name, {}, class: "form-control", id: "existingLegend")
-  -#           .form-group
-  -#             = f.submit "Choose from existing legend", class: "btn btn-primary btn-block"
+    - event_buttons_for(@mapping).each do |button|
+      .col= button
+    .col-9
   %br
   .card.card-body
     .card-title Current mappings from this sheet to existing legends
-    %table.table.table-hover
-      %thead
-        %tr
-          %th{:scope => "col"} Status
-          %th{:scope => "col"} Created at
-          %th{:scope => "col"} Model
-
-
     - @mapping.artifacts.each do |artifact|
-      %tr
-        %td= artifact.status
-        %td= artifact.data.keys.second
+      .row
+        .col
+          = artifact.data.keys.second
+        .col
+          = time_ago_in_words(artifact.created_at) + " ago."
+        .col
+          = artifact.status.humanize
+        .col
+          - artifact.data.values.second.each do |key, value|
+            .row
+              = "#{key}: #{value}"
+        .col
+          = button_to "revert record", artifact, method: :delete, class: "btn btn-warning"
+
+      %hr

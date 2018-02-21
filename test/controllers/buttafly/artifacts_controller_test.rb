@@ -4,49 +4,26 @@ module Buttafly
   class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    setup do
-      @artifact = buttafly_artifacts(:one)
-    end
+    Given(:legend) { buttafly_legends(:review) }
+    Given(:originable) { buttafly_spreadsheets(:review) }
+    Given(:mapping) { Buttafly::Mapping.create(
+      legend: legend, originable: originable) }
+    Given { mapping && mapping.import! }
 
-    test "should get index" do
-      get artifacts_url
-      assert_response :success
-    end
+    describe "should destroy artifact" do
 
-    test "should get new" do
-      get new_artifact_url
-      assert_response :success
-    end
+      Given(:artifact) { Buttafly::Artifact.where(status: "was_new").first }
+      Given { artifact }
 
-    test "should create artifact" do
-      assert_difference('Artifact.count') do
-        post artifacts_url, params: { artifact: { mapping_id: @artifact.mapping_id } }
+      Then { artifact.data.must_equal "blah"}
+
+      Then do
+        assert_difference('Artifact.count', -1) do
+          delete artifact_url(artifact)
+        end
       end
 
-      assert_redirected_to artifact_url(Artifact.last)
-    end
-
-    test "should show artifact" do
-      get artifact_url(@artifact)
-      assert_response :success
-    end
-
-    test "should get edit" do
-      get edit_artifact_url(@artifact)
-      assert_response :success
-    end
-
-    test "should update artifact" do
-      patch artifact_url(@artifact), params: { artifact: { mapping_id: @artifact.mapping_id } }
-      assert_redirected_to artifact_url(@artifact)
-    end
-
-    test "should destroy artifact" do
-      assert_difference('Artifact.count', -1) do
-        delete artifact_url(@artifact)
-      end
-
-      assert_redirected_to artifacts_url
+      And { assert_redirected_to artifacts_url }
     end
   end
 end

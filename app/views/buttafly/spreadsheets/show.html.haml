@@ -36,21 +36,29 @@
   %br
   .card.card-body
     .card-title Current mappings from this sheet to existing legends
-    %table.table.table-hover
-      %thead
-        %tr
-          %th{:scope => "col"} Legend
-          %th{:scope => "col"} Targetable model
-          %th{:scope => "col"} Status
-          %th{:scope => "col"} Actions
+    - @spreadsheet.mappings.each do |mapping|
+      .row
+        .col= link_to(mapping.legend.name, mapping.legend)
+        .col= mapping.legend.targetable_model
+        .col= mapping.aasm_state
+        - event_buttons_for(mapping).each do |button|
+          .col= button
 
-      %tbody
-        - @spreadsheet.mappings.each do |mapping|
-          %tr
-            %td= link_to(mapping.legend.name, mapping.legend)
-            %td= mapping.legend.targetable_model
-            %td= mapping.aasm_state
-            %td
-              .btn-group
-                - event_buttons_for(mapping).each do |button|
-                  = button
+    -# %table.table.table-hover
+    -#   %thead
+    -#     %tr
+    -#       %th{:scope => "col"} Legend
+    -#       %th{:scope => "col"} Targetable model
+    -#       %th{:scope => "col"} Status
+    -#       %th{:scope => "col"} Actions
+    -#
+    -#   %tbody
+    -#     - @spreadsheet.mappings.each do |mapping|
+    -#       %tr
+    -#         %td= link_to(mapping.legend.name, mapping.legend)
+    -#         %td= mapping.legend.targetable_model
+    -#         %td= mapping.aasm_state
+    -#         %td
+    -#         %td.btn-group
+    -#           - event_buttons_for(mapping).each do |button|
+    -#             = button
