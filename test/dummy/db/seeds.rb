@@ -1,7 +1,6 @@
 require 'byebug'
 include Buttafly
 
-sample_sheets = Dir[File.expand_path('test/samples/*')]
 
 legend = Buttafly::Legend.create(
   data: {
@@ -39,12 +38,15 @@ legend = Buttafly::Legend.create(
     "review content", "rating", "winery owner", "reviewer name"],
   name: "default"
 )
-sample_sheets.each do |sheet|
-
+# sample_sheets.each do |sheet|
+sheets = Dir[File.expand_path('../samples/*.csv')]
+#
+sheets.each do |sheet|
   flat_file = File.open(sheet)
   spreadsheet = Buttafly::Spreadsheet.new(
+    name: "sweet ass spreadsheet",
     flat_file: flat_file)
   spreadsheet.save
-
-  spreadsheet.mappings
 end
+
+Buttafly::Mapping.create(legend: legend, originable: Buttafly::Spreadsheet.last)
