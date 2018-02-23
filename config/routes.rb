@@ -1,6 +1,11 @@
 Buttafly::Engine.routes.draw do
 
-  resources :artifacts, :legends#, :mappings
+  resources :artifacts, only: [:destroy] do
+    member do
+      patch 'revert'
+    end
+  end
+  resources :legends
 
   resources :mappings do
     member do

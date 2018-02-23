@@ -4,26 +4,24 @@ module Buttafly
   class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     include Engine.routes.url_helpers
 
-    Given(:legend) { buttafly_legends(:review) }
-    Given(:originable) { buttafly_spreadsheets(:review) }
-    Given(:mapping) { Buttafly::Mapping.create(
-      legend: legend, originable: originable) }
-    Given { mapping && mapping.import! }
+    Given(:mapping) { buttafly_mappings(:review_review) }
+    Given { mapping.import! }
+    Given(:artifact) { Artifact.last }
 
-    describe "should destroy artifact" do
+    describe "#destroy" do
 
-      Given(:artifact) { Buttafly::Artifact.where(status: "was_new").first }
+      Given(:request) { delete artifact_url(artifact) }
+
+      Then { assert_difference('Artifact.count', -1) { request } }
+    end
+
+    describe "#revert" do
+
+      Given(:record_class) { artifact.data.keys.second.classify }
+      Given(:request) { patch revert_artifact_url(artifact) }
       Given { artifact }
 
-      Then { artifact.data.must_equal "blah"}
-
-      Then do
-        assert_difference('Artifact.count', -1) do
-          delete artifact_url(artifact)
-        end
-      end
-
-      And { assert_redirected_to artifacts_url }
+      Then { assert_difference('Artifact.count', -1) { request } }
     end
   end
 end

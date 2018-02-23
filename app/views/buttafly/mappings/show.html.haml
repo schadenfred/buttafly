@@ -2,26 +2,27 @@
   %dl.row
     %dt.col-sm-3.text-right Host Application name
     %dd.col-sm-9= main_app_name
-    %dt.col-sm-3.text-right Filename
+    %dt.col-sm-3.text-right Originable filename
     %dd.col-sm-9= @originable.name.blank? ? "no name supplied" : @originable.name
-
     %dt.col-sm-3.text-right Status
-    %dd.col-sm-9= @originable.aasm_state
-    %dt.col-sm-3.text-right Headers
     %dd.col-sm-9
-      .text-info
-        = @originable.originable_headers.join(" | ")
-    %dt.col-sm-3.text-right
+      .badge.badge-info= @mapping.aasm_state
+    %dt.col-sm-3.text-right Actions
     %dd.col-sm-9
-
-  .row
-    - event_buttons_for(@mapping).each do |button|
-      .col= button
-    .col-9
+      .row
+        - event_buttons_for(@mapping).each do |button|
+          .col= button
+        .col-9
   %br
   .card.card-body
-    .card-title Current mappings from this sheet to existing legends
+    .card-title
+      = @mapping.artifacts.count
+      records were created or updated from this sheet using "Import." You can
+      revert any artifact below, bringing the record to its previous state, or
+      you can delete the artifact if everything looks good. Though we can't
+      think of a good reason to do so.
     - @mapping.artifacts.each do |artifact|
+      %hr
       .row
         .col
           = artifact.data.keys.second
@@ -33,7 +34,5 @@
           - artifact.data.values.second.each do |key, value|
             .row
               = "#{key}: #{value}"
-        .col
-          = button_to "revert record", artifact, method: :delete, class: "btn btn-warning"
-
-      %hr
+        .col= button_to "revert", revert_artifact_url(artifact), method: :patch, class: "btn btn-outline-warning", id: "revertArtifact-#{artifact.id}"
+        .col= button_to "destroy", artifact, method: :delete, class: "btn btn-outline-danger", id: "destroyArtifact-#{artifact.id}"
