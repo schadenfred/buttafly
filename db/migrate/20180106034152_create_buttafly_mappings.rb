@@ -4,6 +4,7 @@ class CreateButtaflyMappings < ActiveRecord::Migration[5.1]
       t.integer :legend_id
       t.integer :originable_id
       t.string :originable_type
+      t.string :aasm_state
 
       t.timestamps
 
