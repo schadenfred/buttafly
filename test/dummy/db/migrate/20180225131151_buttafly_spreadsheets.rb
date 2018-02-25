@@ -1,4 +1,3 @@
-# This migration comes from buttafly (originally 20180106031913)
 class CreateButtaflySpreadsheets < ActiveRecord::Migration[5.1]
   def change
     create_table :buttafly_spreadsheets do |t|
