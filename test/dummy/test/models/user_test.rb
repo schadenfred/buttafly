@@ -6,6 +6,8 @@ describe User do
 
     specify "columns & types" do
 
+      must_have_column(:age, :integer)
+      must_have_column(:astrological_sign)
       must_have_column(:name)
     end
   end

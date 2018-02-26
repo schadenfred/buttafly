@@ -115,7 +115,7 @@ describe Buttafly::Mapping do
     end
 
     describe "targetable_models" do
-
+Given { skip }
       Given(:expected) { [:wine, :winery, :review, :user] }
 
       Then { mapping.targetable_models.must_equal expected }
