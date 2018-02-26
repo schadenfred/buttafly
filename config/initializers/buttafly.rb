@@ -23,5 +23,4 @@ Buttafly.setup do |config|  config.flat_file_col = "flat_file"
   ## With either choice you can add models as symbols or strings:
   ## config.whiteorblacklist = [:wine, :wineries, "winery", "Review", "owners"]
 
-  ### TODO: config.aasm_state_column_name and create migration to model (pass a)
 end

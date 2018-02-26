@@ -9,7 +9,7 @@ module Buttafly
 
       specify "columns" do
         must_have_column(:data, :text)
-        must_have_column(:is_new, :boolean)
+        must_have_column(:status, :integer)
       end
     end
 

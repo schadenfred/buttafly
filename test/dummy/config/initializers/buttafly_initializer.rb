@@ -3,7 +3,7 @@ Buttafly.setup do |config|  config.flat_file_col = "flat_file"
   ## If you would prefer to use an existing model for spreadsheets, change it
   ## below, along with the column the column in the model storing file path:
 
-  config.originable_model = "Buttafly::Spreadsheet"
+  config.originable_model = "ExcelSheet"
   config.flat_file_col = "flat_file"
 
 
