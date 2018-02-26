@@ -44,11 +44,11 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
       seconds = seconds.to_s.length == 2 ? seconds : "0#{seconds}"
 
       timestamp = (DateTime.now.strftime "%Y%m%d%H%M") + seconds
-      name = migration.split("_").last
-      if dummy("db/migrate/*#{name}").exist?
-        puts "Migration #{name} has already been copied to your app"
+      name = migration.split("_").drop(1).join("_")
+      if Dir.glob("#{Rails.root.join("db", "migrate")}/*#{name}").empty?
+        copy_file migration, "db/migrate/#{timestamp}_#{name}"
       else
-        copy_file migration, "db/migrate/#{timestamp}_buttafly_#{name}"
+        puts "Migration #{name} has already been copied to your app"
       end
     end
   end

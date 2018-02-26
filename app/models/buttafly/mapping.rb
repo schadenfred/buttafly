@@ -41,7 +41,7 @@ module Buttafly
     end
 
     def targetable_models
-      Targetable.models
+      Buttafly::Targetable.models
     end
 
     def ancestors

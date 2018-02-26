@@ -47,11 +47,11 @@ describe Buttafly::Legend do
     end
     end
 
-  specify "has many :originables through :mappings" do
-    legend = buttafly_legends(:one)
-    legend.mappings.must_include buttafly_mappings(:one)
-    legend.originables.must_include buttafly_spreadsheets(:review)
-  end
+  # specify "has many :originables through :mappings" do
+  #   legend = buttafly_legends(:one)
+  #   legend.mappings.must_include buttafly_mappings(:one)
+  #   legend.originables.must_include buttafly_spreadsheets(:review)
+  # end
 
 
 end

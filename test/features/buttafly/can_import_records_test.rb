@@ -4,9 +4,8 @@ feature "CanImportRecords" do
   scenario "for review model and parents" do
     mapping = buttafly_mappings(:review_review)
     visit buttafly.spreadsheet_path(mapping.originable)
-    assert page.has_select?(id: "targetableModel", options: ["review", "wine", "user", "winery"])
-    select "review", from: "targetableModel"
+    select "Review", from: "targetableModel"
     click_button "Create new legend"
-    page.has_current_path?("/buttafly/legends/*/edit")
+    page.has_content?("Legend was successfully created.").must_equal true
   end
 end

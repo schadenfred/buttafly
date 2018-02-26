@@ -100,7 +100,8 @@ module Buttafly
 
     def self.buttafly_blacklist
 
-      @blacklist = ["ActiveRecord::SchemaMigration", "ApplicationRecord", "Buttafly::ApplicationRecord", "Buttafly::Mapping",
+      @blacklist = ["ActiveRecord::SchemaMigration", "ApplicationRecord",
+        "Buttafly::ApplicationRecord", "Buttafly::Mapping", "Buttafly::Artifact",
         "Buttafly::Spreadsheet", "Buttafly::Legend"]
     end
   end
