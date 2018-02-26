@@ -10,32 +10,32 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
   def set_originable_model_if_specified
     unless args.empty?
 
-      file = Rails.root.join("config/initializers/buttafly.rb")
+      file = "config/initializers/buttafly.rb"
       code = args.first.to_s.classify
       gsub_file file, "Buttafly::Spreadsheet", code
     end
   end
 
   def copy_routes_to_host
-    directory "routes", dummy("config/routes")
+    directory "routes", "config/routes"
   end
 
   def add_routes_to_autoload_path
-    file = dummy("config/application.rb")
+    file = "config/application.rb"
     code = %q[config.autoload_paths += %W(#{config.root}/config/routes)]
     after = "class Application < Rails::Application"
     pretty_file_insert(file, code, after)
   end
 
   def mount_engine_to_app
-    file = dummy("config/routes.rb")
+    file = "config/routes.rb"
     code = "extend EngineRoutes"
     after = "Rails.application.routes.draw do"
     pretty_file_insert(file, code, after)
   end
 
   def include_originable_module_in_originable_model
-    return if originable_model.nil?
+    return if args.empty?
     file = "app/models/#{originable_model.to_s.singularize.underscore}.rb"
     code = %q[include Buttafly::Originable]
     after = "ApplicationRecord"
@@ -77,6 +77,6 @@ private
   end
 
   def pretty_file_insert(file, code, after)
-    insert_into_file dummy(file), newline(code), after: after
+    insert_into_file file, newline(code), after: after
   end
 end
