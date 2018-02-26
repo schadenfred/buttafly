@@ -22,61 +22,89 @@ describe Buttafly::InstallGenerator do
 #   # end
 #   # teardown { cleanup }
 #   #
+
+  setup {
+    reset_dummy_app
+    verify_dummy_app_initial_state
+  }
   describe "sanity" do
 
     specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
     specify { assert_nothing_raised { run_generator } }
   end
-#
-#   # describe "before running generator" do
-#   #
-#   #   Given { reset_dummy_app }
-#   #   Then { verify_dummy_app_initial_state }
-#   # end
-#
+
   describe "generate buttafly:install" do
 
     describe "without arguments" do
+
       Given { run_generator }
 
       describe "must create buttafly.rb initializer in host app" do
-        # Then { Rails.root.must_equal "blah"}
+
         Then { assert_file "config/initializers/buttafly.rb" }
+      end
+
+      describe "must add routes/ folder to autoload path" do
+
+        Then { assert_directory "config/routes" }
+      end
+
+      describe "must create engine_routes.rb in config/routes/" do
+
+        Then { assert_file "config/routes/engine_routes.rb" }
+      end
+
+      describe "must copy migrations" do
+
+        Then { assert_no_migration "db/migrate/create_buttafly_tables.rb"}
+      end
+
+      describe "must add EngineRoutes to config/routes.rb" do
+
+        Then { assert_file "config/routes.rb", /extend EngineRoutes/ }
+      end
+
+      describe "must add routes autoload_path to application.rb" do
+
+        Given(:line)  { %q[config.autoload_paths += %W(#{config.root}/config/routes)] }
+
+        Then { assert_no_file "config/application.rb" }
       end
     end
 
     describe "with model argument" do
-Given { skip }
+
       Given { run_generator ["excel_sheet"] }
 
       describe "must create buttafly.rb initializer in host app" do
 
-        Then { assert_file "config/initializers/buttafly.rb" }
-        # Then { assert_file "config/initializers/buttafly.rb", /ExcelSheet/ }
-        # And { }
+        Then { assert_file "config/initializers/buttafly.rb", /ExcelSheet/ }
+      end
+
+      describe "must add routes/ folder to autoload path" do
+
+        Then { assert_directory "config/routes" }
+      end
+
+      describe "must create engine_routes.rb in config/routes/" do
+
+        Then { assert_file "config/routes/engine_routes.rb" }
+      end
+
+      describe "must create engine_routes.rb in config/routes/" do
+
+        Given(:line)  { %q[config.autoload_paths += %W(#{config.root}/config/routes)] }
+
+        Then { assert_no_file "config/application.rb" }
+      end
+
+      describe "must add buttafly::Originable to excel_sheet.rb" do
+
+        # Then { assert_file "app/models/excel_sheet.rb", /Buttafly::Originable/ }
       end
     end
   end
 end
-
-
-    # describe "must " do
-  # end
-# end
-
-
-  # end
-#
-#     describe "must create engine_routes.rb in config/routes/" do
-#
-#       Then { assert_file Rails.root.join("config/routes") }
-#       And { assert_file Rails.root.join("config/routes/engine_routes.rb") }
-#     end
-#
-#     describe "must add routes/ folder to autoload path" do
-#
-#       Given(:file) { "config/application.rb" }
-#       Given(:line)  { %q[config.autoload_paths += %W(#{config.root}/config/routes)] }
 #
 #       Then { File.read(dummy(file)).must_match line }
 #     end
