@@ -7,9 +7,8 @@ require "buttafly"
 
 module Dummy
   class Application < Rails::Application
-		config.autoload_paths += %W(#{config.root}/config/routes)
 
-		
+		config.autoload_paths += %W(#{config.root}/config/routes)
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
