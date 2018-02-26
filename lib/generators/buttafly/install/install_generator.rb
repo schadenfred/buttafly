@@ -4,11 +4,12 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
 
   def copy_buttafly_initializer_to_host
-    copy_file "buttafly_initializer.rb", "config/initializers/buttafly.rb"
+    copy_file "buttafly_initializer.rb.tt", "config/initializers/buttafly.rb"
   end
 
   def set_originable_model_if_specified
     unless args.empty?
+
       file = Rails.root.join("config/initializers/buttafly.rb")
       code = args.first.to_s.classify
       gsub_file file, "Buttafly::Spreadsheet", code
