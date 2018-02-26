@@ -1,14 +1,14 @@
-# require "test_helper"
-# require 'generators/buttafly/install/install_generator'
-#
-# describe Buttafly::InstallGenerator do
-#
-#   tests Buttafly::InstallGenerator
-#
-#   destination Rails.root.join('tmp/generators')
-#
-#   setup :prepare_destination
-#
+require "test_helper"
+require 'generators/buttafly/install/install_generator'
+
+describe Buttafly::InstallGenerator do
+
+  tests Buttafly::InstallGenerator
+
+  destination File.expand_path(Rails.root.join("tmp"), File.dirname(__FILE__))
+
+  setup :prepare_destination
+
 #   # def cleanup
 #   #   system "git checkout test/dummy/config"
 #   #   system "git checkout test/dummy/app/models/excel_sheet.rb"
@@ -22,11 +22,11 @@
 #   # end
 #   # teardown { cleanup }
 #   #
-#   describe "sanity" do
-#
-#     specify { assert_nothing_raised { run_generator } }
-#     specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
-#   end
+  describe "sanity" do
+
+    # specify { assert_nothing_raised { run_generator } }
+    # specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
+  end
 #
 #   # describe "before running generator" do
 #   #
@@ -34,14 +34,39 @@
 #   #   Then { verify_dummy_app_initial_state }
 #   # end
 #
-#   describe "without arguments" do
-#
-#     Given { run_generator }
-#
-#     describe "must create buttafly.rb initializer in host app" do
-#
-#       Then { assert_file "config/initializers/buttafly.rb" }
-#     end
+  describe "generate buttafly:install" do
+
+    describe "without arguments" do
+
+      Given { run_generator }
+
+      describe "must create buttafly.rb initializer in host app" do
+        # Then { Rails.root.must_equal "blah"}
+        Then { assert_file "config/initializers/buttafly.rb" }
+      end
+    end
+
+    describe "with model argument" do
+# Given { skip }
+      Given { run_generator ["excel_sheet"] }
+
+      describe "must create buttafly.rb initializer in host app" do
+
+        Then { assert_file "config/initializers/buttafly.rb" }
+        Then { assert_file "config/initializers/buttafly.rb", /ExcelSheet/ }
+        # And { }
+      end
+    end
+  end
+end
+
+
+    # describe "must " do
+  # end
+# end
+
+
+  # end
 #
 #     describe "must create engine_routes.rb in config/routes/" do
 #
