@@ -43,7 +43,7 @@ describe Buttafly::InstallGenerator do
 
       describe "must add EngineRoutes to config/routes.rb" do
 
-        Then { assert_file "config/routes.rb", /extend EngineRoutes/ }
+        Then { assert_file Rails.root.join("config/routes.rb"), /extend EngineRoutes/ }
       end
 
       describe "must add routes autoload_path to application.rb" do
