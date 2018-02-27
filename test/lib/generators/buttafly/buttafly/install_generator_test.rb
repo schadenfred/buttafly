@@ -9,24 +9,6 @@ describe Buttafly::InstallGenerator do
 
   setup :prepare_destination
 
-#   # def cleanup
-#   #   system "git checkout test/dummy/config"
-#   #   system "git checkout test/dummy/app/models/excel_sheet.rb"
-#   # end
-#   #
-#   #
-#   # setup do
-#   #   remove_files_for_testing("buttafly", "db/migrate/")
-#   #   remove_file_for_testing(dummy("config/initializers/buttafly.rb"))
-#   #   cleanup
-#   # end
-#   # teardown { cleanup }
-#   #
-
-  setup {
-    reset_dummy_app
-    verify_dummy_app_initial_state
-  }
   describe "sanity" do
 
     specify { assert_nothing_raised { run_generator ["excel_sheet"] } }
