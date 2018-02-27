@@ -3,23 +3,24 @@ require_dependency "buttafly/application_controller"
 module Buttafly
   class SpreadsheetsController < ApplicationController
     before_action :set_spreadsheet, only: [:show, :edit, :update, :destroy]
+    before_action :set_originable_klass
 
     def index
-      @spreadsheets = Buttafly::Spreadsheet.all
+      @spreadsheets = @originable_klass.all
     end
 
     def show
     end
 
     def new
-      @spreadsheet = Buttafly::Spreadsheet.new
+      @spreadsheet = @originable_klass.new
     end
 
     def edit
     end
 
     def create
-      @spreadsheet = Spreadsheet.new(spreadsheet_params)
+      @spreadsheet = @originable_klass.new(spreadsheet_params)
       if @spreadsheet.save
         redirect_to @spreadsheet, notice: 'Spreadsheet was successfully created.'
       else
@@ -41,9 +42,14 @@ module Buttafly
     end
 
     private
-      def set_spreadsheet
 
-        @spreadsheet = Spreadsheet.find(params[:id])
+      def set_originable_klass
+        @originable_klass = Buttafly.originable_model.classify.constantize
+      end
+
+      def set_spreadsheet
+        set_originable_klass
+        @spreadsheet = @originable_klass.find(params[:id])
       end
 
       def spreadsheet_params
