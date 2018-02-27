@@ -51,7 +51,9 @@ class Buttafly::InstallGenerator < Rails::Generators::Base
       timestamp = (DateTime.now.strftime "%Y%m%d%H%M") + seconds
       name = migration.split("_").drop(1).join("_")
       if Dir.glob("#{Rails.root.join("db", "migrate")}/*#{name}").empty?
-        copy_file migration, "db/migrate/#{timestamp}_#{name}"
+        unless args.present? && (name.match? /spreadsheet/)
+          copy_file migration, "db/migrate/#{timestamp}_#{name}"
+        end
       else
         puts "Migration #{name} has already been copied to your app"
       end
