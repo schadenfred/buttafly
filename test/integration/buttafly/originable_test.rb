@@ -9,12 +9,6 @@ describe Buttafly::Originable do
     And { Buttafly::Spreadsheet.originable?.must_equal true}
   end
 
-  describe "specified as spreadsheet is titleized" do
-
-    Given { Buttafly.setup { |c| c.originable_model = "ExcelSheet" } }
-    Then { Buttafly.originable_model.must_equal "ExcelSheet" }
-  end
-
   describe "spreadsheet" do
 
     subject { Buttafly::Spreadsheet }
