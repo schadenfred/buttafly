@@ -17,3 +17,4 @@ test/dummies/dummy_review/db/*.sqlite3-journal
 test/dummies/dummy_review/log/*.log
 test/dummies/dummy_review/tmp/
 test/dummies/dummy_review/public/uploads/
+test/dummies/log/*
