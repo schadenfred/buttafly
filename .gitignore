@@ -7,6 +7,7 @@ test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/public/uploads/
 test/support/carrierwave/carrierwave_cache/*
+tmp/*
 
 test/fixtures/files/uploads/tmp/
 .byebug_history
