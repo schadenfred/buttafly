@@ -12,9 +12,4 @@ tmp/*
 test/fixtures/files/uploads/tmp/
 .byebug_history
 
-test/dummies/dummy_review/db/*.sqlite3
-test/dummies/dummy_review/db/*.sqlite3-journal
-test/dummies/dummy_review/log/*.log
-test/dummies/dummy_review/tmp/
-test/dummies/dummy_review/public/uploads/
-test/dummies/log/*
+test/dummies/*
