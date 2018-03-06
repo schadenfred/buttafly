@@ -8,17 +8,41 @@
 
 # Buttafly
 
-Buttafly is a [Rails engine](http://guides.rubyonrails.org/engines.html). You can bolt it onto your [Ruby on Rails](http://rubyonrails.org/) application by adding it to your Gemfile and installing it with two commands. Once bolted on, Buttafly allows you to navigate to www.yourapp.com/buttafly, upload a spreadsheet, map its headers to the correct models and attributes of your application, and then import each of the spreadsheet's rows into one or more relational database records -- each record with the correct parent and child associations. Confused? Read on.
+Buttafly is a [Rails engine](http://guides.rubyonrails.org/engines.html). You can add it to your [Ruby on Rails](http://rubyonrails.org/) application's Gemfile and install it with two commands.
+
+Once bolted on, Buttafly allows you to navigate to www.yourapp.com/buttafly, upload a spreadsheet, map its headers to the correct models and attributes of your application, and then import each spreadsheet row into one or more relational database records. Each record will have the correct parent and child associations and if you've made a mistake, you will have a user interface to fix it. Confused? Read on.
+
+## Getting Started
+
+Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, please open an issue with your rails version in it and we'll see what we can do to get you squared away. First, add Buttafly to your Gemfile:
+
+```ruby
+# Gemfile
+
+gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
+
+```
+
+Then from the console:
+
+```console
+
+bundle
+bin/rails g buttafly:install
+bin/rails db:setup
+bin/rails server
+
+```
 
 ## Use case
 
-Let's say that you have a wine review application that allows reviewers to publish wine reviews and that:
+Let's say that you have a wine review application allowing reviewers to publish wine reviews and that:
 
-1. Each winery has a winery owner, and a bunch of wines it sells, and that each wine has a unique name and vintage.
+1. Each winery has a winery owner and a bunch of different wines it sells, and that each wine has a unique name and vintage.
 2. Each wine has a winemaker, and has a bunch of reviews written about it.
 3. Each review is written by a reviewer, and is about a wine.
 
-Let's say that you've entered into an agreement with a famous wine critic to let you publish her back catalog of reviews. Let's also say she isn't willing to recreate the reviews in your wine review application by hand -- because she's also a corporate lawyer who bills at $600 an hour -- but that she is willing to provide you with spreadsheets of her reviews. And let's also say that the first few rows of one of the spreadsheets looks like this:
+Let's say that you've entered into an agreement with a famous wine reviewer to let you publish her back catalog of reviews. Let's also say she isn't willing to recreate the reviews in your wine review application by hand -- because she's also a corporate lawyer who bills at $600 an hour -- but that she is willing to provide you with a spreadsheet of her reviews. And then let's also say the first few rows of her spreadsheet looks like this:
 
 | Winery name           | Wine name     | Vintage | Rating  | Review  |
 | --------------        |---------------|--------:|-------- |---------|
@@ -27,13 +51,13 @@ Let's say that you've entered into an agreement with a famous wine critic to let
 | Duckhorndog           | semillon      | 2003    | 99      | Overdressed nevertheless complex and stunning Semillon. Shows kalamata olive, hedonistic nectarine, bashful tomato. Drink now through Friday. |
 | Feszter           | Gewurztraminer      | 2009    | 56      | Overdressed nevertheless sweet gewurztraminer. Shows formaldehyde, liquid death. Pour it down the drain. |
 
-If there aren't too many reviews in the spreadsheet you might be tempted to email the spreadsheet to an intern and ask her to navigate your applicaton's forms to create each winery that has been reviewed, and then each wine that has been reviewed for that winery, and then each review for each wine from that winery. Or you might commission a $300 an developer to write a script to import the spreadsheet rows into your application to do the same thing. But what if this spreadsheet is only the first of many spreadsheets from the reviewer? And what if you have many more spreadsheets from a diverse group of other famous wine reviewers, and each of these spreadsheets has slightly different headers and columns?
+If there aren't too many rows in the spreadsheet you might email it to an intern and ask her to navigate your applicaton's forms to create each winery the reviewer has reviewed, and then each wine that has been reviewed for that winery, and then each review for each wine from that winery. Or you might commission a $300 an developer to write a script to import the spreadsheet rows into your application in order to do the same thing. But what if this spreadsheet is the first of many spreadsheets from the reviewer? And what if you have many more spreadsheets from a diverse group of other famous wine reviewers, and each of these spreadsheets has slightly different headers and columns? And what if the intern or the developer screws up?
 
 Buttafly lets you -- as well as any non-technical person -- metamorphose your spreadsheet data into beautiful relational db records with the correct parent and child associations.
 
 ## Dummy App Example
 
-Let's consider the included Buttafly dummy app at buttafly/test/dummy, which is not coincidentally a wine review app. Our dummy app's model associations are declared in test/dummy/app/models, and can be condensed thusly:
+Let's consider the included Buttafly dummy app at buttafly/test/dummy which is, not coincidentally, a wine review app. Our dummy app's model associations are declared in test/dummy/app/models, and can be condensed thusly:
 
 ```ruby
 
@@ -67,12 +91,15 @@ has_many :wineries_owned, foreign_key: :owner_id
 
 ```
 
-Buttafly knows about your application's models, associations, and validations. To see it in action, clone this repository, cd into test/dummy, and from the console do:
+Buttafly knows about your application's models, associations, and validations. To see it in action:
 
 ```console
 
+git clone https://github.com/schadenfred/buttafly.git
+cd buttafly
 bundle
-bin/rails g buttafly:install
+cd test/dummy
+bin/rails db:setup
 bin/rails db:setup
 bin/rails server
 
@@ -80,30 +107,7 @@ bin/rails server
 
 Then click [localhost:3000](localhost:3000).
 
-
 Once there, navigate to /buttafly, upload a spreadsheet, select a "targetable model" of "Review," and then create a "Legend" for the mapping. When creating the legend, you'll be asked to pair the spreadsheet header for "review content" to the Review model's "content" attribute, and the "rating" header to the Review model's "rating" attribute. Then because Buttafly knows each review belongs to a wine and a reviewer, it will ask you which header to pair with the Reviewer (User) model's "name" attribute, and which to pair with the Wine model's "name" attribute. And then again because it also knows each wine belongs to a winery, it will ask you which spreadsheet header to pair to the Winery "name" column and so on, for as many ancestors as your targetable model has. Once you've imported a record, you can then revert the record to its initial state, or even revert an entire spreadsheet mapping.
-
-## Getting Started
-
-Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, please open an issue with your rails version in it and we'll see what we can do to get you squared away. First, add Buttafly to your Gemfile:
-
-```ruby
-# Gemfile
-
-gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
-
-```
-
-Then from the console:
-
-```console
-
-bundle
-bin/rails g buttafly:install
-bin/rails db:setup
-bin/rails server
-
-```
 
 ## Running tests:
 
