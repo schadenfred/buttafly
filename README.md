@@ -89,6 +89,8 @@ has_many :wineries_owned, foreign_key: :owner_id
 
 ```
 
+## Running the dummy review app
+
 Let's get that dummy review app running:
 
 ```console
@@ -97,7 +99,6 @@ git clone https://github.com/schadenfred/buttafly.git
 cd buttafly
 bundle
 cd test/dummy
-bin/rails db:setup
 bin/rails db:setup
 bin/rails server
 
