@@ -5,9 +5,34 @@
     |_.__/ \__,_|\__|\__\__,_|_| |_|\__, |
                                     |___/
 
-Buttafly is a [Rails engine](http://guides.rubyonrails.org/engines.html). You can add it to your [Ruby on Rails](http://rubyonrails.org/) application's Gemfile, install it, navigate to www.yourapp.com/buttafly, upload a spreadsheet, map its headers to the correct models and attributes of your application, and then import each spreadsheet row into one or more relational database records. Each record will have the correct parent and child associations, and if you've made a mistake you will be able to easily to fix it. Confused? Read on otherwise go to "Getting Started" below.
 
-## Example Use case
+## Getting Started
+
+Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, please open an issue with your rails version in it and we'll see what we can do to get you squared away. First, add Buttafly to your Gemfile:
+
+```ruby
+# Gemfile
+
+gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
+
+```
+
+Then from the console:
+
+```console
+
+bundle
+bin/rails g buttafly:install
+bin/rails db:setup
+bin/rails server
+
+```
+
+## Summary
+
+Buttafly is a [Rails engine](http://guides.rubyonrails.org/engines.html). Once installed on your [Ruby on Rails](http://rubyonrails.org/) application you can navigate to yourapp/buttafly, upload a spreadsheet, and map its headers to the correct models and attributes of your application, before importing each spreadsheet row into one or more relational database records. Each record will have the correct parent and child associations, and if you've made a mistake you will be able to easily to fix it. Confused? Here's an example:
+
+## Example
 
 Let's say that you have a wine review application allowing reviewers to publish wine reviews and that:
 
@@ -15,7 +40,7 @@ Let's say that you have a wine review application allowing reviewers to publish 
 2. Each wine has a winemaker, and has a bunch of reviews written about it.
 3. Each review is written by a reviewer, and is about a wine.
 
-Let's say that you've entered into an agreement with a famous wine reviewer to let you publish her back catalog of reviews. Let's also say she isn't willing to recreate the reviews in your wine review application by hand -- because she's also a corporate lawyer who bills at $600 an hour -- but that she is willing to provide you with a spreadsheet of her reviews. And then let's also say the first few rows of her spreadsheet looks like this:
+Let's also say that you've entered into an agreement with a famous wine reviewer to let you publish her back catalog of reviews. She isn't willing to recreate the reviews in your wine review application by hand -- because she's also a $600 an hour corporate lawyer -- but she is willing to provide you with a spreadsheet of her reviews. The first few rows of her spreadsheet look like this:
 
 | Winery name           | Wine name     | Vintage | Rating  | Review  |
 | --------------        |---------------|--------:|-------- |---------|
@@ -97,25 +122,3 @@ bundle exec guard
 ## License
 
 [MIT-LICENSE](http://en.wikip edia.org/wiki/MIT_License)
-
-## Getting Started
-
-Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, please open an issue with your rails version in it and we'll see what we can do to get you squared away. First, add Buttafly to your Gemfile:
-
-```ruby
-# Gemfile
-
-gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
-
-```
-
-Then from the console:
-
-```console
-
-bundle
-bin/rails g buttafly:install
-bin/rails db:setup
-bin/rails server
-
-```
