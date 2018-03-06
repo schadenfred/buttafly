@@ -103,9 +103,7 @@ bin/rails server
 
 ```
 
-Next, please navigate to [localhost:3000/buttafly](localhost:3000/buttafly), upload a spreadsheet, select a "targetable model" of "Review," and then create a "Legend" for the mapping. When creating the legend, you'll be asked to pair the spreadsheet header for "review content" to the Review model's "content" attribute, and the spreadsheet "rating" header to the Review model's "rating" attribute. Then because Buttafly knows each review belongs to a wine and a reviewer, it will ask you which header to pair with the Reviewer (User) model's "name" attribute, and which to pair with the Wine model's "name" attribute. And then again because it also knows each wine belongs to a winery, it will ask you which spreadsheet header to pair to the Winery "name" column and so on -- for as many ancestors as your targetable model has.
-
-Once you've imported a record, if you decide you've screwed up, you can then revert the record or even revert an entire spreadsheet mapping.
+Next, please navigate to [localhost:3000/buttafly], upload a spreadsheet, select a "targetable model" of "Review," and then create a "Legend" for the mapping. When creating the legend, you'll be asked to pair the spreadsheet header for "review content" to the Review model's "content" attribute, and the spreadsheet "rating" header to the Review model's "rating" attribute. Then because Buttafly knows each review belongs to a wine and a reviewer, it will ask you which header to pair with the Reviewer (User) model's "name" attribute, and which to pair with the Wine model's "name" attribute. And then again because it also knows each wine belongs to a winery, it will ask you which spreadsheet header to pair to the Winery "name" column and so on -- for as many ancestors as your targetable model has. Once you've imported a record, if you decide you've screwed up, you can then revert the record or even revert an entire spreadsheet mapping.
 
 ## Running tests:
 
@@ -121,4 +119,4 @@ bundle exec guard
 
 ## License
 
-[MIT-LICENSE](http://en.wikip edia.org/wiki/MIT_License)
+[MIT-LICENSE](http://en.wikipedia.org/wiki/MIT_License)
