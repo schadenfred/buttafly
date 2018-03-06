@@ -22,8 +22,8 @@ Then from the console:
 ```console
 
 bundle
-bin/rails g buttafly:install
-bin/rails db:setup
+bin/rails generate buttafly:install
+bin/rails db:migrate
 bin/rails server
 
 ```
@@ -49,7 +49,7 @@ Let's also say that you've entered into an agreement with a famous wine reviewer
 | Duckhorndog           | semillon      | 2003    | 99      | Overdressed nevertheless complex and stunning Semillon. Shows kalamata olive, hedonistic nectarine, bashful tomato. Drink now through Friday. |
 | Feszter           | Gewurztraminer      | 2009    | 56      | Overdressed nevertheless sweet gewurztraminer. Shows formaldehyde, liquid death. Pour it down the drain. |
 
-If there aren't too many rows in the spreadsheet you might email it to an intern and ask her to navigate your applicaton's forms to create each winery the reviewer has reviewed, and then each wine that has been reviewed for that winery, and then each review for each wine from that winery. Or you might commission a $300 an developer to write a script to import the spreadsheet rows into your application in order to do the same thing. But what if this spreadsheet is the first of many spreadsheets from the reviewer? And what if you have many more spreadsheets from a diverse group of other famous wine reviewers, and each of these spreadsheets has slightly different headers and columns? And what if the intern or the developer screws up?
+If there aren't too many rows in the spreadsheet you might email it to an intern and ask her to navigate your application's forms to create each winery the reviewer has reviewed, and then each wine that has been reviewed for that winery, and then each review for each wine from that winery. Or you might commission a $300 an developer to write a script to import the spreadsheet rows into your application in order to do the same thing. But what if this spreadsheet is the first of many spreadsheets from the reviewer? And what if you have many more spreadsheets from a diverse group of other famous wine reviewers, and each of these spreadsheets has slightly different headers and columns? And what if the intern or the developer screws up?
 
 Buttafly lets you -- as well as any non-technical person -- metamorphose your spreadsheet data into beautiful relational db records with the correct parent and child associations.
 
@@ -103,9 +103,7 @@ bin/rails server
 
 ```
 
-Then click [localhost:3000](localhost:3000).
-
-Once there, navigate to /buttafly, upload a spreadsheet, select a "targetable model" of "Review," and then create a "Legend" for the mapping. When creating the legend, you'll be asked to pair the spreadsheet header for "review content" to the Review model's "content" attribute, and the "rating" header to the Review model's "rating" attribute. Then because Buttafly knows each review belongs to a wine and a reviewer, it will ask you which header to pair with the Reviewer (User) model's "name" attribute, and which to pair with the Wine model's "name" attribute. And then again because it also knows each wine belongs to a winery, it will ask you which spreadsheet header to pair to the Winery "name" column and so on, for as many ancestors as your targetable model has. Once you've imported a record, you can then revert the record to its initial state, or even revert an entire spreadsheet mapping.
+Once your app is running, navigate to /buttafly, upload a spreadsheet, select a "targetable model" of "Review," and then create a "Legend" for the mapping. When creating the legend, you'll be asked to pair the spreadsheet header for "review content" to the Review model's "content" attribute, and the "rating" header to the Review model's "rating" attribute. Then because Buttafly knows each review belongs to a wine and a reviewer, it will ask you which header to pair with the Reviewer (User) model's "name" attribute, and which to pair with the Wine model's "name" attribute. And then again because it also knows each wine belongs to a winery, it will ask you which spreadsheet header to pair to the Winery "name" column and so on, for as many ancestors as your targetable model has. Once you've imported a record, you can then revert the record to its initial state, or even revert an entire spreadsheet mapping.
 
 ## Running tests:
 
