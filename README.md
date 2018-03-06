@@ -5,36 +5,9 @@
     |_.__/ \__,_|\__|\__\__,_|_| |_|\__, |
                                     |___/
 
+Buttafly is a [Rails engine](http://guides.rubyonrails.org/engines.html). You can add it to your [Ruby on Rails](http://rubyonrails.org/) application's Gemfile, install it, navigate to www.yourapp.com/buttafly, upload a spreadsheet, map its headers to the correct models and attributes of your application, and then import each spreadsheet row into one or more relational database records. Each record will have the correct parent and child associations, and if you've made a mistake you will be able to easily to fix it. Confused? Read on otherwise go to "Getting Started" below.
 
-# Buttafly
-
-Buttafly is a [Rails engine](http://guides.rubyonrails.org/engines.html). You can add it to your [Ruby on Rails](http://rubyonrails.org/) application's Gemfile and install it with two commands.
-
-Once bolted on, Buttafly allows you to navigate to www.yourapp.com/buttafly, upload a spreadsheet, map its headers to the correct models and attributes of your application, and then import each spreadsheet row into one or more relational database records. Each record will have the correct parent and child associations and if you've made a mistake, you will have a user interface to fix it. Confused? Read on.
-
-## Getting Started
-
-Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, please open an issue with your rails version in it and we'll see what we can do to get you squared away. First, add Buttafly to your Gemfile:
-
-```ruby
-# Gemfile
-
-gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
-
-```
-
-Then from the console:
-
-```console
-
-bundle
-bin/rails g buttafly:install
-bin/rails db:setup
-bin/rails server
-
-```
-
-## Use case
+## Example Use case
 
 Let's say that you have a wine review application allowing reviewers to publish wine reviews and that:
 
@@ -91,7 +64,7 @@ has_many :wineries_owned, foreign_key: :owner_id
 
 ```
 
-Buttafly knows about your application's models, associations, and validations. To see it in action:
+## See the dummy app in action:
 
 ```console
 
@@ -124,3 +97,25 @@ bundle exec guard
 ## License
 
 [MIT-LICENSE](http://en.wikip edia.org/wiki/MIT_License)
+
+## Getting Started
+
+Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, please open an issue with your rails version in it and we'll see what we can do to get you squared away. First, add Buttafly to your Gemfile:
+
+```ruby
+# Gemfile
+
+gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
+
+```
+
+Then from the console:
+
+```console
+
+bundle
+bin/rails g buttafly:install
+bin/rails db:setup
+bin/rails server
+
+```
