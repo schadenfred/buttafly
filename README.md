@@ -95,7 +95,7 @@ Let's get that dummy review app running:
 
 ```console
 
-git clone https://github.com/schadenfred/buttafly.git
+git clone https://bitbucket.org/schadenfred/buttafly
 cd buttafly
 bundle
 cd test/dummy
@@ -109,7 +109,7 @@ Next, please navigate to [localhost:3000/buttafly](http://localhost:3000/buttafl
 ## Running tests:
 
 ```console
-git clone https://github.com/schadenfred/buttafly.git
+git clone https://bitbucket.org/schadenfred/buttafly
 cd buttafly
 bundle
 cd test/dummy
