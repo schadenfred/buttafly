@@ -12,6 +12,5 @@ tmp/*
 test/fixtures/files/uploads/tmp/
 .byebug_history
 
-test/dummies/*
+test/dummies/**/*
 node_modules/
-test/dummies/
