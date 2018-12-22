@@ -13,7 +13,7 @@ Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, 
 ```ruby
 # Gemfile
 
-gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
+gem 'buttafly', :git => 'git clone git@bitbucket.org:schadenfred/buttafly.git'
 
 ```
 
