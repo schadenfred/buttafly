@@ -13,7 +13,7 @@ Buttafly should work fine with any Rails 5.1 app. If it doesn't work for yours, 
 ```ruby
 # Gemfile
 
-gem 'buttafly', :git => 'https://github.com/schadenfred/buttafly.git', :tag => 'v5.1.4'
+gem 'buttafly', :git => 'git clone git@bitbucket.org:schadenfred/buttafly.git'
 
 ```
 
@@ -49,7 +49,7 @@ Let's also say you've entered into an agreement with a famous wine reviewer to p
 | Duckhorndog           | semillon      | 2003    | 99      | Overdressed nevertheless complex and stunning Semillon. Shows kalamata olive, hedonistic nectarine, bashful tomato. Drink now through Friday. |
 | Feszter           | Gewurztraminer      | 2009    | 56      | Overdressed nevertheless sweet gewurztraminer. Shows formaldehyde, liquid death. Pour it down the drain. |
 
-If there aren't too many rows in the spreadsheet you might email it to an intern and ask her to navigate your application's forms to create each winery the reviewer has reviewed, and then each wine that has been reviewed for that winery, and then each review for each wine from that winery. Or you might commission a $300 an developer to write a script to import the spreadsheet rows into your application in order to do the same thing. But what if this spreadsheet is the first of many spreadsheets from the reviewer? And what if you have many more spreadsheets from a diverse group of other famous wine reviewers, and what if each of these spreadsheets has slightly different headers and columns? And oh yeah, what if the intern or the developer screws up and corrupts your data?
+If there aren't too many rows in the spreadsheet you might email it to an intern and ask her to navigate your application's forms to create each winery the reviewer has reviewed, and then each wine that has been reviewed for that winery, and then each review for each wine from that winery. Or you might commission a $300 per hour developer to write a script to import the spreadsheet rows into your application in order to do the same thing. But what if this spreadsheet is the first of many spreadsheets from the reviewer? And what if you have many more spreadsheets from a diverse group of other famous wine reviewers, and what if each has slightly different headers and columns? And oh yeah, what if the intern or the developer screws up and corrupts your data?
 
 Buttafly lets you metamorphose your spreadsheet data into beautiful relational db records with the correct parent and child associations.
 
@@ -95,7 +95,7 @@ Let's get that dummy review app running:
 
 ```console
 
-git clone https://github.com/schadenfred/buttafly.git
+git clone https://bitbucket.org/schadenfred/buttafly
 cd buttafly
 bundle
 cd test/dummy
@@ -109,7 +109,7 @@ Next, please navigate to [localhost:3000/buttafly](http://localhost:3000/buttafl
 ## Running tests:
 
 ```console
-git clone https://github.com/schadenfred/buttafly.git
+git clone https://bitbucket.org/schadenfred/buttafly
 cd buttafly
 bundle
 cd test/dummy

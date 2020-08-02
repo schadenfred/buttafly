@@ -1,6 +1,12 @@
 class StaticController < ApplicationController
 
   def home
-    @reviews = Review.all
+    @models = get_models
+  end
+
+  private
+
+  def get_models
+    %w(user wine winery blacklisted)
   end
 end
