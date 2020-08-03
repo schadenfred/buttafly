@@ -1,5 +1,5 @@
 
-= form_with(model: spreadsheet, local: true) do |form|
+= form_for(spreadsheet, local: true) do |form|
   - if spreadsheet.errors.any?
     #error_explanation
       %h2

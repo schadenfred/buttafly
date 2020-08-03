@@ -17,16 +17,17 @@
   .row
     .col
       .card.card-body
-        = form_with url: spreadsheet_legends_path(@spreadsheet) do |f|
-          = f.fields_for :legend do |f|
-            .form-group
-              = f.label "targetable model"
-              = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
-            .form-group
-              = f.submit "Create new legend", class: "btn btn-primary btn-block"
+        = form_for Buttafly::Legend.new do |f|
+          .form-group
+            = f.hidden_field :spreadsheet_id, { value: @spreadsheet.id }
+          .form-group
+            = f.label "targetable model"
+            = f.select("targetable_model", Buttafly::Targetable.models, {}, class: "form-control", id: "targetableModel")
+          .form-group
+            = f.submit "Create new legend", class: "btn btn-primary btn-block"
     .col
       .card.card-body
-        = form_with url: spreadsheet_mappings_url(@spreadsheet) do |f|
+        = form_for spreadsheet_mappings_url(@spreadsheet) do |f|
           = f.fields_for :mapping do |f|
             .form-group
               = f.label "existing legends"

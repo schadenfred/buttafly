@@ -15,9 +15,10 @@ module Buttafly
     end
 
     def create
-      @spreadsheet = Buttafly::Spreadsheet.find(params["spreadsheet_id"])
-      @legend = @spreadsheet.legends.create(legend_params.merge(originable_headers: @spreadsheet.originable_headers))
-
+      @spreadsheet = Buttafly::Spreadsheet.find(legend_params["spreadsheet_id"])
+      @legend = @spreadsheet.legends.create(
+        targetable_model: legend_params['targetable_model'],
+        originable_headers: @spreadsheet.originable_headers)
       if @legend.save
 
         redirect_to edit_legend_path(@legend), notice: 'Legend was successfully created.'

@@ -14,11 +14,11 @@
     %dt.col-sm-3.text-right
       Actions
     %dd.col-sm-3
-      = form_with model: @legend, method: :delete do |f|
+      = form_for @legend, method: :delete do |f|
         = f.submit "Destroy legend", class: "btn btn-danger"
 
 %br
-= form_with model: @legend do |f|
+= form_for @legend do |f|
   = f.text_field :name, id: "legendName", class: "form-control"
 
 
