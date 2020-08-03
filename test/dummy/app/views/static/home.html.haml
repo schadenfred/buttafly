@@ -1,1 +1,22 @@
-%h1= link_to "back to buttafly", buttafly.root_url
+Howdy. This is an unstyled dummy wine review app. If you've created reviews, they'll show up in the table below. If not, navigate to "buttafly" above, and you should be able to find a sample review.csv file to upload in buttafly/test/samples/
+
+git clone git@bitbucket.org:schadenfred/buttafly.git
+%hr
+- @models.each do |model|
+  - model = model.classify.constantize
+  %table
+    %thead
+      %tr
+        %th= model.name
+        - model.column_names.each do |column|
+          %th= column
+
+        -# %th{:scope => "col"} Last
+        -# %th{:scope => "col"} Handle
+    %tbody
+      - records = model.all
+      - records.each do |record|
+        %tr
+          %th{:scope => "row"}
+          - record.attributes.each do |attr|
+            %td= attr.last

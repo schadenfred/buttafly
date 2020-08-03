@@ -13,3 +13,6 @@ test/fixtures/files/uploads/tmp/
 .byebug_history
 
 test/dummies/*
+test/dummies/**/*
+test/dummies/log/test.log
+node_modules/
