@@ -48,7 +48,7 @@ module Buttafly
       Targetable.ancestors_of(legend.targetable_model)
     end
 
-    def get_parent(key, klass)
+    def get_parent(key, klass=nil)
       if klass.nil?
         parent = key
       else
@@ -57,31 +57,28 @@ module Buttafly
       parent
     end
 
-    def create_records(row, klass = nil, hash=data)
+    def create_records(row, hash=data)
       attrs = {}
       hash.each do |key, value|
-        if value.is_a? Hash
-          create_records(row, get_parent(key, klass), value)
-        else
-          attrs[key.to_s] = row[value]
-        end
-        unless klass.nil?
-          parents = klassify(klass).reflect_on_all_associations(:belongs_to)
-          parents.each do |parent|
-            pc = klassify(parent.class_name)
-            items = pc.where(hash[parent.class_name.to_s])
-            unless items.empty?
-              items.each do |item|
-                parent_id = item.id
-                attrs["#{parent.name.to_s}_id"] = parent_id
-              end
-            end
+        value.keys.each do |attribute|
+          if value[attribute].is_a? Hash
+            create_records(row, { attribute.capitalize => value[attribute]})
+          else
+            attrs[attribute] = row[value[attribute]]
           end
         end
-      end
 
-      unless klass.nil?
-        create_artifact(klass, attrs)
+        parents = key.constantize.reflect_on_all_associations(:belongs_to)
+        unless parents.empty?
+          parents.each do |parent|
+            parent_name = parent.class_name
+            parent_class = parent.class_name.constantize
+            bt = parent_class.where(row[value[parent_name.downcase]]).first
+            attrs[parent_name.downcase + '_id'] = bt.id
+          end
+        end
+        key.constantize.create!(attrs)
+
       end
     end
 
